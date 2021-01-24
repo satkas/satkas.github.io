@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas - Tags</title>
+        <title>Usunięcie pustych folderów w bash-u</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
@@ -11,21 +11,42 @@
         <header id="banner" class="body">
                 <h1><a href="/">Satkas</a></h1>
                 <nav><ul>
-                    <li><a href="/category/informatyka.html">Informatyka</a></li>
+                    <li class="active"><a href="/category/informatyka.html">Informatyka</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
-
 <section id="content" class="body">
-    <h1>Tags for Satkas</h1>
-    <ul>
-        <li><a href="/tag/bash.html">bash</a> (1)</li>
-        <li><a href="/tag/kerberos.html">kerberos</a> (1)</li>
-        <li><a href="/tag/linux.html">linux</a> (4)</li>
-        <li><a href="/tag/samba.html">samba</a> (3)</li>
-        <li><a href="/tag/time.html">time</a> (1)</li>
-    </ul>
-</section>
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/usuniecie-pustych-folderow-w-bash-u.html" rel="bookmark"
+           title="Permalink to Usunięcie pustych folderów w bash-u">Usunięcie pustych folderów w bash-u</a></h1>
+    </header>
 
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-01-02T00:00:00+01:00">
+                Published: Mon 02 January 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/tk.html">TK</a>
+        </address>
+<p>In <a href="/category/informatyka.html">Informatyka</a>.</p>
+<p>tags: <a href="/tag/linux.html">linux</a> <a href="/tag/bash.html">bash</a> </p>
+</footer><!-- /.post-info -->      <p><img alt="bash logo" src="images/bash_logo.png"> Czasami potrzeba usunąć puste foldery w określonej ścieżce. W bashu robi się to banalnie prosto.</p>
+<blockquote>
+<p>find . -type d -empty -delete</p>
+</blockquote>
+<p>wcześniej można sprawdzić jakie katalogi ów polecenie może nam usunąć. Zatem komenda</p>
+<blockquote>
+<p>find . -type d -empty -print</p>
+</blockquote>
+<p>pokaże nam wszystkie puste katalogi w określonej ścieżce</p>
+<p>Kropka (.) w komendzie określa aktualny katalog. Powyższa komenda działa rekursywnie</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>

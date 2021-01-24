@@ -1,0 +1,11 @@
+--2021-01-24 20:01:53--  https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png
+Resolving satkas.waw.pl (satkas.waw.pl)... 31.6.69.242
+Connecting to satkas.waw.pl (satkas.waw.pl)|31.6.69.242|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [image/png]
+Saving to: ‘pic.php?p=https:%2F%2Fsatkas.waw.pl%2Fdata%2Fthumbs%2Fimages%2Fthumbnail.bash-logo-web.png’
+
+                     pic.php?p=https:%2F%2     [<=>                                                                                    ]       0  --.-KB/s               pic.php?p=https:%2F%2Fsatkas.waw.pl%2Fdata     [ <=>                                                                                   ]  11.98K  --.-KB/s    in 0.004s  
+
+2021-01-24 20:01:53 (2.63 MB/s) - ‘pic.php?p=https:%2F%2Fsatkas.waw.pl%2Fdata%2Fthumbs%2Fimages%2Fthumbnail.bash-logo-web.png’ saved [12271]
+
