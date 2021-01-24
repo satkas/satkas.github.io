@@ -11,28 +11,36 @@
         <header id="banner" class="body">
                 <h1><a href="/">Satkas</a></h1>
                 <nav><ul>
-                    <li><a href="/category/news.html">news</a></li>
+                    <li><a href="/category/informatyka.html">Informatyka</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/satkas-pelican.html">Satkas Pelican</a></h1>
+                    <h1 class="entry-title"><a href="/samba4-problem-z-polaczeniem-do-kerberosa.html">Samba4 - problem z połączeniem do kerberosa</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2024-01-21T18:13:00+01:00">
-                Published: Sun 21 January 2024
+        <abbr class="published" title="2012-11-16T00:00:00+01:00">
+                Published: Fri 16 November 2012
         </abbr>
 
         <address class="vcard author">
                 By                         <a class="url fn" href="/author/tk.html">TK</a>
         </address>
-<p>In <a href="/category/news.html">news</a>.</p>
-<p>tags: <a href="/tag/pelican.html">pelican</a> <a href="/tag/publishing.html">publishing</a> </p>
-</footer><!-- /.post-info --><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lacinia ipsum in convallis dignissim. Nullam lobortis vestibulum luctus. Etiam congue nunc ut mi porttitor, a pellentesque diam suscipit. In eu viverra nibh. Sed est nulla, ullamcorper eu tellus non, iaculis mattis leo. Proin lobortis semper auctor. Aliquam consequat lacus a enim consectetur sagittis. Vivamus viverra augue nec nunc euismod luctus. Vestibulum luctus nisi sed metus vestibulum, sodales lacinia justo porttitor.</p>
-<p>Nam in dui ligula. Morbi auctor lacus eu molestie aliquet. In eu justo nec augue fringilla semper. Curabitur in nibh vitae mi aliquam fermentum. Donec erat arcu, dignissim ut sollicitudin in, viverra scelerisque nunc. Nulla in enim turpis. Sed eu ornare est, nec ultrices tortor. Ut scelerisque est lacus, id volutpat arcu dapibus lacinia.</p>
-<p>Morbi interdum augue in pulvinar ultrices. Nullam fringilla sodales ipsum. Praesent pretium ut nisi at lobortis. Proin vulputate massa quam, vitae auctor tellus convallis pharetra. Fusce laoreet tincidunt leo, vitae cursus elit lacinia convallis. Aenean in bibendum leo, ut sollicitudin urna. In ut congue orci. Curabitur feugiat orci quam, ut consectetur arcu eleifend vel. Duis et tempor ipsum, nec tincidunt massa. Sed porttitor ac felis sit amet sodales. Nulla cursus rutrum quam, at tristique nisi faucibus a. Curabitur suscipit metus eget diam ornare, ut elementum nisl suscipit. Vestibulum quis condimentum lacus. Vivamus sed velit turpis.</p>
-<p>Ut pretium accumsan nibh. Morbi vulputate ullamcorper elit, quis condimentum sem faucibus sed. Vestibulum consectetur metus ac ullamcorper bibendum. Aenean in justo sapien. Morbi a venenatis magna, ut volutpat purus. Suspendisse potenti. Suspendisse mollis egestas felis eu viverra. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus quis orci sed tortor consectetur convallis. Nulla finibus efficitur nulla non fermentum. Vestibulum id viverra nisi, vel mollis magna.</p>
-<p>Donec tincidunt tortor sed libero auctor, id egestas dolor tempus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse potenti. Aliquam non finibus neque. Maecenas quis sapien vel eros feugiat finibus nec non tortor. Nam non magna risus. Quisque vel dui vitae elit venenatis varius. Nullam et congue augue. Quisque viverra porttitor nisl, eget congue justo venenatis tempor. Vivamus in tincidunt purus, ut accumsan tortor. Nullam justo eros, scelerisque ut tristique nec, pretium at sem. Phasellus tincidunt lectus venenatis consectetur dapibus. Sed nec volutpat leo. Integer sit amet velit et velit aliquet gravida. Proin interdum erat ut eros consequat, et vulputate nibh interdum. </p>                </article>
+<p>In <a href="/category/informatyka.html">Informatyka</a>.</p>
+<p>tags: <a href="/tag/linux.html">linux</a> <a href="/tag/kerberos.html">kerberos</a> <a href="/tag/samba.html">samba</a> </p>
+</footer><!-- /.post-info --><p>Po zainstalowaniu samba4 (ze źródeł) i próbując połączyć się w Ubuntu 16.04 z usługa kerberosa przez wydanie polecenia kinit administrator dostałem komunikat:</p>
+<blockquote>
+<p>root@rpi:/usr/local/samba/sbin# kinit administrator
+kinit: Cannot contact any KDC for realm 'SATKAS.LOCAL' while getting initial credentials</p>
+</blockquote>
+<p>Wszystkie inne usługi tj: dns, samba działają dobrze.</p>
+<p><strong>Rozwiązanie:</strong></p>
+<p>Edytujemy plik /etc/nsswitch.conf i zmieniamy linię:</p>
+<blockquote>
+<p>hosts:          files mdns4_minimal [NOTFOUND=return] dns</p>
+</blockquote>
+<p>na</p>
+<p>hosts:          dns files mdns4_minimal [NOTFOUND=return]</p>                </article>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
                 <div class="blogroll">
