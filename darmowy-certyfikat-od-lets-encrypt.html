@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Satkas - Archives</title>
+        <title>Darmowy certyfikat od Let's Encrypt</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="https://satkas.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -31,10 +31,30 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-                <meta property="og:locale" content="">
+
+
+        <meta name="description" content="Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt. Instrukcja dotyczy systemu operacujnego...">
+
+        <meta name="author" content="Satkas">
+
+        <meta name="tags" content="certyfikat">
+        <meta name="tags" content="apache">
+        <meta name="tags" content="linux">
+
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Satkas">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://satkas.github.io/author/satkas.html">
+	<meta property="og:url" content="https://satkas.github.io/darmowy-certyfikat-od-lets-encrypt.html">
+	<meta property="og:title" content="Darmowy certyfikat od Let's Encrypt">
+	<meta property="article:published_time" content="2017-01-12 00:00:00+01:00">
+            <meta property="og:description" content="Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt. Instrukcja dotyczy systemu operacujnego...">
+
+            <meta property="og:image" content="https://satkas.github.io/theme/images/post-bg.jpg">
 </head>
 
+<body class="article-darmowy-certyfikat-od-lets-encrypt">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -62,12 +82,18 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/home-bg.jpg')">
+        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Archives for Satkas</h1>
+                        <h1>Darmowy certyfikat od Let's Encrypt</h1>
+                        <span class="meta">Posted by
+                                <a href="https://satkas.github.io/author/satkas.html">Satkas</a>
+                             on Thu 12 January 2017
+                        </span>
+                            <span class="meta">Updated on Thu 12 January 2017</span>
+                        
                     </div>
                 </div>
             </div>
@@ -78,31 +104,26 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <dl>
-            <dt>Wed 18 January 2017</dt>
-            <dd><a href="https://satkas.github.io/aktualizacja-samby-jako-domain-controller.html">Aktualizacja samby jako domain controller</a></dd>
-            <dt>Thu 12 January 2017</dt>
-            <dd><a href="https://satkas.github.io/darmowy-certyfikat-od-lets-encrypt.html">Darmowy certyfikat od Let's Encrypt</a></dd>
-            <dt>Sun 08 January 2017</dt>
-            <dd><a href="https://satkas.github.io/wyswietlanie-nasluchujacych-portow-w-windows.html">Wyświetlanie nasłuchujących portów w Windows</a></dd>
-            <dt>Mon 02 January 2017</dt>
-            <dd><a href="https://satkas.github.io/usuniecie-pustych-folderow-w-bash-u.html">Usunięcie pustych folderów w bash-u</a></dd>
-            <dt>Sat 17 December 2016</dt>
-            <dd><a href="https://satkas.github.io/podtrzymywanie-demona-przy-zyciu.html">Podtrzymywanie 'demona' przy życiu</a></dd>
-            <dt>Tue 06 December 2016</dt>
-            <dd><a href="https://satkas.github.io/wyszukac-i-usunac-pliki-w-linuksie.html">Wyszukać i usunąć pliki w Linuksie</a></dd>
-            <dt>Fri 02 December 2016</dt>
-            <dd><a href="https://satkas.github.io/generowanie-plikow-w-systemie-windows-i-linux.html">Generowanie plików w systemie Windows i Linux</a></dd>
-            <dt>Fri 02 December 2016</dt>
-            <dd><a href="https://satkas.github.io/masowa-zmiana-nazwy-plikow-poprzez-dopisanie-frazy.html">Masowa zmiana nazwy plików poprzez dopisanie frazy</a></dd>
-            <dt>Tue 29 November 2016</dt>
-            <dd><a href="https://satkas.github.io/aktualizacja-roundcube.html">Aktualizacja Roundcube</a></dd>
-            <dt>Mon 28 November 2016</dt>
-            <dd><a href="https://satkas.github.io/synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof.html">Synchronizacja czasu w domenie Samba4 na Windows 10 Prof</a></dd>
-            <dt>Sat 12 November 2016</dt>
-            <dd><a href="https://satkas.github.io/samba4-problem-z-polaczeniem-do-kerberosa.html">Samba4 - problem z połączeniem do kerberosa</a></dd>
-        <hr>
-    </dl>
+    <!-- Post Content -->
+    <article>
+        <p>Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt. Instrukcja dotyczy systemu operacujnego Debian Wheezy i usługi serwera www (Server version: Apache/2.2.22 (Debian))</p>
+<div class="highlight"><pre><span></span><code>wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+./certbot-auto --apache
+./certbot-auto renew
+</code></pre></div>
+
+
+<p>Pierwsza komenda pobiera skrypt</p>
+<p>Następnie ustawiamy na skrypcie mozliwość uruchamiania (bit wykonalności). Odpalamy skrypt z argumentem --apache (to jest mój server www). Po tej operacji mamy zapewniony certyfikat na 3 miesiące. Ostatnia komenda odnawia nam na kolejne 3 miesiące certyfikat. Wykonujemy ją cyklicznie przed wygaśnięciem certyfikatu</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://satkas.github.io/tag/certyfikat.html">certyfikat</a>, <a href="https://satkas.github.io/tag/apache.html">apache</a>, <a href="https://satkas.github.io/tag/linux.html">linux</a></p>
+        </div>
+
+    <hr>
+
             </div>
         </div>
     </div>
