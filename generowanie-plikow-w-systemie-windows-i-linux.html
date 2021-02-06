@@ -29,7 +29,7 @@
                 Published: Fri 02 December 2016
         </abbr>
 		<br />
-        <abbr class="modified" title="2021-02-06T15:41:48.095021+01:00">
+        <abbr class="modified" title="2021-02-06T15:46:15.383664+01:00">
                 Updated: Sat 06 February 2021
         </abbr>
 
@@ -49,11 +49,11 @@
 
 
 <p>W Linuksie otwieram konsolę i wpisuję:</p>
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="err">\$</span><span class="p">(</span><span class="n">seq</span> <span class="mi">1</span> <span class="mi">100</span><span class="p">);</span><span class="k">do</span>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">1</span> <span class="m">100</span><span class="k">)</span><span class="p">;</span><span class="k">do</span>
 
- <span class="n">touch</span> <span class="n">plik</span><span class="o">-</span><span class="err">\$</span><span class="n">i</span><span class="p">.</span><span class="n">txt</span>
+ touch plik-<span class="nv">$i</span>.txt
 
-<span class="n">done</span>
+<span class="k">done</span>
 </code></pre></div>
     </div><!-- /.entry-content -->
 
