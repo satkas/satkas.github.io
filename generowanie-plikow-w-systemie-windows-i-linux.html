@@ -3,21 +3,27 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas - skrypt</title>
+        <title>Generowanie plików w systemie Windows i Linux</title>
         <link rel="stylesheet" href="https://satkas.github.io/theme/css/main.css" />
+        <meta name="description" content="Czasami zachodzi potrzeba wygenerowania sobie plików na potrzeby różnych testów. W Windows robię w ten sposób. Otwieram "Wiersz poleceń" i..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="https://satkas.github.io/">Satkas</a></h1>
                 <nav><ul>
-                    <li><a href="https://satkas.github.io/category/informatyka.html">Informatyka</a></li>
+                    <li class="active"><a href="https://satkas.github.io/category/informatyka.html">Informatyka</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://satkas.github.io/generowanie-plikow-w-systemie-windows-i-linux.html" rel="bookmark"
+           title="Permalink to Generowanie plików w systemie Windows i Linux">Generowanie plików w systemie Windows i Linux</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://satkas.github.io/generowanie-plikow-w-systemie-windows-i-linux.html">Generowanie plików w systemie Windows i Linux</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2016-12-02T00:00:00+01:00">
                 Published: Fri 02 December 2016
@@ -32,7 +38,7 @@
         </address>
 <p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
 <p>tags: <a href="https://satkas.github.io/tag/bash.html">bash</a> <a href="https://satkas.github.io/tag/windows.html">windows</a> <a href="https://satkas.github.io/tag/skrypt.html">skrypt</a> <a href="https://satkas.github.io/tag/linux.html">linux</a> </p>
-</footer><!-- /.post-info --><p>Czasami zachodzi potrzeba wygenerowania sobie plików na potrzeby różnych testów. W Windows robię w ten sposób.</p>
+</footer><!-- /.post-info -->      <p>Czasami zachodzi potrzeba wygenerowania sobie plików na potrzeby różnych testów. W Windows robię w ten sposób.</p>
 <p>Otwieram "Wiersz poleceń" i wpisuję:</p>
 <div class="highlight"><pre><span></span><code><span class="err">for /L %%a in (1,1,100)</span>
 <span class="err">do</span>
@@ -44,40 +50,11 @@
 <div class="highlight"><pre><span></span><code><span class="err">for i in $(seq 1 100);do</span>
 <span class="err"> touch plik-$i.txt</span>
 <span class="err">done</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</code></pre></div>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://satkas.github.io/masowa-zmiana-nazwy-plikow-poprzez-dopisanie-frazy.html" rel="bookmark"
-                           title="Permalink to Masowa zmiana nazwy plików poprzez dopisanie frazy">Masowa zmiana nazwy plików poprzez dopisanie frazy</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-12-02T00:00:00+01:00">
-                Published: Fri 02 December 2016
-        </abbr>
-		<br />
-        <abbr class="modified" title="2021-02-06T15:15:39.241549+01:00">
-                Updated: Sat 06 February 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://satkas.github.io/author/satkas.html">Satkas</a>
-        </address>
-<p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
-<p>tags: <a href="https://satkas.github.io/tag/bash.html">bash</a> <a href="https://satkas.github.io/tag/windows.html">windows</a> <a href="https://satkas.github.io/tag/skrypt.html">skrypt</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="https://satkas.github.io/masowa-zmiana-nazwy-plikow-poprzez-dopisanie-frazy.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
