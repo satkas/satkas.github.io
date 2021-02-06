@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Satkas - Tags</title>
+        <title>Wyświetlanie nasłuchujących portów w Windows</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="https://satkas.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -31,10 +31,29 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-                <meta property="og:locale" content="">
+
+
+        <meta name="description" content="Aby zobaczyć jakie porty nasłuchują w Windows otwieramy terminal (cmd) i wpisujemy">
+
+        <meta name="author" content="Satkas">
+
+        <meta name="tags" content="Windows">
+        <meta name="tags" content="cmd">
+
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Satkas">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://satkas.github.io/author/satkas.html">
+	<meta property="og:url" content="https://satkas.github.io/wyswietlanie-nasluchujacych-portow-w-windows.html">
+	<meta property="og:title" content="Wyświetlanie nasłuchujących portów w Windows">
+	<meta property="article:published_time" content="2017-01-08 00:00:00+01:00">
+            <meta property="og:description" content="Aby zobaczyć jakie porty nasłuchują w Windows otwieramy terminal (cmd) i wpisujemy">
+
+            <meta property="og:image" content="https://satkas.github.io/theme/images/post-bg.jpg">
 </head>
 
+<body class="article-wyswietlanie-nasluchujacych-portow-w-windows">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -62,12 +81,18 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/home-bg.jpg')">
+        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Satkas - Tags</h1>
+                        <h1>Wyświetlanie nasłuchujących portów w Windows</h1>
+                        <span class="meta">Posted by
+                                <a href="https://satkas.github.io/author/satkas.html">Satkas</a>
+                             on Sun 08 January 2017
+                        </span>
+                            <span class="meta">Updated on Sat 06 February 2021</span>
+                        
                     </div>
                 </div>
             </div>
@@ -78,16 +103,22 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <h1>Tags for Satkas</h1>        <li><a href="https://satkas.github.io/tag/bash.html">bash</a> (5)</li>
-        <li><a href="https://satkas.github.io/tag/cmd.html">cmd</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/kerberos.html">kerberos</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/linux.html">linux</a> (7)</li>
-        <li><a href="https://satkas.github.io/tag/roundcube.html">roundcube</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/samba.html">samba</a> (3)</li>
-        <li><a href="https://satkas.github.io/tag/skrypt.html">skrypt</a> (2)</li>
-        <li><a href="https://satkas.github.io/tag/time.html">time</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/webmail.html">webmail</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/windows.html">Windows</a> (3)</li>
+    <!-- Post Content -->
+    <article>
+        <p>Aby zobaczyć jakie porty nasłuchują w Windows otwieramy terminal (cmd) i wpisujemy:</p>
+<div class="highlight"><pre><span></span><code><span class="err">netstat -aon -p tcp | find /i &quot;listening&quot;</span>
+</code></pre></div>
+
+
+<p>Polecenie dotyczy tylko protokołu tcp (analogicznie można zastąpić tcp frazą udp lub innym protokołem)</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://satkas.github.io/tag/windows.html">Windows</a>, <a href="https://satkas.github.io/tag/cmd.html">cmd</a></p>
+        </div>
+
+    <hr>
+
             </div>
         </div>
     </div>
