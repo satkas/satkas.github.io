@@ -28,7 +28,7 @@
                 Published: Fri 02 December 2016
         </abbr>
 		<br />
-        <abbr class="modified" title="2021-02-06T14:54:49.585813+01:00">
+        <abbr class="modified" title="2021-02-06T15:02:41.111151+01:00">
                 Updated: Sat 06 February 2021
         </abbr>
 
@@ -41,18 +41,24 @@
 W windows można to zrobić w powłoce. Menu start wpisuje cmd i otwieramy "Wiersz polecenia" (taki czarny ekran ;))
 W otwartym oknie wpisujemy:</p>
 <blockquote>
-<p>cd ścieżka_do_katalogu_z_plikami
-dla upewnienia się sprawdzamy czy są pliki jpg
-dir <em>.jpg
-Jeśli wszystko się zgadza wpisujemy w terminalu:
-for %%a in (</em>.jpg) do ren %%a satkas-%%a
-Można z tego zrobić plik .bat, który po przeciągnięciu do katalogu i kliknięciu zamieni nam pliki.
-@echo off
+<p>cd ścieżka_do_katalogu_z_plikami</p>
+</blockquote>
+<p>dla upewnienia się sprawdzamy czy są pliki jpg</p>
+<blockquote>
+<p>dir *.jpg </p>
+</blockquote>
+<p>Jeśli wszystko się zgadza wpisujemy w terminalu:</p>
+<blockquote>
+<p>for %%a in (*.jpg) do ren %%a satkas-%%a</p>
+</blockquote>
+<p>Można z tego zrobić plik .bat, który po przeciągnięciu do katalogu i kliknięciu zamieni nam pliki.</p>
+<blockquote>
+<p>@echo off
 setlocal enabledelayedexpension
 set katalog=%cd%
 cd %katalog%
 for %%a in (*.jpg) do (
-ren %%a satkas-%%a
+    ren %%a satkas-%%a
 )</p>
 </blockquote>
     </div><!-- /.entry-content -->
