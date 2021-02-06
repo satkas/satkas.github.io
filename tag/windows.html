@@ -23,7 +23,7 @@
                 Published: Fri 02 December 2016
         </abbr>
 		<br />
-        <abbr class="modified" title="2021-02-06T15:02:41.111151+01:00">
+        <abbr class="modified" title="2021-02-06T15:15:39.241549+01:00">
                 Updated: Sat 06 February 2021
         </abbr>
 
@@ -35,27 +35,22 @@
 </footer><!-- /.post-info --><p>Potrzebowałem zmienić nazwę plików jpg poprzez dodanie określonej frazy. Czyli mam plik1.jpg, plik2.jpg itd i musze dodać na początku frazę satkas (satkas-plik1.jpg, satkas-plik2.jpg)
 W windows można to zrobić w powłoce. Menu start wpisuje cmd i otwieramy "Wiersz polecenia" (taki czarny ekran ;))
 W otwartym oknie wpisujemy:</p>
-<blockquote>
-<p>cd ścieżka_do_katalogu_z_plikami</p>
-</blockquote>
+<p><code>cd ścieżka_do_katalogu_z_plikami</code></p>
 <p>dla upewnienia się sprawdzamy czy są pliki jpg</p>
-<blockquote>
-<p>dir *.jpg </p>
-</blockquote>
+<p><code>dir *.jpg</code> </p>
 <p>Jeśli wszystko się zgadza wpisujemy w terminalu:</p>
-<blockquote>
-<p>for %%a in (*.jpg) do ren %%a satkas-%%a</p>
-</blockquote>
+<p><code>for %%a in (*.jpg) do ren %%a satkas-%%a</code></p>
 <p>Można z tego zrobić plik .bat, który po przeciągnięciu do katalogu i kliknięciu zamieni nam pliki.</p>
-<blockquote>
-<p>@echo off
-setlocal enabledelayedexpension
-set katalog=%cd%
-cd %katalog%
-for %%a in (*.jpg) do (
-    ren %%a satkas-%%a
-)</p>
-</blockquote>                </article>
+<div class="highlight"><pre><span></span><code><span class="nv">@echo</span><span class="w"> </span><span class="k">off</span><span class="w"></span>
+<span class="n">setlocal</span><span class="w"> </span><span class="n">enabledelayedexpension</span><span class="w"></span>
+<span class="k">set</span><span class="w"> </span><span class="n">katalog</span><span class="o">=%</span><span class="n">cd</span><span class="o">%</span><span class="w"></span>
+
+<span class="n">cd</span><span class="w"> </span><span class="o">%</span><span class="n">katalog</span><span class="o">%</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="o">%%</span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">.</span><span class="n">jpg</span><span class="p">)</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w"> </span><span class="n">ren</span><span class="w"> </span><span class="o">%%</span><span class="n">a</span><span class="w"> </span><span class="n">satkas</span><span class="o">-%%</span><span class="n">a</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+</code></pre></div>                </article>
             </aside><!-- /#featured -->
         <section id="extras" class="body">
                 <div class="blogroll">
