@@ -2,12 +2,12 @@
 <html lang="pl">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Satkas - Tags</title>
+        <title>Ile waży baza w MySQL-u</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="https://satkas.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
@@ -31,10 +31,29 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-                <meta property="og:locale" content="">
+
+
+        <meta name="description" content="Wchodzimy do shella (konsola, terminal itp) i dostajemy się do naszego silnika mysql">
+
+        <meta name="author" content="Satkas">
+
+        <meta name="tags" content="mysql">
+        <meta name="tags" content="baza danych">
+
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Satkas">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://satkas.github.io/author/satkas.html">
+	<meta property="og:url" content="https://satkas.github.io/ile-wazy-baza-w-mysql-u.html">
+	<meta property="og:title" content="Ile waży baza w MySQL-u">
+	<meta property="article:published_time" content="2017-02-09 00:00:00+01:00">
+            <meta property="og:description" content="Wchodzimy do shella (konsola, terminal itp) i dostajemy się do naszego silnika mysql">
+
+            <meta property="og:image" content="https://satkas.github.io/theme/images/post-bg.jpg">
 </head>
 
+<body class="article-ile-wazy-baza-w-mysql-u">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -62,12 +81,18 @@
     </nav>
 
     <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/home-bg.jpg')">
+        <header class="intro-header" style="background-image: url('https://satkas.github.io/theme/images/post-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Satkas - Tags</h1>
+                        <h1>Ile waży baza w MySQL-u</h1>
+                        <span class="meta">Posted by
+                                <a href="https://satkas.github.io/author/satkas.html">Satkas</a>
+                             on Thu 09 February 2017
+                        </span>
+                            <span class="meta">Updated on Thu 09 February 2017</span>
+                        
                     </div>
                 </div>
             </div>
@@ -78,23 +103,31 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <h1>Tags for Satkas</h1>        <li><a href="https://satkas.github.io/tag/apache.html">apache</a> (2)</li>
-        <li><a href="https://satkas.github.io/tag/bash.html">bash</a> (5)</li>
-        <li><a href="https://satkas.github.io/tag/baza-danych.html">baza danych</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/certyfikat.html">certyfikat</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/cmd.html">cmd</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/gsm.html">gsm</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/kerberos.html">kerberos</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/linux.html">linux</a> (9)</li>
-        <li><a href="https://satkas.github.io/tag/mysql.html">mysql</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/php.html">php</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/roundcube.html">roundcube</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/samba.html">samba</a> (3)</li>
-        <li><a href="https://satkas.github.io/tag/skrypt.html">skrypt</a> (2)</li>
-        <li><a href="https://satkas.github.io/tag/telefon.html">telefon</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/time.html">time</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/webmail.html">webmail</a> (1)</li>
-        <li><a href="https://satkas.github.io/tag/windows.html">Windows</a> (3)</li>
+    <!-- Post Content -->
+    <article>
+        <p>Wchodzimy do shella (konsola, terminal itp) i dostajemy się do naszego silnika mysql.</p>
+<div class="highlight"><pre><span></span><code>mysql -u root -p
+</code></pre></div>
+
+
+<p>Zgłasza nam się znak zachęty:</p>
+<div class="highlight"><pre><span></span><code>mysql&gt;
+</code></pre></div>
+
+
+<p>Wpisujemy komendę:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span> <span class="n">table_schema</span> <span class="ss">&quot;DB&quot;</span><span class="p">,</span> <span class="n">Round</span><span class="p">(</span><span class="k">Sum</span><span class="p">(</span><span class="n">data_length</span> <span class="o">+</span> <span class="n">index_length</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">1024</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="ss">&quot;DB Size in MB&quot;</span>
+<span class="k">FROM</span> <span class="n">information_schema</span><span class="p">.</span><span class="n">tables</span> 
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">table_schema</span><span class="p">;</span>
+</code></pre></div>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://satkas.github.io/tag/mysql.html">mysql</a>, <a href="https://satkas.github.io/tag/baza-danych.html">baza danych</a></p>
+        </div>
+
+    <hr>
+
             </div>
         </div>
     </div>
