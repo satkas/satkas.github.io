@@ -33,6 +33,7 @@
 
 
 
+        <meta name="description" content="Domena na podstawie Samba 4 (4.5.1) na CentOS Linux release 7.2.1511 (Core) Klient: Windows 10 Prof Objawy: Brak zakładki Time Internet...">
 
         <meta name="author" content="Satkas">
 
@@ -48,6 +49,7 @@
 	<meta property="og:url" content="https://satkas.github.io/synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof.html">
 	<meta property="og:title" content="Synchronizacja czasu w domenie Samba4 na Windows 10 Prof">
 	<meta property="article:published_time" content="2016-11-28 00:00:00+01:00">
+            <meta property="og:description" content="Domena na podstawie Samba 4 (4.5.1) na CentOS Linux release 7.2.1511 (Core) Klient: Windows 10 Prof Objawy: Brak zakładki Time Internet...">
 
             <meta property="og:image" content="https://satkas.github.io/theme/images/post-bg.jpg">
 </head>
@@ -90,7 +92,7 @@
                                 <a href="https://satkas.github.io/author/satkas.html">Satkas</a>
                              on Mon 28 November 2016
                         </span>
-                            <span class="meta">Updated on Sun 24 January 2021</span>
+                            <span class="meta">Updated on Mon 08 February 2021</span>
                         
                     </div>
                 </div>
@@ -109,9 +111,10 @@
 <p>Objawy: Brak zakładki Time Internet w Ctrl+I (Ustawienia) -&gt; Data i Czas -&gt; Dodaj zegary do różnych stref czasowych</p>
 <p>Rozwiązanie:</p>
 <p>Menu Start -&gt; cmd (jako administrator) -&gt; i wpisujemy</p>
-<blockquote>
-<p>net time /domain /set /y</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>net <span class="nb">time</span> /domain /set /y
+</code></pre></div>
+
+
 <p>Komunikat powinien być taki:</p>
 <p><img alt="ntp time" src="images/ntp.png"></p>
     </article>
