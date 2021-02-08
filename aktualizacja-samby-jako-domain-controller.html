@@ -33,6 +33,7 @@
 
 
 
+        <meta name="description" content="Używana wersja to 4.5.3 i była instalowana ze źródel. wget https://download.samba.org/pub/samba/stable/samba-4.5.4.tar.gz zabijamy...">
 
         <meta name="author" content="Satkas">
 
@@ -47,6 +48,7 @@
 	<meta property="og:url" content="https://satkas.github.io/aktualizacja-samby-jako-domain-controller.html">
 	<meta property="og:title" content="Aktualizacja samby jako domain controller">
 	<meta property="article:published_time" content="2017-01-18 00:00:00+01:00">
+            <meta property="og:description" content="Używana wersja to 4.5.3 i była instalowana ze źródel. wget https://download.samba.org/pub/samba/stable/samba-4.5.4.tar.gz zabijamy...">
 
             <meta property="og:image" content="https://satkas.github.io/theme/images/post-bg.jpg">
 </head>
@@ -89,7 +91,7 @@
                                 <a href="https://satkas.github.io/author/satkas.html">Satkas</a>
                              on Wed 18 January 2017
                         </span>
-                            <span class="meta">Updated on Sun 24 January 2021</span>
+                            <span class="meta">Updated on Mon 08 February 2021</span>
                         
                     </div>
                 </div>
@@ -104,47 +106,60 @@
     <!-- Post Content -->
     <article>
         <p>Używana wersja to 4.5.3 i była instalowana ze źródel.</p>
-<blockquote>
-<p>wget https://download.samba.org/pub/samba/stable/samba-4.5.4.tar.gz</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>wget https://download.samba.org/pub/samba/stable/samba-4.5.4.tar.gz
+</code></pre></div>
+
+
 <p>zabijamy wszystkie procesy samby działające w systemie</p>
-<blockquote>
-<p>pkill samba</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>pkill samba
+</code></pre></div>
+
+
 <p>Robimy backup obecnej samby</p>
-<blockquote>
-<p>tar czvf samba-4.5.3.tar.gz /usr/local/samba</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>tar czvf samba-4.5.3.tar.gz /usr/local/samba
+</code></pre></div>
+
+
 <p>Rozpakowujemy archiwum nowej samby</p>
-<blockquote>
-<p>tar xzvf samba-4.5.4.tar.gz</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>tar xzvf samba-4.5.4.tar.gz
+</code></pre></div>
+
+
 <p>wchodzimy do katalogu</p>
-<blockquote>
-<p>cd samba-4.5.4</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> samba-4.5.4
+</code></pre></div>
+
+
 <p>i wykonujemy polecenie</p>
-<blockquote>
-<p>./configure</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>./configure
+</code></pre></div>
+
+
 <p>po skończeniu budujemy</p>
-<blockquote>
-<p>make</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>make
+</code></pre></div>
+
+
 <p>i ostatecznie instalujemy (z uprawnieniami root)</p>
-<blockquote>
-<p>make install</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>make install
+</code></pre></div>
+
+
 <p>Po skończeniu sprawdzamy czy nasza baza jest spójna</p>
-<p>/usr/local/samba/bin/samba-tool dbcheck</p>
+<div class="highlight"><pre><span></span><code>/usr/local/samba/bin/samba-tool dbcheck
+</code></pre></div>
+
+
 <p>Startujemy z nową sambą wydając polecenie</p>
-<blockquote>
-<p>/usr/local/samba/sbin/samba</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>/usr/local/samba/sbin/samba
+</code></pre></div>
+
+
 <p>Sprawdzamy status wersji</p>
-<blockquote>
-<p>/usr/local/samba/bin/samba-tool -V</p>
-</blockquote>
+<div class="highlight"><pre><span></span><code>/usr/local/samba/bin/samba-tool -V
+</code></pre></div>
+
+
 <p>Cały proces u mnie na Raspberry PI3 trwa 2h</p>
     </article>
 
