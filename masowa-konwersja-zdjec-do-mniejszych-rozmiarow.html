@@ -3,21 +3,27 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas Blog - bash</title>
+        <title>Masowa konwersja zdjęć do mniejszych rozmiarów</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="Czasami potrzebujemy szybko zmniejszyć zdjęcia do określonej wielkości. Problem w tym, że nie wiemy z jakim zdjęciem mamy do czynienia (portret,..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="/">Satkas Blog</a></h1>
                 <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/masowa-konwersja-zdjec-do-mniejszych-rozmiarow.html" rel="bookmark"
+           title="Permalink to Masowa konwersja zdjęć do mniejszych rozmiarów">Masowa konwersja zdjęć do mniejszych rozmiarów</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/masowa-konwersja-zdjec-do-mniejszych-rozmiarow.html">Masowa konwersja zdjęć do mniejszych rozmiarów</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-05-16T00:00:00+02:00">
                 Published: Tue 16 May 2017
@@ -28,7 +34,7 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 <p>tags: <a href="/tag/bash.html">bash</a> </p>
-</footer><!-- /.post-info --><p>Czasami potrzebujemy szybko zmniejszyć zdjęcia do określonej wielkości. Problem w tym, że nie wiemy z jakim zdjęciem mamy do czynienia (portret, panorama). </p>
+</footer><!-- /.post-info -->      <p>Czasami potrzebujemy szybko zmniejszyć zdjęcia do określonej wielkości. Problem w tym, że nie wiemy z jakim zdjęciem mamy do czynienia (portret, panorama). </p>
 <p>Skrypt który ogarnia dwie rzeczy. Sprawdza czy zdjęcie jest portretem lub panoramą i zmniejsza po wielkości. Oczywiście z zachowaniem proporcji</p>
 <p>Otwieramy konsolę i wybieramy katalog w którym znajdują się zdjęcia. Po czym wykonujemy tzw jednolinijkowca:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">for</span> <span class="nt">i</span> <span class="nt">in</span> <span class="err">`</span><span class="nt">ls</span> <span class="o">*</span><span class="p">.</span><span class="nc">jpg</span><span class="err">`</span><span class="o">;</span><span class="nt">do</span>
@@ -41,42 +47,11 @@
 </code></pre></div>
 
 <p>done</p>
-<p>Ja potrzebowałem przyciąć dłuższy bok do 2000px</p>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+<p>Ja potrzebowałem przyciąć dłuższy bok do 2000px</p>
+    </div><!-- /.entry-content -->
 
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="/generowanie-hasla-sha1.html" rel="bookmark"
-                           title="Permalink to Generowanie hasła sha1">Generowanie hasła sha1</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-05-13T00:00:00+02:00">
-                Published: Sat 13 May 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="/author/admin.html">admin</a>
-        </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/bash.html">bash</a> </p>
-</footer><!-- /.post-info -->                <p>W konsoli linuksa wpisujemy:</p>
-<div class="highlight"><pre><span></span><code>echo -n &quot;satkas&quot; | sha1sum | awk &#39;{print $1}&#39;
-</code></pre></div>
-
-<p>Wynik:</p>
-<div class="highlight"><pre><span></span><code><span class="mf">5</span><span class="n">e6030bc66eab28e4b5eb6c9278cf41462c88cee</span>
-</code></pre></div>
-                <a class="readmore" href="/generowanie-hasla-sha1.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
+  </article>
+</section>
         <section id="extras" class="body">
         </section><!-- /#extras -->
 

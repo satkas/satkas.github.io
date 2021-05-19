@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
@@ -17,7 +17,44 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/generowanie-hasla-sha1.html">Generowanie hasła sha1</a></h1>
+                    <h1 class="entry-title"><a href="/masowa-konwersja-zdjec-do-mniejszych-rozmiarow.html">Masowa konwersja zdjęć do mniejszych rozmiarów</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-05-16T00:00:00+02:00">
+                Published: Tue 16 May 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/admin.html">admin</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/bash.html">bash</a> </p>
+</footer><!-- /.post-info --><p>Czasami potrzebujemy szybko zmniejszyć zdjęcia do określonej wielkości. Problem w tym, że nie wiemy z jakim zdjęciem mamy do czynienia (portret, panorama). </p>
+<p>Skrypt który ogarnia dwie rzeczy. Sprawdza czy zdjęcie jest portretem lub panoramą i zmniejsza po wielkości. Oczywiście z zachowaniem proporcji</p>
+<p>Otwieramy konsolę i wybieramy katalog w którym znajdują się zdjęcia. Po czym wykonujemy tzw jednolinijkowca:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">for</span> <span class="nt">i</span> <span class="nt">in</span> <span class="err">`</span><span class="nt">ls</span> <span class="o">*</span><span class="p">.</span><span class="nc">jpg</span><span class="err">`</span><span class="o">;</span><span class="nt">do</span>
+ <span class="nt">z</span><span class="o">=$(</span><span class="nt">convert</span> <span class="o">$</span><span class="nt">i</span> <span class="nt">-format</span> <span class="s2">&quot;%</span><span class="cp">[</span><span class="nx">fx</span><span class="p">:</span><span class="nx">w</span><span class="p">/</span><span class="nx">h</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">)</span><span class="o">?</span><span class="mi">1</span><span class="p">:</span><span class="mi">0</span><span class="cp">]</span><span class="s2">&quot;</span> <span class="nt">info</span><span class="o">:)</span>
+ <span class="nt">if</span> <span class="cp">[</span> <span class="nv">$z</span> <span class="na">-eq</span> <span class="mi">1</span> <span class="cp">]</span><span class="o">;</span><span class="nt">then</span>
+  <span class="nt">convert</span> <span class="o">$</span><span class="nt">i</span> <span class="nt">-resize</span> <span class="nt">2000x</span> <span class="nt">tmp1</span><span class="o">/$</span><span class="nt">i</span>
+ <span class="nt">else</span>
+  <span class="nt">convert</span> <span class="o">$</span><span class="nt">i</span> <span class="nt">-resize</span> <span class="nt">x2000</span> <span class="nt">tmp1</span><span class="o">/$</span><span class="nt">i</span>
+<span class="nt">fi</span>
+</code></pre></div>
+
+<p>done</p>
+<p>Ja potrzebowałem przyciąć dłuższy bok do 2000px</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/generowanie-hasla-sha1.html" rel="bookmark"
+                           title="Permalink to Generowanie hasła sha1">Generowanie hasła sha1</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-05-13T00:00:00+02:00">
                 Published: Sat 13 May 2017
@@ -28,18 +65,16 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 <p>tags: <a href="/tag/bash.html">bash</a> </p>
-</footer><!-- /.post-info --><p>W konsoli linuksa wpisujemy:</p>
+</footer><!-- /.post-info -->                <p>W konsoli linuksa wpisujemy:</p>
 <div class="highlight"><pre><span></span><code>echo -n &quot;satkas&quot; | sha1sum | awk &#39;{print $1}&#39;
 </code></pre></div>
 
 <p>Wynik:</p>
 <div class="highlight"><pre><span></span><code><span class="mf">5</span><span class="n">e6030bc66eab28e4b5eb6c9278cf41462c88cee</span>
-</code></pre></div>                </article>
-            </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
+</code></pre></div>
+                <a class="readmore" href="/generowanie-hasla-sha1.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
 
             <li><article class="hentry">
                 <header>
