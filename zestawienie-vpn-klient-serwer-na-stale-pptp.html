@@ -3,21 +3,27 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas Blog</title>
+        <title>Zestawienie VPN klient-serwer na stałe (pptp)</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="W biurze mamy skonfigurowany vpn (pptp) jako server. Utworzyliśmy użytkownika. Po stronie klienta (home) na Mikrotiku klikamy w terminalu:..." />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="/">Satkas Blog</a></h1>
                 <nav><ul>
-                    <li><a href="/category/misc.html">misc</a></li>
+                    <li class="active"><a href="/category/misc.html">misc</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html" rel="bookmark"
+           title="Permalink to Zestawienie VPN klient-serwer na stałe (pptp)">Zestawienie VPN klient-serwer na stałe (pptp)</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html">Zestawienie VPN klient-serwer na stałe (pptp)</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-03-26T00:00:00+01:00">
                 Published: Sun 26 March 2017
@@ -28,7 +34,7 @@
         </address>
 <p>In <a href="/category/misc.html">misc</a>.</p>
 <p>tags: <a href="/tag/vpn.html">vpn</a> <a href="/tag/pptp.html">pptp</a> <a href="/tag/mikrotik.html">mikrotik</a> </p>
-</footer><!-- /.post-info --><p><img alt="Schemat" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" title="Schemat">
+</footer><!-- /.post-info -->      <p><img alt="Schemat" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" title="Schemat">
 W biurze mamy skonfigurowany vpn (pptp) jako server. Utworzyliśmy użytkownika.
 Po stronie klienta (home) na Mikrotiku klikamy w terminalu:</p>
 <p>interface pptp-client add connect-to=IP-Server user=login password=password disabled=no name=pptp-out1 profile=default-encryption</p>
@@ -50,8 +56,11 @@ Aby sprawdzić, że urządzenia nawiązały połączenie wykonujemy po stronie k
 Czyli robimy na Mikrotiku kliencie</p>
 <p>ip firewall nat add chain=srcnat action=masquerade src-address=LAN-HOME out-interface=pptp-out1</p>
 <p>To powinno dać nam połączenie pomiędzy siecią w domu i firmą.
-Dla mnie najlepsze jest w tym to, że nie muszę konfigurować po stronie stacji roboczej żadnego vpn-a. Jak chcę się połączyć do firmy to używam narzędzi takich samych jak wewnątrz firmy.</p>                </article>
-            </aside><!-- /#featured -->
+Dla mnie najlepsze jest w tym to, że nie muszę konfigurować po stronie stacji roboczej żadnego vpn-a. Jak chcę się połączyć do firmy to używam narzędzi takich samych jak wewnątrz firmy.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>

@@ -3,171 +3,73 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas - TK</title>
-        <link rel="stylesheet" href="https://satkas.github.io/theme/css/main.css" />
+        <title>Satkas Blog - tk</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="https://satkas.github.io/">Satkas</a></h1>
+                <h1><a href="/">Satkas Blog</a></h1>
                 <nav><ul>
-                    <li><a href="https://satkas.github.io/category/informatyka.html">Informatyka</a></li>
+                    <li><a href="/category/misc.html">misc</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="https://satkas.github.io/aktualizacja-samby-jako-domain-controller.html">Aktualizacja samby jako domain controller</a></h1>
+                    <h1 class="entry-title"><a href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html">Zestawienie VPN klient-serwer na stałe (pptp)</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2017-01-18T00:00:00+01:00">
-                Published: Wed 18 January 2017
-        </abbr>
-		<br />
-        <abbr class="modified" title="2021-01-24T20:10:49.309738+01:00">
-                Updated: Sun 24 January 2021
+        <abbr class="published" title="2017-03-26T00:00:00+01:00">
+                Published: Sun 26 March 2017
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="https://satkas.github.io/author/tk.html">TK</a>
+                By                         <a class="url fn" href="/author/tk.html">tk</a>
         </address>
-<p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
-<p>tags: <a href="https://satkas.github.io/tag/linux.html">linux</a> <a href="https://satkas.github.io/tag/samba.html">samba</a> </p>
-</footer><!-- /.post-info --><p>Używana wersja to 4.5.3 i była instalowana ze źródel.</p>
-<blockquote>
-<p>wget https://download.samba.org/pub/samba/stable/samba-4.5.4.tar.gz</p>
-</blockquote>
-<p>zabijamy wszystkie procesy samby działające w systemie</p>
-<blockquote>
-<p>pkill samba</p>
-</blockquote>
-<p>Robimy backup obecnej samby</p>
-<blockquote>
-<p>tar czvf samba-4.5.3.tar.gz /usr/local/samba</p>
-</blockquote>
-<p>Rozpakowujemy archiwum nowej samby</p>
-<blockquote>
-<p>tar xzvf samba-4.5.4.tar.gz</p>
-</blockquote>
-<p>wchodzimy do katalogu</p>
-<blockquote>
-<p>cd samba-4.5.4</p>
-</blockquote>
-<p>i wykonujemy polecenie</p>
-<blockquote>
-<p>./configure</p>
-</blockquote>
-<p>po skończeniu budujemy</p>
-<blockquote>
-<p>make</p>
-</blockquote>
-<p>i ostatecznie instalujemy (z uprawnieniami root)</p>
-<blockquote>
-<p>make install</p>
-</blockquote>
-<p>Po skończeniu sprawdzamy czy nasza baza jest spójna</p>
-<p>/usr/local/samba/bin/samba-tool dbcheck</p>
-<p>Startujemy z nową sambą wydając polecenie</p>
-<blockquote>
-<p>/usr/local/samba/sbin/samba</p>
-</blockquote>
-<p>Sprawdzamy status wersji</p>
-<blockquote>
-<p>/usr/local/samba/bin/samba-tool -V</p>
-</blockquote>
-<p>Cały proces u mnie na Raspberry PI3 trwa 2h</p>                </article>
+<p>In <a href="/category/misc.html">misc</a>.</p>
+<p>tags: <a href="/tag/vpn.html">vpn</a> <a href="/tag/pptp.html">pptp</a> <a href="/tag/mikrotik.html">mikrotik</a> </p>
+</footer><!-- /.post-info --><p><img alt="Schemat" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" title="Schemat">
+W biurze mamy skonfigurowany vpn (pptp) jako server. Utworzyliśmy użytkownika.
+Po stronie klienta (home) na Mikrotiku klikamy w terminalu:</p>
+<p>interface pptp-client add connect-to=IP-Server user=login password=password disabled=no name=pptp-out1 profile=default-encryption</p>
+<p>user i password wstaw takie dane jak wpisałeś przy zakładaniu użytkowników na serwerze PPTP.
+Aby sprawdzić, że urządzenia nawiązały połączenie wykonujemy po stronie klienta</p>
+<p>interface pptp-client monitor pptp-out1 without-paging</p>
+<p>Powinno nam się wyświetlić coś w tym stylu</p>
+<p>status: connected
+          uptime: 48m6s
+        encoding: MPPE128 stateless
+             mtu: 1450
+             mru: 1450
+   local-address: TWÓJ-IP-PRZYZNANY-PRZEZ-SERVER
+  remote-address: ADRES-IP-SERVERA PPTP(PUNKT-PUNKT PPTP)</p>
+<p>Ważna informacja to pierwsza linia status. Powinno być connected</p>
+<p>Teraz aby można było się komunikować potrzebujemy ustawić trasę statyczną do wewnętrznej zdalnej sieci i przez jaki interfejs ma wychodzić. Na Mikrotiku kliencie wpisujemy w terminalu</p>
+<p>ip route add dst-address=FIRMOWA-SIEC-LAN/MASKA gateway=pptp-out1</p>
+<p>Ponadto potrzeba jeszcze zrobić maskaradę na interfejsie pptp-out1 dla naszej lokalnej sieci w domu
+Czyli robimy na Mikrotiku kliencie</p>
+<p>ip firewall nat add chain=srcnat action=masquerade src-address=LAN-HOME out-interface=pptp-out1</p>
+<p>To powinno dać nam połączenie pomiędzy siecią w domu i firmą.
+Dla mnie najlepsze jest w tym to, że nie muszę konfigurować po stronie stacji roboczej żadnego vpn-a. Jak chcę się połączyć do firmy to używam narzędzi takich samych jak wewnątrz firmy.</p>                </article>
             </aside><!-- /#featured -->
-                <section id="content" class="body">
-                    <h1>Other articles</h1>
-                    <hr />
-                    <ol id="posts-list" class="hfeed">
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://satkas.github.io/usuniecie-pustych-folderow-w-bash-u.html" rel="bookmark"
-                           title="Permalink to Usunięcie pustych folderów w bash-u">Usunięcie pustych folderów w bash-u</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-01-02T00:00:00+01:00">
-                Published: Mon 02 January 2017
-        </abbr>
-		<br />
-        <abbr class="modified" title="2021-01-24T20:08:51.186714+01:00">
-                Updated: Sun 24 January 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://satkas.github.io/author/tk.html">TK</a>
-        </address>
-<p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
-<p>tags: <a href="https://satkas.github.io/tag/linux.html">linux</a> <a href="https://satkas.github.io/tag/bash.html">bash</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="https://satkas.github.io/usuniecie-pustych-folderow-w-bash-u.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://satkas.github.io/synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof.html" rel="bookmark"
-                           title="Permalink to Synchronizacja czasu w domenie Samba4 na Windows 10 Prof">Synchronizacja czasu w domenie Samba4 na Windows 10 Prof</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-11-28T00:00:00+01:00">
-                Published: Mon 28 November 2016
-        </abbr>
-		<br />
-        <abbr class="modified" title="2021-01-24T19:47:49.945584+01:00">
-                Updated: Sun 24 January 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://satkas.github.io/author/tk.html">TK</a>
-        </address>
-<p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
-<p>tags: <a href="https://satkas.github.io/tag/linux.html">linux</a> <a href="https://satkas.github.io/tag/samba.html">samba</a> <a href="https://satkas.github.io/tag/time.html">time</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="https://satkas.github.io/synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-
-            <li><article class="hentry">
-                <header>
-                    <h1><a href="https://satkas.github.io/samba4-problem-z-polaczeniem-do-kerberosa.html" rel="bookmark"
-                           title="Permalink to Samba4 - problem z połączeniem do kerberosa">Samba4 - problem z połączeniem do kerberosa</a></h1>
-                </header>
-
-                <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2016-11-12T00:00:00+01:00">
-                Published: Sat 12 November 2016
-        </abbr>
-		<br />
-        <abbr class="modified" title="2021-01-24T18:58:32.637666+01:00">
-                Updated: Sun 24 January 2021
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://satkas.github.io/author/tk.html">TK</a>
-        </address>
-<p>In <a href="https://satkas.github.io/category/informatyka.html">Informatyka</a>.</p>
-<p>tags: <a href="https://satkas.github.io/tag/linux.html">linux</a> <a href="https://satkas.github.io/tag/kerberos.html">kerberos</a> <a href="https://satkas.github.io/tag/samba.html">samba</a> </p>
-</footer><!-- /.post-info -->                
-                <a class="readmore" href="https://satkas.github.io/samba4-problem-z-polaczeniem-do-kerberosa.html">read more</a>
-                </div><!-- /.entry-content -->
-            </article></li>
-                </ol><!-- /#posts-list -->
-                </section><!-- /#content -->
         <section id="extras" class="body">
                 <div class="blogroll">
                         <h2>links</h2>
                         <ul>
                             <li><a href="https://getpelican.com/">Pelican</a></li>
-                            <li><a href="https://satkas.waw.pl">Satkas</a></li>
+                            <li><a href="https://www.python.org/">Python.org</a></li>
+                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
                         </ul>
                 </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
         </section><!-- /#extras -->
 
         <footer id="contentinfo" class="body">
