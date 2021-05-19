@@ -17,7 +17,34 @@
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html">Zestawienie VPN klient-serwer na stałe (pptp)</a></h1>
+                    <h1 class="entry-title"><a href="/generowanie-hasla-sha1.html">Generowanie hasła sha1</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-05-13T00:00:00+02:00">
+                Published: Sat 13 May 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/admin.html">admin</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/bash.html">bash</a> </p>
+</footer><!-- /.post-info --><p>W konsoli linuksa wpisujemy:
+    echo -n "satkas" | sha1sum | awk '{print $1}'
+Wynik: 
+    5e6030bc66eab28e4b5eb6c9278cf41462c88cee</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html" rel="bookmark"
+                           title="Permalink to Zestawienie VPN klient-serwer na stałe (pptp)">Zestawienie VPN klient-serwer na stałe (pptp)</a></h1>
+                </header>
+
+                <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-03-26T00:00:00+01:00">
                 Published: Sun 26 March 2017
@@ -28,38 +55,17 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 <p>tags: <a href="/tag/vpn.html">vpn</a> <a href="/tag/pptp.html">pptp</a> <a href="/tag/mikrotik.html">mikrotik</a> </p>
-</footer><!-- /.post-info --><p><img alt="Schemat" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" title="Schemat" width="50%">
+</footer><!-- /.post-info -->                <p><img alt="Schemat" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" title="Schemat" width="50%">
 W biurze mamy skonfigurowany vpn (pptp) jako server. Utworzyliśmy użytkownika.
 Po stronie klienta (home) na Mikrotiku klikamy w terminalu:</p>
 <p>interface pptp-client add connect-to=IP-Server user=login password=password disabled=no name=pptp-out1 profile=default-encryption</p>
 <p>user i password wstaw takie dane jak wpisałeś przy zakładaniu użytkowników na serwerze PPTP.
-Aby sprawdzić, że urządzenia nawiązały połączenie wykonujemy po stronie klienta</p>
-<div class="highlight"><pre><span></span><code>interface pptp-client monitor pptp-out1 without-paging
-</code></pre></div>
-
-<p>Powinno nam się wyświetlić coś w tym stylu</p>
-<div class="highlight"><pre><span></span><code><span class="n">status</span><span class="o">:</span> <span class="n">connected</span>
-          <span class="n">uptime</span><span class="o">:</span> <span class="mi">48</span><span class="n">m6s</span>
-        <span class="n">encoding</span><span class="o">:</span> <span class="n">MPPE128</span> <span class="n">stateless</span>
-             <span class="n">mtu</span><span class="o">:</span> <span class="mi">1450</span>
-             <span class="n">mru</span><span class="o">:</span> <span class="mi">1450</span>
-   <span class="n">local</span><span class="o">-</span><span class="n">address</span><span class="o">:</span> <span class="n">TWÓJ</span><span class="o">-</span><span class="n">IP</span><span class="o">-</span><span class="n">PRZYZNANY</span><span class="o">-</span><span class="n">PRZEZ</span><span class="o">-</span><span class="n">SERVER</span>
-   <span class="n">remote</span><span class="o">-</span><span class="n">address</span><span class="o">:</span> <span class="n">ADRES</span><span class="o">-</span><span class="n">IP</span><span class="o">-</span><span class="n">SERVERA</span> <span class="n">PPTP</span><span class="o">(</span><span class="n">PUNKT</span><span class="o">-</span><span class="n">PUNKT</span> <span class="n">PPTP</span><span class="o">)</span>
-</code></pre></div>
-
-<p>Ważna informacja to pierwsza linia status. Powinno być connected</p>
-<p>Teraz aby można było się komunikować potrzebujemy ustawić trasę statyczną do wewnętrznej zdalnej sieci i przez jaki interfejs ma wychodzić. Na Mikrotiku kliencie wpisujemy w terminalu</p>
-<div class="highlight"><pre><span></span><code>ip route add dst-address=FIRMOWA-SIEC-LAN/MASKA gateway=pptp-out1
-</code></pre></div>
-
-<p>Ponadto potrzeba jeszcze zrobić maskaradę na interfejsie pptp-out1 dla naszej lokalnej sieci w domu
-Czyli robimy na Mikrotiku kliencie</p>
-<div class="highlight"><pre><span></span><code>ip firewall nat add chain=srcnat action=masquerade src-address=LAN-HOME out-interface=pptp-out1
-</code></pre></div>
-
-<p>To powinno dać nam połączenie pomiędzy siecią w domu i firmą.
-Dla mnie najlepsze jest w tym to, że nie muszę konfigurować po stronie stacji roboczej żadnego vpn-a. Jak chcę się połączyć do firmy to używam narzędzi takich samych jak wewnątrz firmy.</p>                </article>
-            </aside><!-- /#featured -->
+Aby sprawdzić …</p>
+                <a class="readmore" href="/zestawienie-vpn-klient-serwer-na-stale-pptp.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+                </section><!-- /#content -->
         <section id="extras" class="body">
         </section><!-- /#extras -->
 

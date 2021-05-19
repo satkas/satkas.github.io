@@ -3,21 +3,27 @@
 <head>
         <meta charset="utf-8" />
         <meta name="generator" content="Pelican" />
-        <title>Satkas Blog - bash</title>
+        <title>Generowanie hasła sha1</title>
         <link rel="stylesheet" href="/theme/css/main.css" />
+        <meta name="description" content="W konsoli linuksa wpisujemy: echo -n "satkas" | sha1sum | awk '{print $1}' Wynik: 5e6030bc66eab28e4b5eb6c9278cf41462c88cee" />
 </head>
 
 <body id="index" class="home">
         <header id="banner" class="body">
                 <h1><a href="/">Satkas Blog</a></h1>
                 <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/generowanie-hasla-sha1.html" rel="bookmark"
+           title="Permalink to Generowanie hasła sha1">Generowanie hasła sha1</a></h1>
+    </header>
 
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="/generowanie-hasla-sha1.html">Generowanie hasła sha1</a></h1>
+    <div class="entry-content">
 <footer class="post-info">
         <abbr class="published" title="2017-05-13T00:00:00+02:00">
                 Published: Sat 13 May 2017
@@ -28,11 +34,14 @@
         </address>
 <p>In <a href="/category/blog.html">Blog</a>.</p>
 <p>tags: <a href="/tag/bash.html">bash</a> </p>
-</footer><!-- /.post-info --><p>W konsoli linuksa wpisujemy:
+</footer><!-- /.post-info -->      <p>W konsoli linuksa wpisujemy:
     echo -n "satkas" | sha1sum | awk '{print $1}'
 Wynik: 
-    5e6030bc66eab28e4b5eb6c9278cf41462c88cee</p>                </article>
-            </aside><!-- /#featured -->
+    5e6030bc66eab28e4b5eb6c9278cf41462c88cee</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
         <section id="extras" class="body">
         </section><!-- /#extras -->
 
