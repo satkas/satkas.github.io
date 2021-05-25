@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serwer www Apache z autoryzacją w Active Directory | Satkas Blog</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="../../rss.xml">
+<link rel="canonical" href="https://sataks.github.io/posts/serwer-www-apache-z-autoryzacja-w-active-directory/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="tk">
+<link rel="prev" href="../zapomniane-haslo-admina-dla-ipa-server/" title="Zapomniane hasło admina dla ipa server" type="text/html">
+<link rel="next" href="../bash-pobieranie-wartosci-z-pliku-xml/" title="Bash - pobieranie wartości z pliku xml" type="text/html">
+<meta property="og:site_name" content="Satkas Blog">
+<meta property="og:title" content="Serwer www Apache z autoryzacją w Active Directory">
+<meta property="og:url" content="https://sataks.github.io/posts/serwer-www-apache-z-autoryzacja-w-active-directory/">
+<meta property="og:description" content="Laboratorium
+
+Windows Server 2016 - Active Directory (SATKAS.LOCAL)
+Linux SUSE Standard Enterprise 15 - usługa www oparta o httpd
+
+Operacje na Windows Server
+Na Windows Server mamy utworzoną domenę SA">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-04-14T00:00:00+02:00">
+<meta property="article:tag" content="active directory">
+<meta property="article:tag" content="httpd">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="suse">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Źródło</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Serwer www Apache z autoryzacją w Active Directory</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    tk
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-14T00:00:00+02:00" itemprop="datePublished" title="2019-04-14 00:00">2019-04-14 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Źródło</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p><a href="https://satkas.waw.pl/?post=serwer-www-apache-z-autoryzacja-w-active-directory"><img alt="Apache" src="https://satkas.waw.pl/data/uploads/images/httpd_logo.webp" title="Apache"></a></p>
+<h5>Laboratorium</h5>
+<ul>
+<li>Windows Server 2016 - Active Directory (SATKAS.LOCAL)</li>
+<li>Linux SUSE Standard Enterprise 15 - usługa www oparta o httpd</li>
+</ul>
+<h6>Operacje na Windows Server</h6>
+<p>Na Windows Server mamy utworzoną domenę SATKAS.LOCAL. Tworzymy grupę apache i użytkowników wedle uznania. Dodajemy użytkowników do grupy apache. Utworzyłem w grupie apache jeszcze jednego użytkownika, który odpowiedzialny będzie za powiązanie nazwy DN podczas fazy wyszukiwania. Nazwałem użytkownika Server Web (konto suse@satkas.local)</p>
+<h6>Operacje na SUSE Linux</h6>
+<p>Zainstalowany mamy serwer www httpd. Uaktywniamy moduły odpowiedzialne za autoryzację w bazie ldap. Są to: ldap i authnz_ldap</p>
+<p>Można to zrobić w yast2 (Network Services-&gt;HTTP Server). Po czym wykonujemy alt+M (wchodzimy do sekcji Moduły) i z listy wybieramy wspomniane moduły wykonując na nich alt+t (zmień status). Wychodzimy wprowadzając alt+k i alt+z</p>
+<p>Można powyższą operację wykonać bezpośrednio w pliku /etc/sysconfig/apache2 dopisując do sekcji</p>
+<pre class="code literal-block"><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
+</pre>
+<p>odpowiednie moduły ldap</p>
+<p>Teraz trzeba skonfigurować miejsce w systemie plików do którego dostęp będzie na hasło z Active Directory.</p>
+<p>Domyślnie w SUSE tzw DirectoryRoot serwera webowego znajduje się w:</p>
+<pre class="code literal-block">/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
+</pre>
+<p>Tworzymy sobie katalog</p>
+<pre class="code literal-block">mkdir /srv/www/htdoc/sec
+</pre>
+<p>Tworzymy zawartość katalogu</p>
+<pre class="code literal-block">touch /srv/www/htdoc/sec/index.html
+<span class="nb">echo</span> <span class="s2">"Strona z uwzględnieniem autoryzacji w AD"</span> &gt; /srv/www/htdoc/sec/index.html
+</pre>
+<p>Edytujemy plik /etc/apache2/default-server.conf i tworzymy nową sekcję Directory (zaraz pod aktualną sekcją Directory)</p>
+<pre class="code literal-block">&lt;Directory /srv/www/htdocs/sec&gt;
+          AuthLDAPBindDN <span class="s2">"CN=Server Web,CN=Users,DC=satkas,DC=local"</span>
+          AuthLDAPBindPassword xxxxxxx
+          AuthLDAPURL <span class="s2">"ldap://satkas.local/CN=Users,DC=satkas,DC=local?sAMAccountName?sub?(objectClass=*)"</span>
+          AuthType Basic
+          AuthName <span class="s2">"SATKAS.LOCAL Authentication"</span>
+          AuthBasicProvider ldap
+          AuthLDAPGroupAttributeIsDN on
+          Require ldap-group <span class="nv">CN</span><span class="o">=</span>apache,CN<span class="o">=</span>Users,DC<span class="o">=</span>satkas,DC<span class="o">=</span><span class="nb">local</span>
+&lt;/Directory&gt;
+</pre>
+<p>Po zapisaniu zmian wystarczy zrestartować usługę www</p>
+<pre class="code literal-block">systemctl restart apache2
+</pre>
+<p>Autoryzujemy się użytkownikami z grupy (w AD) apache</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/active-directory/" rel="tag">active directory</a></li>
+            <li><a class="tag p-category" href="../../categories/httpd/" rel="tag">httpd</a></li>
+            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">linux</a></li>
+            <li><a class="tag p-category" href="../../categories/suse/" rel="tag">suse</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../zapomniane-haslo-admina-dla-ipa-server/" rel="prev" title="Zapomniane hasło admina dla ipa server">Poprzedni post</a>
+            </li>
+            <li class="next">
+                <a href="../bash-pobieranie-wartosci-z-pliku-xml/" rel="next" title="Bash - pobieranie wartości z pliku xml">Następny post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
