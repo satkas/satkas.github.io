@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a | Satkas Blog</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="../../rss.xml">
+<link rel="canonical" href="https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="tk">
+<link rel="prev" href="../bash-spacje-spacje-spacje/" title="BASH - spacje, spacje, spacje" type="text/html">
+<link rel="next" href="../bash-generowanie-hasla/" title="Bash - generowanie hasła" type="text/html">
+<meta property="og:site_name" content="Satkas Blog">
+<meta property="og:title" content='KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a'>
+<meta property="og:url" content="https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/">
+<meta property="og:description" content="Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.
+Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.
+Najpierw ident">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-05-14T00:00:00+02:00">
+<meta property="article:tag" content="kvm">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="lvm">
+<meta property="article:tag" content="storage">
+<meta property="article:tag" content="wirtualizacja">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Źródło</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    tk
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-05-14T00:00:00+02:00" itemprop="datePublished" title="2020-05-14 00:00">2020-05-14 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Źródło</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p><a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"><img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"></a> Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.</p>
+<p>Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.</p>
+<p>Najpierw identyfikujemy nasze maszyny wirtualne</p>
+<pre class="code literal-block">virsh list --all
+Id Name      State
+----------------------------
+<span class="m">1</span>  centos8-2 running
+-  centos8   shut off
+-  debian10  shut off
+-  win10     shut off
+</pre>
+<p>Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną</p>
+<pre class="code literal-block">virsh domblklist centos8-2
+
+Target  Source
+------------------------------------
+vda     /home/tk/vm/Resize.qcow2
+sda     -
+</pre>
+<p>Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:</p>
+<p>sudo qemu-img info /home/tk/vm/Resize.qcow2</p>
+<p>Niestety aby otrzymać informację musimy wyłączyć maszynę.</p>
+<p>Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.</p>
+<p>Użyjemy do tego polecenia:</p>
+<pre class="code literal-block">virsh qemu-monitor-command centos8-2 info block --hmp
+
+libvirt-2-format: /home/tk/vm/Resize.qcow2 <span class="o">(</span>qcow2<span class="o">)</span>
+    Attached to: /machine/peripheral/virtio-disk0/virtio-backend
+    Cache mode: writeback
+
+sata0-0-0: <span class="o">[</span>not inserted<span class="o">]</span> Attached to: sata0-0-0 Removable device: not locked, tray closed
+</pre>
+<p>Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:</p>
+<pre class="code literal-block">virsh domblklist centos8-2 --details
+
+Type Device Target Source
+----------------------------------------------------
+file disk   vda /home/tk/vm/Resize.qcow2
+file cdrom  sda -
+</pre>
+<p>Następnie dokonujemy rozszeżenia dysku</p>
+<pre class="code literal-block">virsh blockresize centos8-2 vda 20G
+Block device <span class="s1">'vda'</span> is resized
+</pre>
+<p>Sprawdzamy fdisk-iem czy powiększył nam się dysk</p>
+<pre class="code literal-block">fdisk -l
+</pre>
+<p>Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)</p>
+<p>Najpierw na maszynie wirtualnej instalujemy paczkę:</p>
+<p>Dla Ubuntu</p>
+<pre class="code literal-block">sudo apt install cloud-guest-utils
+</pre>
+<p>dla CentOS-a</p>
+<pre class="code literal-block">sudo yum install cloud-utils-growpart
+</pre>
+<p>Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.</p>
+<pre class="code literal-block">growpart /dev/vda <span class="m">3</span>
+</pre>
+<p>Na sam koniec wykonujemy rozszerzenie na filesytemie</p>
+<pre class="code literal-block">xfs_grows /
+</pre>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/kvm/" rel="tag">kvm</a></li>
+            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">linux</a></li>
+            <li><a class="tag p-category" href="../../categories/lvm/" rel="tag">lvm</a></li>
+            <li><a class="tag p-category" href="../../categories/storage/" rel="tag">storage</a></li>
+            <li><a class="tag p-category" href="../../categories/wirtualizacja/" rel="tag">wirtualizacja</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../bash-spacje-spacje-spacje/" rel="prev" title="BASH - spacje, spacje, spacje">Poprzedni post</a>
+            </li>
+            <li class="next">
+                <a href="../bash-generowanie-hasla/" rel="next" title="Bash - generowanie hasła">Następny post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
