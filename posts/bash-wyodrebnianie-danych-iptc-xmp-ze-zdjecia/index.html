@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bash - wyodrębnianie danych IPTC XMP ze zdjęcia | Satkas Blog</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="../../rss.xml">
+<link rel="canonical" href="https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="tk">
+<link rel="prev" href="../bash-pojemnosc-katalogu-z-filtrem-na-pliki/" title="Bash - pojemność katalogu z filtrem na pliki" type="text/html">
+<link rel="next" href="../prace-techniczne-zmiana-vps-a-zakonczone/" title="Prace techniczne - zmiana VPS-a (zakończone)" type="text/html">
+<meta property="og:site_name" content="Satkas Blog">
+<meta property="og:title" content="Bash - wyodrębnianie danych IPTC XMP ze zdjęcia">
+<meta property="og:url" content="https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/">
+<meta property="og:description" content="Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.
+Wyodrębnienie całości metadanych ze zdjęcia do pliku:
+exiv2 -ea image.jpg
+
+Ta komenda ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2018-05-22T00:00:00+02:00">
+<meta property="article:tag" content="bash">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="skrypt">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav">
+<li class="nav-item">
+    <a href="index.md" id="sourcelink" class="nav-link">Źródło</a>
+    </li>
+
+
+                    
+            </ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="../../categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="../../pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Bash - wyodrębnianie danych IPTC XMP ze zdjęcia</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    tk
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2018-05-22T00:00:00+02:00" itemprop="datePublished" title="2018-05-22 00:00">2018-05-22 00:00</time></a>
+            </p>
+            
+        <p class="sourceline"><a href="index.md" class="sourcelink">Źródło</a></p>
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></p>
+<p>Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.</p>
+<p>Wyodrębnienie całości metadanych ze zdjęcia do pliku:</p>
+<pre class="code literal-block">exiv2 -ea image.jpg
+</pre>
+<p>Ta komenda utworzy plik o tej samej nazwie co zdjęcie z rozszerzeniem .exv</p>
+<p>Wstrzyknięcie tych samych danych z pliku .exv do zdjęcia:</p>
+<pre class="code literal-block">exiv2 -kia image.jpg
+</pre>
+<p>Aby wyodrębnić konkretną sekcję np IPTC wydajemy komendę:</p>
+<pre class="code literal-block">exiv2 -PI image.jpg
+</pre>
+<p>lub</p>
+<pre class="code literal-block">exiv2 -pi image.jpg
+</pre>
+<p>Jeśli chcemy tylko wyodrębnić np. tytuł wydarzenia uwieńczonego na zdjęciu wydajemy komendę:</p>
+<pre class="code literal-block">exiv2 -PIv -g Iptc.Application2.Headline
+</pre>
+<p>Oczywiście musimy być pewni, że fotograf, agencja foto podpisuje swoje zdjęcia w programie do edycji meta danych. Inaczej nic nie zobaczymy. Osoby prywatne raczej nie opisują zdjęć więc zobaczysz tylko metadane EXIF(metadane generowane przez aparat fotograficzny).</p>
+<p>Jeśli chcemy dodać pojedyńcze rekordy w sekcji np IPTC wydajemy komendę:</p>
+<pre class="code literal-block">exiv2 -kM<span class="s2">"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"</span> image.jpg
+</pre>
+<p>Usunięcie sekcji IPTC, XMP, EXIF wykonamy narzędziem jhead</p>
+<pre class="code literal-block">jhead -dc -de -di -dx image.jpg
+</pre>
+<p>Oba narzędzia exiv2 i jhead zainstalujemy w ubuntu</p>
+<pre class="code literal-block">sudo apt install exiv2 jhead
+</pre>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/bash/" rel="tag">bash</a></li>
+            <li><a class="tag p-category" href="../../categories/linux/" rel="tag">linux</a></li>
+            <li><a class="tag p-category" href="../../categories/skrypt/" rel="tag">skrypt</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../bash-pojemnosc-katalogu-z-filtrem-na-pliki/" rel="prev" title="Bash - pojemność katalogu z filtrem na pliki">Poprzedni post</a>
+            </li>
+            <li class="next">
+                <a href="../prace-techniczne-zmiana-vps-a-zakonczone/" rel="next" title="Prace techniczne - zmiana VPS-a (zakończone)">Następny post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
