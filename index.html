@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Informatyka w stylu open source">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satkas Blog</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="rss.xml">
+<link rel="canonical" href="https://sataks.github.io/">
+<link rel="next" href="index-5.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" type="text/html">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+    
+        
+
+    
+        
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" class="u-url">Rozszerzenie partycji w wirtualnym systemie (cfdisk)</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-04-04T00:00:00+02:00" itemprop="datePublished" title="2021-04-04 00:00">2021-04-04 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Używam KVM-a jako wirtualizatora. Przychodzi czas kiedy trzeba rozszerzyć partycję na jednym z systemów gościa.</p>
+<h6>Laboratorium:</h6>
+<p>Host:</p>
+<pre class="code literal-block"><span class="c1">#lsb_release -a</span>
+No LSB modules are available.
+Distributor ID:    Ubuntu
+Description:    Ubuntu Hirsute Hippo <span class="o">(</span>development branch<span class="o">)</span>
+Release:    <span class="m">21</span>.04
+Codename:    hirsute
+</pre>
+<pre class="code literal-block"><span></span><code><span class="n">Hypervizor</span><span class="o">:</span> <span class="n">KVM</span> <span class="o">(</span><span class="n">libvirtd</span><span class="o">)</span>
+</code></pre>
+
+<pre class="code literal-block"><span></span><code>libvirtd -V
+libvirtd (libvirt) 7.0.0
+</code></pre>
+
+<p>System Gość: Fedora 34 (beta)</p>
+<p>System posiada jeden dysk /dev/vda (24 GB) i partycje mają LVM-a. Powiększę jedną partycję o 2 GB. System gość cały czas jest online</p>
+<ul>
+<li>Wchodzimy do konsoli i wpisujemy virsh.</li>
+<li>Sprawdzamy jakie mamy systemy poprzez wydanie komendy list --all</li>
+</ul>
+<pre class="code literal-block"><span></span><code>Id   Name          State
+------------------------------
+ <span class="m">3</span>    fedora        running
+</code></pre>
+
+<ul>
+<li>Sprawdzamy jak nazywa się dysk dla fedora. Wprowadzamy polecenie domblklist fedora</li>
+</ul>
+<pre class="code literal-block"><span></span><code>Target   Source
+------------------------------------------------
+ vda      /var/lib/libvirt/images/fedora.qcow2
+ sda      -
+</code></pre>
+
+<ul>
+<li>Zwiększamy dysk dla systemu Fedora. Dysk jest plikiem qcow2. Wprowadzamy polecenie blockresize fedora vda 26GB</li>
+<li>Wychodzimy z virsh</li>
+<li>Wchodzimy do systemu gościa fedora</li>
+<li>Wydajemy polecenie jako użytkownik root fdisk -l i patrzymy jak nazywa się dysk widziany przez fedorę</li>
+</ul>
+<pre class="code literal-block"><span></span><code><span class="c1">#fdisk -l</span>
+
+Dysk /dev/vda: <span class="m">24</span> GiB, bajtów: <span class="m">25769803776</span>, sektorów: <span class="m">50331648</span>
+Jednostki: sektorów, czyli <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bajtów
+Rozmiar sektora <span class="o">(</span>logiczny/fizyczny<span class="o">)</span> w bajtach: <span class="m">512</span> / <span class="m">512</span>
+Rozmiar we/wy <span class="o">(</span>minimalny/optymalny<span class="o">)</span> w bajtach: <span class="m">512</span> / <span class="m">512</span>
+Typ etykiety dysku: dos
+Identyfikator dysku: 0x2ed117a3
+
+Urządzenie Rozruch Początek   Koniec  Sektory Rozmiar Id Typ
+/dev/vda1  *           <span class="m">2048</span>  <span class="m">2099199</span>  <span class="m">2097152</span>      1G <span class="m">83</span> Linux
+/dev/vda2           <span class="m">2099200</span> <span class="m">50331647</span> <span class="m">48232448</span>     23G 8e Linux LVM
+
+
+Dysk /dev/mapper/fedora_fedora-root: <span class="m">23</span> GiB, bajtów: <span class="m">24691867648</span>, sektorów: <span class="m">48226304</span>
+Jednostki: sektorów, czyli <span class="m">1</span> * <span class="nv">512</span> <span class="o">=</span> <span class="m">512</span> bajtów
+Rozmiar sektora <span class="o">(</span>logiczny/fizyczny<span class="o">)</span> w bajtach: <span class="m">512</span> / <span class="m">512</span>
+Rozmiar we/wy <span class="o">(</span>minimalny/optymalny<span class="o">)</span> w bajtach: <span class="m">512</span> / <span class="m">512</span>
+
+
+Dysk /dev/zram0: <span class="m">1</span>,93 GiB, bajtów: <span class="m">2071986176</span>, sektorów: <span class="m">505856</span>
+Jednostki: sektorów, czyli <span class="m">1</span> * <span class="nv">4096</span> <span class="o">=</span> <span class="m">4096</span> bajtów
+Rozmiar sektora <span class="o">(</span>logiczny/fizyczny<span class="o">)</span> w bajtach: <span class="m">4096</span> / <span class="m">4096</span>
+Rozmiar we/wy <span class="o">(</span>minimalny/optymalny<span class="o">)</span> w bajtach: <span class="m">4096</span> / <span class="m">4096</span>
+</code></pre>
+
+<ul>
+<li>Interesuje nas dysk /dev/vda2 na którym jest LVM i jest tam główny system plików</li>
+<li>Wprowadzamy w konsoli cfdisk /dev/vda</li>
+<li>Zaznaczamy kursorem pozycję partycji /dev/vda2 i klikamy [Zmiana rozmiaru]</li>
+<li>Narzędzie podpowiada nam rozmiar partycji powiększony o wolną przestrzeń. Klikamy enter i Zapisz. Potwierdzamy wpisując "tak" i klikamy Zakończ</li>
+<li>Partycja jest powiększona ale file system tego jeszcze nie widzi.</li>
+<li>Wykonujemy polecenie pvs</li>
+</ul>
+<pre class="code literal-block"><span></span><code>PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &lt;<span class="m">23</span>,00g    <span class="m">0</span>
+</code></pre>
+
+<ul>
+<li>Wykonujemy partprobe /dev/vda i później pvresize /dev/vda2. Sprawdzamy co się zmieniło poprzez komendę pvs</li>
+</ul>
+<pre class="code literal-block"><span></span><code>PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &lt;<span class="m">25</span>,00g <span class="m">2</span>,00g
+</code></pre>
+
+<ul>
+<li>Widać, że mamy dodatkowe 2 GB wolnego miejsca.</li>
+<li>Wydajemy komendę vgs aby potwierdzić, że pojawiło się 2 GB wolnego miejsca</li>
+</ul>
+<pre class="code literal-block"><span></span><code>VG            <span class="c1">#PV #LV #SN Attr   VSize   VFree</span>
+fedora_fedora   <span class="m">1</span>   <span class="m">1</span>   <span class="m">0</span> wz--n- &lt;<span class="m">25</span>,00g <span class="m">2</span>,00g
+</code></pre>
+
+<ul>
+<li>Teraz rozszerzamy nasz lvm. Polecenie lvs pokazuje listę woluminów logicznych</li>
+</ul>
+<pre class="code literal-block"><span></span><code>LV   VG            Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+
+root fedora_fedora -wi-ao---- &lt;<span class="m">23</span>,00g
+
+<span class="c1">#lvresize -r -l +100%FREE /dev/fedora_fedora/root</span>
+  Size of logical volume fedora_fedora/root changed from &lt;<span class="m">23</span>,00 GiB <span class="o">(</span><span class="m">5887</span> extents<span class="o">)</span> to &lt;<span class="m">25</span>,00 GiB <span class="o">(</span><span class="m">6399</span> extents<span class="o">)</span>.
+  Logical volume fedora_fedora/root successfully resized.
+meta-data<span class="o">=</span>/dev/mapper/fedora_fedora-root <span class="nv">isize</span><span class="o">=</span><span class="m">512</span>    <span class="nv">agcount</span><span class="o">=</span><span class="m">7</span>, <span class="nv">agsize</span><span class="o">=</span><span class="m">983040</span> <span class="nv">blks</span>
+         <span class="o">=</span>                       <span class="nv">sectsz</span><span class="o">=</span><span class="m">512</span>   <span class="nv">attr</span><span class="o">=</span><span class="m">2</span>, <span class="nv">projid32bit</span><span class="o">=</span><span class="nv">1</span>
+         <span class="o">=</span>                       <span class="nv">crc</span><span class="o">=</span><span class="m">1</span>        <span class="nv">finobt</span><span class="o">=</span><span class="m">1</span>, <span class="nv">sparse</span><span class="o">=</span><span class="m">1</span>, <span class="nv">rmapbt</span><span class="o">=</span><span class="nv">0</span>
+         <span class="o">=</span>                       <span class="nv">reflink</span><span class="o">=</span><span class="m">1</span>    <span class="nv">bigtime</span><span class="o">=</span><span class="m">0</span>
+<span class="nv">data</span>     <span class="o">=</span>                       <span class="nv">bsize</span><span class="o">=</span><span class="m">4096</span>   <span class="nv">blocks</span><span class="o">=</span><span class="m">6028288</span>, <span class="nv">imaxpct</span><span class="o">=</span><span class="nv">25</span>
+         <span class="o">=</span>                       <span class="nv">sunit</span><span class="o">=</span><span class="m">0</span>      <span class="nv">swidth</span><span class="o">=</span><span class="m">0</span> blks
+<span class="nv">naming</span>   <span class="o">=</span>version <span class="m">2</span>              <span class="nv">bsize</span><span class="o">=</span><span class="m">4096</span>   ascii-ci<span class="o">=</span><span class="m">0</span>, <span class="nv">ftype</span><span class="o">=</span><span class="m">1</span>
+<span class="nv">log</span>      <span class="o">=</span>log wewnętrzny        <span class="nv">bsize</span><span class="o">=</span><span class="m">4096</span>   <span class="nv">blocks</span><span class="o">=</span><span class="m">2560</span>, <span class="nv">version</span><span class="o">=</span><span class="nv">2</span>
+         <span class="o">=</span>                       <span class="nv">sectsz</span><span class="o">=</span><span class="m">512</span>   <span class="nv">sunit</span><span class="o">=</span><span class="m">0</span> blks, lazy-count<span class="o">=</span><span class="m">1</span>
+<span class="nv">realtime</span> <span class="o">=</span>brak                   <span class="nv">extsz</span><span class="o">=</span><span class="m">4096</span>   <span class="nv">blocks</span><span class="o">=</span><span class="m">0</span>, <span class="nv">rtextents</span><span class="o">=</span><span class="m">0</span>
+bloki danych zmienione z <span class="m">6028288</span> na <span class="m">6552576</span>
+</code></pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/windows-cmd-brak-dostepu/" class="u-url">Windows CMD - brak dostępu</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/windows-cmd-brak-dostepu/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-10-29T00:00:00+01:00" itemprop="datePublished" title="2020-10-29 00:00">2020-10-29 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Bardzo często administratorzy Windowsa/AD blokują standardowemu użytkownikowi dostęp do powloki cmd.</p>
+<p>Obejściem może tutaj być wykonanie poniższych czynności:</p>
+<p>Otwieramy menu start i zaczynamy wpisywać:</p>
+<pre class="code literal-block">cmd /k jakiś_tool
+</pre>
+<p>i klikamy enter</p>
+<p>Jeśli narzędzie ma jakieś opcje to musimy zamknąć ten wpis w podwójne apostrofy</p>
+<pre class="code literal-block">cmd /k <span class="s2">"ipconfig /all"</span>
+</pre>
+<p>Jest jeszcze jedna trudność. Jeśli w poleceniu np scieżka ma spację trzeba zrobić to w ten sposób:</p>
+<pre class="code literal-block">cmd /k <span class="s2">"certutil -hashfile "</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\p</span>lik.txt<span class="s2">" MD5"</span>
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/" class="u-url">Windows CMD - Sprawdzenie sumy kontrolnej md5 pliku</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-10-29T00:00:00+01:00" itemprop="datePublished" title="2020-10-29 00:00">2020-10-29 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Czasami trzeba sprawdzić sumę kontrolną pliku. W linuksie jest to bardzo proste poprzez użycie narzędzi typu md5sum sha256sum. Ale w Windowsie? Moim zdaniem narzędzie do sprawdzania sum kontrolnych powinno być na wysposarzeniu systemu operacyjnego bez instalowania jakiś zewnętrznych paczek. Szukałem, szukałem i się doszukałem</p>
+<pre class="code literal-block">certutil
+</pre>
+<p>Tak wiem to jest narzędzie do zarządzania certyfikatami. Można jednak nim sprzwdzić sumę kontrolną pliku i jest domyślnie w systemie.</p>
+<p>Sprawdzenie sumy kontrolnej md5 pliku</p>
+<pre class="code literal-block">certutil -hashfile plik MD5
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami/" class="u-url">Bash - sprawdzenie czy proces jest aktywny z namniejszymi uprawnieniami</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-18T00:00:00+02:00" itemprop="datePublished" title="2020-09-18 00:00">2020-09-18 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a> Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.</p>
+<p>Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.</p>
+<p>Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach</p>
+<p>Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).</p>
+<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+
+<span class="nv">nameS</span><span class="o">=(</span>httpd java postmaster<span class="o">)</span>
+<span class="nv">licznik1</span><span class="o">=</span><span class="m">0</span>
+<span class="k">for</span> i <span class="k">in</span> <span class="si">${</span><span class="nv">nameS</span><span class="p">[@]</span><span class="si">}</span>
+<span class="k">do</span>
+    ps -C <span class="nv">$i</span> &gt;/dev/null
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> 
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$licznik1</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+            wynikP<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service Tomcat is active"</span>
+            <span class="o">((</span>licznik1++<span class="o">))</span>
+        <span class="k">elif</span> <span class="o">[</span> <span class="nv">$licznik1</span> -eq <span class="m">2</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+                        wynikP<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service PostgreSQL is active"</span>
+        <span class="k">else</span>    
+            wynikP<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service </span><span class="nv">$i</span><span class="s2"> is active"</span>
+            <span class="o">((</span>licznik1++<span class="o">))</span>
+        <span class="k">fi</span>
+    <span class="k">else</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$licznik1</span> -eq <span class="m">1</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+                        wynikF<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service Tomcat is inactive"</span>
+                        <span class="o">((</span>licznik1++<span class="o">))</span>
+                <span class="k">elif</span> <span class="o">[</span> <span class="nv">$licznik1</span> -eq <span class="m">2</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+                        wynikF<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service PostgreSQL is inactive"</span>
+                <span class="k">else</span>
+                        wynikF<span class="o">[</span><span class="nv">$licznik1</span><span class="o">]=</span><span class="s2">"Service </span><span class="nv">$i</span><span class="s2"> is inactive"</span>
+                        <span class="o">((</span>licznik1++<span class="o">))</span>
+                <span class="k">fi</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="k">if</span> <span class="o">[</span> <span class="si">${#</span><span class="nv">wynikP</span><span class="p">[@]</span><span class="si">}</span> -eq <span class="m">3</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"All services is active: </span><span class="si">${</span><span class="nv">wynikP</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="si">${</span><span class="nv">wynikF</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">exit</span> <span class="m">2</span>
+<span class="k">fi</span>
+</pre>
+<p>Aktualizacja: 20 wrzesień 2020r.</p>
+<p>Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.</p>
+<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+
+<span class="nv">nameS</span><span class="o">=(</span>upowerd gnome-shell nautilus<span class="o">)</span>
+<span class="nv">SUCCESS</span><span class="o">=</span><span class="s2">""</span>
+<span class="nv">FAILED</span><span class="o">=</span><span class="s2">""</span>
+
+<span class="k">for</span> i <span class="k">in</span> <span class="si">${</span><span class="nv">nameS</span><span class="p">[@]</span><span class="si">}</span>
+<span class="k">do</span>
+    ps -C <span class="nv">$i</span> &gt;/dev/null
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$?</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span> 
+        <span class="k">case</span> <span class="nv">$i</span> <span class="k">in</span>
+          <span class="s2">"upowerd"</span><span class="o">)</span>
+            <span class="nv">SUCCESS</span><span class="o">+=</span><span class="s2">"Service </span><span class="nv">$i</span><span class="s2"> is active "</span> <span class="p">;;</span>
+          <span class="s2">"gnome-shell"</span><span class="o">)</span>
+            <span class="nv">SUCCESS</span><span class="o">+=</span><span class="s2">"Service Gnome is active "</span> <span class="p">;;</span>
+          <span class="s2">"nautilus"</span><span class="o">)</span>
+            <span class="nv">SUCCESS</span><span class="o">+=</span><span class="s2">"Service Menadzer plikow is active"</span> <span class="p">;;</span>
+        <span class="k">esac</span>
+        <span class="k">else</span>
+          <span class="k">case</span> <span class="nv">$i</span> <span class="k">in</span>
+          <span class="s2">"upowerd"</span><span class="o">)</span>
+            <span class="nv">FAILED</span><span class="o">+=</span><span class="s2">"Service </span><span class="nv">$i</span><span class="s2"> is deactive "</span><span class="p">;;</span>
+          <span class="s2">"gnome-shell"</span><span class="o">)</span>
+            <span class="nv">FAILED</span><span class="o">+=</span><span class="s2">"Service Gnome is deactive "</span><span class="p">;;</span>
+          <span class="s2">"nautilus"</span><span class="o">)</span>
+            <span class="nv">FAILED</span><span class="o">+=</span><span class="s2">"Service Manadzer plikow is deactive"</span><span class="p">;;</span>
+        <span class="k">esac</span>
+    <span class="k">fi</span>
+<span class="k">done</span>
+
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">"</span><span class="nv">$FAILED</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$SUCCESS</span><span class="s2">"</span>
+    <span class="nb">exit</span> <span class="m">0</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$FAILED</span><span class="s2">"</span>
+    <span class="nb">exit</span> <span class="m">2</span>
+<span class="k">fi</span>
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/centos-nrpe-unable-to-read-output/" class="u-url">CentOS - NRPE: Unable to read output</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/centos-nrpe-unable-to-read-output/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-15T00:00:00+02:00" itemprop="datePublished" title="2020-09-15 00:00">2020-09-15 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:</p>
+<pre class="code literal-block">NRPE: Unable to <span class="nb">read</span> output
+</pre>
+<p>Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:</p>
+<pre class="code literal-block">/usr/lib64/nagios/plugins/
+</pre>
+<p>U mnie chodziło o skrypt perlowy check_ifutil.pl</p>
+<h6>Rozwiązanie 1:</h6>
+<p>Wykonujemy komendę:</p>
+<pre class="code literal-block">sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+</pre>
+<h6>Rozwiązanie 2:</h6>
+<p>Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:</p>
+<pre class="code literal-block">chmod +x nazwa_pliku
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-generowanie-hasla/" class="u-url">Bash - generowanie hasła</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/bash-generowanie-hasla/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-08T00:00:00+02:00" itemprop="datePublished" title="2020-09-08 00:00">2020-09-08 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a> Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej <a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/">strony</a> pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.</p>
+<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+
+<span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
+<span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'6'</span>
+
+<span class="c1">#opcja z argumentami</span>
+<span class="c1">#sumaZnakow=$1</span>
+<span class="c1">#probkiHasel=$2</span>
+
+<span class="nb">echo</span> <span class="s2">"Generowanie </span><span class="nv">$probkiHasel</span><span class="s2"> haseł. Hasło ma długość </span><span class="nv">$sumaZnakow</span><span class="s2"> znaków"</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
+ <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
+<span class="k">done</span>
+</pre>
+<p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami <code>$1, $2</code></p>
+<p>Wtedy wywołanie będzie:</p>
+<pre class="code literal-block">bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/" class="u-url">KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-05-14T00:00:00+02:00" itemprop="datePublished" title="2020-05-14 00:00">2020-05-14 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"><img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"></a> Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.</p>
+<p>Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.</p>
+<p>Najpierw identyfikujemy nasze maszyny wirtualne</p>
+<pre class="code literal-block">virsh list --all
+Id Name      State
+----------------------------
+<span class="m">1</span>  centos8-2 running
+-  centos8   shut off
+-  debian10  shut off
+-  win10     shut off
+</pre>
+<p>Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną</p>
+<pre class="code literal-block">virsh domblklist centos8-2
+
+Target  Source
+------------------------------------
+vda     /home/tk/vm/Resize.qcow2
+sda     -
+</pre>
+<p>Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:</p>
+<p>sudo qemu-img info /home/tk/vm/Resize.qcow2</p>
+<p>Niestety aby otrzymać informację musimy wyłączyć maszynę.</p>
+<p>Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.</p>
+<p>Użyjemy do tego polecenia:</p>
+<pre class="code literal-block">virsh qemu-monitor-command centos8-2 info block --hmp
+
+libvirt-2-format: /home/tk/vm/Resize.qcow2 <span class="o">(</span>qcow2<span class="o">)</span>
+    Attached to: /machine/peripheral/virtio-disk0/virtio-backend
+    Cache mode: writeback
+
+sata0-0-0: <span class="o">[</span>not inserted<span class="o">]</span> Attached to: sata0-0-0 Removable device: not locked, tray closed
+</pre>
+<p>Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:</p>
+<pre class="code literal-block">virsh domblklist centos8-2 --details
+
+Type Device Target Source
+----------------------------------------------------
+file disk   vda /home/tk/vm/Resize.qcow2
+file cdrom  sda -
+</pre>
+<p>Następnie dokonujemy rozszeżenia dysku</p>
+<pre class="code literal-block">virsh blockresize centos8-2 vda 20G
+Block device <span class="s1">'vda'</span> is resized
+</pre>
+<p>Sprawdzamy fdisk-iem czy powiększył nam się dysk</p>
+<pre class="code literal-block">fdisk -l
+</pre>
+<p>Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)</p>
+<p>Najpierw na maszynie wirtualnej instalujemy paczkę:</p>
+<p>Dla Ubuntu</p>
+<pre class="code literal-block">sudo apt install cloud-guest-utils
+</pre>
+<p>dla CentOS-a</p>
+<pre class="code literal-block">sudo yum install cloud-utils-growpart
+</pre>
+<p>Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.</p>
+<pre class="code literal-block">growpart /dev/vda <span class="m">3</span>
+</pre>
+<p>Na sam koniec wykonujemy rozszerzenie na filesytemie</p>
+<pre class="code literal-block">xfs_grows /
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-spacje-spacje-spacje/" class="u-url">BASH - spacje, spacje, spacje</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/bash-spacje-spacje-spacje/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-04-30T00:00:00+02:00" itemprop="datePublished" title="2020-04-30 00:00">2020-04-30 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></a>  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.</p>
+<p>Według tzw "świata *nixowgo" pliki/katalogi powinno się tworzyć bez spacji aby późniejsze przetwarzanie nie powodowało problemów. W swiecie windows-a nie ma to większego znaczenia i system ten "przyzwyczaił" ludzi do tworzenia nazw plików i katalogów tak jakby mieli napisać krótki esej.</p>
+<p>Aby w Linuksie obejść problem spacji możemy posłużyć się pętlą while, która przetwarza pliki/wyjśćia innych poleceń linia po lini.</p>
+<p>I tak jeśli chcemy coś zrobić z plikiem (np skopiować, przenieść w iine miejsce) możemy zastosować rozwiązanie:</p>
+<pre class="code literal-block"><span class="k">while</span> <span class="nb">read</span> p<span class="p">;</span><span class="k">do</span>
+  mv <span class="s2">"</span><span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="s2">"</span> <span class="s2">"/tmp/</span><span class="si">${</span><span class="nv">p</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">done</span> <span class="o">&lt;&lt;&lt;</span> <span class="k">$(</span>find . -mindepth <span class="m">1</span> -maxdepth <span class="m">1</span> -type f ! -name <span class="s2">".*"</span><span class="k">)</span>
+</pre>
+<p>Pętla filtruje tylko pliki i  przenosi pliki do katalogu /tmp</p>
+<p>Komenda</p>
+<pre class="code literal-block">find . -mindepth <span class="m">1</span> -maxdepth <span class="m">1</span> -type f ! -name <span class="s2">".*"</span>
+</pre>
+<p>wyszukuje tylko pliki w katalogu, którym wykonywany jest skrypt i nie bierze pod uwagę tzw plików ukrytych</p>
+<p>Nie ma znaczenia czy plik ma spację w nazwie.</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nowa-wlasna-skorka-graficzna-dla-cms-getsimple/" class="u-url">Nowa, własna skórka graficzna dla CMS GetSimple</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/nowa-wlasna-skorka-graficzna-dla-cms-getsimple/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-04-21T00:00:00+02:00" itemprop="datePublished" title="2020-04-21 00:00">2020-04-21 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Domyślne szablony graficzne oferowany przez społeczność cms-a GetSimple (jest ich 2) jest z "epoki" internetu, gdzie wujek google nie zwracał uwagi na responsywność, skalowalność itp w urządzeniach mobilnych. Od pewnego czasu monopolista google dyktuje nam jak mamy tworzyć, pisać i być może za niedługo jak się ubierać i co jeść aby być "żywym".</p>
+<p>Zlinczowany wytycznymi googla jak i znudzeniem obecnym motywem postanowiłem stworzyć swój motyw.</p>
+<p>Wytczne jakie sobie postawiłem to style musiały być oparte o jakiś lekki framework css.</p>
+<p>Wybór padł na ultra prosty framework <a href="http://getskeleton.com/">Skeleton</a>. Jest naprawdę lekki (około 400 lini kodu)</p>
+<p>Obecnie strona skaluje się dosyć dobrze na urządzeniach mobilnych.</p>
+<p>Z pewnością coś się jeszcze urodzi ale na razie pozostaję przy nowym motywie</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/czas-epoki-unix-a-konwersja/" class="u-url">Czas epoki unix-a - konwersja</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/czas-epoki-unix-a-konwersja/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-23T00:00:00+01:00" itemprop="datePublished" title="2019-11-23 00:00">2019-11-23 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=czas-epoki-unix-a-konwersja"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></a> Czas w Linuksie liczymy wg tzw epoki unix-a. Co to znaczy?</p>
+<p>Jeśli wydamy komendę w Linuksie (terminal)</p>
+<pre class="code literal-block"> date <span class="s2">"+%s"</span>
+</pre>
+<p>to otrzymamy wynik</p>
+<pre class="code literal-block"><span class="m">1574511413</span>
+</pre>
+<p>który nie jest czytelny dla człowieka. Przyzwyczajeni jesteśmy do innego schematu przedstawiania daty i czasu. Czas który widzimy pokazuje ile sekund upłyneło od daty  1970-01-01 00:00:00 UTC.</p>
+<p>Aby odczytać czas zapisany w notacji unix-owej możemy użyć komendy</p>
+<pre class="code literal-block">date -d @1574511413
+</pre>
+<p>Możemy również użyć perla</p>
+<pre class="code literal-block"><span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">'print scalar(localtime(1574511413)), "\n"'</span>
+</pre>
+<p>Z zapisem bardzo często można się spotkać w bazach danych lub logach.</p>
+<p>Jak można wykorzystać konwersję w locie?</p>
+<p>Przeglądając logi mojego pihole możemy użyć jednolinijkowca awk</p>
+<p>Najpierw wgląd jak wygląda standardowe wyjście:</p>
+<pre class="code literal-block"><span class="m">1574514699</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>POST /admin/list.php?l<span class="o">=</span>black HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">20907</span>
+<span class="m">1574514700</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>GET /admin/img/donate.gif HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">3592</span>
+<span class="m">1574514700</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>GET /admin/scripts/pi-hole/php/get.php?list<span class="o">=</span>black<span class="p">&amp;</span><span class="nv">_</span><span class="o">=</span><span class="m">1574514700224</span> HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">88</span>
+<span class="m">1574514717</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>POST /admin/scripts/pi-hole/php/sub.php HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">0</span>
+</pre>
+<p>Teraz wykonujemy polecenie:</p>
+<pre class="code literal-block"><span class="nx">awk</span> <span class="o">-</span><span class="nx">F</span><span class="s2">"|"</span>  <span class="s1">'{ $1=strftime("%F %T",$1); print }'</span> <span class="o">/</span><span class="nx">var</span><span class="o">/</span><span class="kr">log</span><span class="o">/</span><span class="nx">lighttpd</span><span class="o">/</span><span class="nx">access</span><span class="p">.</span><span class="kr">log</span>
+</pre>
+<p>Funkcja strftime nie jest dostepna w standardowym awk. Jak wykonamy polecenie pokaże nam się błąd:</p>
+<pre class="code literal-block">error: <span class="s2">"function strftime never defined"</span>
+</pre>
+<p>Musimy doinstalować gawk. Na raspberrypi zainstalowanego mam Resbiana (Debian) wykonamy więc:</p>
+<pre class="code literal-block">apt get install gawk
+</pre>
+<p>Następnie można wykonać ponownie polecenie</p>
+<pre class="code literal-block"><span class="nx">awk</span> <span class="o">-</span><span class="nx">F</span><span class="s2">"|"</span>  <span class="s1">'{ $1=strftime("%F %T",$1); print }'</span> <span class="o">/</span><span class="nx">var</span><span class="o">/</span><span class="kr">log</span><span class="o">/</span><span class="nx">lighttpd</span><span class="o">/</span><span class="nx">access</span><span class="p">.</span><span class="kr">log</span>
+</pre>
+<p>Wynik, który nam się ukaże to:</p>
+<pre class="code literal-block"><span class="m">2019</span>-11-23 <span class="m">14</span>:11:37 <span class="m">192</span>.168.80.11 GET /admin/style/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1 <span class="m">200</span> <span class="m">18028</span>
+<span class="m">2019</span>-11-23 <span class="m">14</span>:11:37 <span class="m">192</span>.168.80.11 GET /admin/img/logo.svg HTTP/1.1 <span class="m">200</span> <span class="m">1649</span>
+<span class="m">2019</span>-11-23 <span class="m">14</span>:11:39 <span class="m">192</span>.168.80.11 POST /admin/list.php?l<span class="o">=</span>black HTTP/1.1 <span class="m">200</span> <span class="m">20907</span>
+<span class="m">2019</span>-11-23 <span class="m">14</span>:11:40 <span class="m">192</span>.168.80.11 GET /admin/img/donate.gif HTTP/1.1 <span class="m">200</span> <span class="m">3592</span>
+<span class="m">2019</span>-11-23 <span class="m">14</span>:11:40 <span class="m">192</span>.168.80.11 GET /admin/scripts/pi-hole/php/get.php?list<span class="o">=</span>black<span class="p">&amp;</span><span class="nv">_</span><span class="o">=</span><span class="m">1574514700224</span> HTTP/1.1 <span class="m">200</span> <span class="m">88</span>
+<span class="m">2019</span>-11-23 <span class="m">14</span>:11:57 <span class="m">192</span>.168.80.11 POST /admin/scripts/pi-hole/php/sub.php HTTP/1.1 <span class="m">200</span> <span class="m">0</span>
+</pre>
+</div>
+                </div>
+            </article>
+</div>
+    
+        <ul class="pager postindexpager clearfix">
+<li class="next"><a href="index-5.html" rel="next">Starsze posty</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>

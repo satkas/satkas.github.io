@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Informatyka w stylu open source">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satkas Blog (stare posty, strona 3) | Satkas Blog</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="rss.xml">
+<link rel="canonical" href="https://sataks.github.io/index-3.html">
+<link rel="prev" href="index-4.html" type="text/html">
+<link rel="next" href="index-2.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+    
+        
+
+    
+        
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/przekierowanie-adresu-url-przy-pomocy-pliku-htaccess/" class="u-url">Przekierowanie adresu url przy pomocy pliku .htaccess</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/przekierowanie-adresu-url-przy-pomocy-pliku-htaccess/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-04-09T00:00:00+02:00" itemprop="datePublished" title="2018-04-09 00:00">2018-04-09 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Czasami potrzeba przekierować url naszej domeny na inny adres (np. gdy chcemy przekierowywać zaindeksowane przez google, nieaktywne pliki na poprawne)</p>
+<p>W głównym korzeniu aplikacji www (tam gdzie wskazuje zmienna DocumentRoot w VirtualHost konfiguracji domeny na serwerze Apache2) tworzymy plik .htaccess i wpisujemy do niego:</p>
+<pre class="code literal-block">Redirect <span class="m">301</span> /katalog/plik.html https://domena.tld/katalog2/plik.html
+</pre>
+<h5>Wyjaśnienie:</h5>
+<p><code>/katalog/plik.html</code> 
+(to część adresu url po nazwie domeny, który trzeba przekierować)</p>
+<p><code>https://domena.tld/katalog2/plik.html</code>
+ (nowy adres na który wskazuje przekierowanie)</p>
+<p>Czasami trzeba przekierować adres który wskazuje na katalog/kategorię na nowy adres</p>
+<p>Wtedy wpisujemy:</p>
+<pre class="code literal-block">Redirect <span class="m">301</span> /katalog/?$ https://domena.tld/katalog2/plik.html
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/30-przekierowanie-adresu-url-w-apache-virtualhost/" class="u-url">Przekierowanie adresu url w Apache VirtualHost</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/30-przekierowanie-adresu-url-w-apache-virtualhost/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-04-09T00:00:00+02:00" itemprop="datePublished" title="2018-04-09 00:00">2018-04-09 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>Przekierowanie adresu z protokołu niezaszyfrowanego na szyfrowany przy użyciu VirtualHost w Apache (Ubuntu 16.04).</p>
+    <p>Edytujemy plik, który wskazuje na konfigurację niezaszyfrowaną (port 80)</p>
+	    
+	    <pre class="literal-block">/etc/apache2/site-enabled/domena.tld.conf</pre>
+
+	    <p>i pod koniec sekcji  dodajemy</p>
+	<pre class="literal-block">RewriteEngine on
+	RewriteCond %{SERVER_NAME} =domena.tld [OR]
+	RewriteCond %{SERVER_NAME} =www.domena.tld
+	RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]</pre>
+
+	<p>lub inny sposób</p>
+	<pre class="literal-block">RewriteEngine On
+	RewriteCond %{HTTPS} !on
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}</pre>
+	<p>Zapisujemy plik i restartujemy serwer Apache</p>
+	<pre class="literal-block">systemctl restart apache2</pre>
+	<p>Taka konfiguracja pozwoli nam przekierować cały ruch na szyfrowany protokół https (port 443) jeśli w przeglądarce wpiszemy domena.tld lub www.domena.tld</p>
+    
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/ile-czasu-dziala-program/" class="u-url">Ile czasu działa program?</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/ile-czasu-dziala-program/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-04-06T00:00:00+02:00" itemprop="datePublished" title="2018-04-06 00:00">2018-04-06 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Jeśli chcemy sprawdzić jaki czas temu został uruchomiony program to można to zrobić na kilka sposobów.</p>
+<p>Pierwszy dotyczy kombinacji narzędzi pidof i ps,  a drugi kombinacji narzędzi pidof i ls.</p>
+<p><strong>Rozwiązanie 1 - kombinacja narzędzi pidof i ps</strong></p>
+<p>W shellu wpisujemy pidof firefox.</p>
+<pre class="literal-block">pidof firefox</pre>
+<p>Wyświetla się lista wszystkich pid-ów procesów firefoxa. Wybieramy o najniższej wartości po czym używamy narzędzia ps</p>
+<pre class="literal-block">ps -p TWÓJ_PID -o args,etime,lstart</pre>
+<p>&lt;h3&gt;Wyjaśnienie opcji narzędzia ps:&lt;/h3&gt;</p>
+<p>-p TWÓJ_PID (należy podać pid programu)</p>
+<p>-o args (wyświetli się scieżka do programu)</p>
+<p>-o etime (jak długo uruchomiony jest program)</p>
+<p>-o lstart (początek uruchomienia programu)</p>
+<p><strong>Rozwiązanie 2 - kombinacja narzędzia pidof i ls</strong></p>
+<p>W shellu wpisujemy pidof firefox.</p>
+<pre class="literal-block">pidof firefox</pre>
+<p>Wyświetla się lista wszystkich pid-ów procesów firefoxa. Wybieramy o najniższej wartości po czym używamy narzędzia ls</p>
+<pre class="literal-block">ls -ld /proc/twój_PID</pre>
+<p>W wyniku sprawdzamy kolumnę z datą i czasem</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/usprawnienia-dla-logowania-po-ssh/" class="u-url">Usprawnienia dla logowania po ssh</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/usprawnienia-dla-logowania-po-ssh/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-02-26T00:00:00+01:00" itemprop="datePublished" title="2018-02-26 00:00">2018-02-26 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Jeśli mamy wiele serwerów i musimy często się na nie logować to można sobie taką czynność uprościć. Pierwsza sprawa to wyłączenie logowania po haśle i logowanie przy pomocy kluczy.</p>
+<p>Druga to utworzenie pliku ~/.ssh/config i wpisanie wszystkich hostów na które będziemy się logować. Struktura takiego pliku to np:</p>
+<pre class="literal-block">Host mail
+Hostname x.x.x.x
+user jakislogin
+Port 22
+TCPKeepAlive yes</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/autoresponder-dla-kont-pocztowych/" class="u-url">Autoresponder dla kont pocztowych</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/autoresponder-dla-kont-pocztowych/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-02-18T00:00:00+01:00" itemprop="datePublished" title="2018-02-18 00:00">2018-02-18 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>W "najsurowszej" kombinacji usług pocztowych (postfix+dovecot+amavisd) dzięki którym możemy stworzyć własny system pocztowy nie ma funkcji autorespondera.</p>
+<p>Możemy szybko taką funkcję dodać do wspomnianej konfiguracji.</p>
+<p>W systemie Ubuntu instalujemy paczkę vacation.</p>
+<p>Pliki, które są istotne</p>
+<pre class="code bash"><a id="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-1" name="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-1"></a>~/.vacation.db   plik bazy tworzony podczas inicjalizacji.
+<a id="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-2" name="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-2"></a>~/.vacation.msg  plik wiadomości autorepondera
+<a id="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-3" name="rest_code_015a3960fd174a9c9e1be0dd1e6956cb-3"></a>~/.forward plik dzięki któremu przekazujemy otrzymaną pocztę <span class="k">do</span> aplikacji vacation
+</pre>
+<pre class="literal-block">~</pre>
+<p>Tylda oznacza katalog domowy użytkownika. Czyli jak konto jest <a class="reference external" href="mailto:user1@domena.net">user1@domena.net</a> to wspomniane pliki muszą znajdować się w lokalizacji (przy założeniu, że system pocztowy opiera się na zwykłych kontach systemu operacyjnego ):</p>
+<pre class="literal-block">/home/user1</pre>
+<p>Tworzymy wspomniane pliki i wypełniamy treścią:</p>
+<p>plik ~/.forward zawiera</p>
+<pre class="code bash"><a id="rest_code_1a7552a102334fcc95378e19c4f3d956-1" name="rest_code_1a7552a102334fcc95378e19c4f3d956-1"></a><span class="se">\u</span>ser1, <span class="s2">"|/usr/bin/vacation -a user1@domena.net"</span>
+</pre>
+<p>plik ~/.vacation.msg zawiera</p>
+<pre class="literal-block">MIME-Version: 1.0
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: [Autoresponder] Urlop
+
+Dziękuje za wiadomość. W dniach 19/02/2018 - 28/02/2018 jestem nieobecny w biurze. Na wszystkie wiadomości odpowiem po powrocie.</pre>
+<p>Wyjaśnienie:</p>
+<p>Pierwsze 3 linie są potrzebne po to aby w kliencie pocztowym odbiorców treść autorespondera wyświetlała polskie znaki (2 linia). Jeśli używasz tylko języka angielskiego to te 3 linie nie są wymagane. Czasami serwery pocztowe są tak skonfigurowane, że jak nie ma odpowiednich nagłówków we wiadomości to podnoszą ryzyko wystąpienia jako spam. Więc warto tworzyć właściwą kopertę wiadomości.</p>
+<p>Wystarczy teraz tylko wydać polecenie</p>
+<pre class="literal-block">vacation -i</pre>
+<p>i wszystko co przychodzi na konto pocztowe <a class="reference external" href="mailto:user1@domena.net">user1@domena.net</a> jest domyślnie raz na dobę odbijane do nadawcy treścią z pliku .vacation.msg</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/czarno-bialy-windows-10/" class="u-url">"Czarno biały" Windows 10</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/czarno-bialy-windows-10/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-02-05T00:00:00+01:00" itemprop="datePublished" title="2018-02-05 00:00">2018-02-05 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <p>Aby zmienić na "czarno biały" obszar roboczy w Windows 10 używamy skrót klawiszowy Win+Ctrl+C. Ten sam skrót odpowiada za przywrócenie kolorów.</p>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/przyciecie-sciezki-dzwiekowej/" class="u-url">Przycięcie ścieżki dźwiękowej</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/przyciecie-sciezki-dzwiekowej/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-01-08T00:00:00+01:00" itemprop="datePublished" title="2018-01-08 00:00">2018-01-08 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=przyciecie-sciezki-dzwiekowej"><img alt="'FFMPEG&quot;" src="https://satkas.waw.pl/data/uploads/images/ffmpeg.png"></a>
+</figure><p>Czasami trzeba wyciąć pewien odcinek dźwięku z określonej ścieżki dźwiękowej. Zrobimy to narzędziem ffmpeg.</p>
+<pre class="code bash"><a id="rest_code_591e08a643514db89782aeab4140aefe-1" name="rest_code_591e08a643514db89782aeab4140aefe-1"></a>fmpeg -ss <span class="m">00</span>:00:01 -t <span class="m">00</span>:01:00 -i wejsciowy-plik.mp3 wyjsciowy-plik.mp3
+</pre>
+<p>Wyjaśnienie opcji:</p>
+<p>-ss (początek wycięcia względem ścieżki dźwiękowej)</p>
+<p>-t (koniec wycięcia względem ścieżki dźwiękowej)</p>
+<p>Powstanie nowy plik z 1 - minutową ścieżką dźwiękową</p>
+<p>Strona projektu: <a class="reference external" href="https://ffmpeg.org">https://ffmpeg.org</a></p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/wyodrebnienie-sciezki-dzwiekowej-z-pliku-wideo/" class="u-url">Wyodrębnienie ścieżki dźwiękowej z pliku wideo</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/wyodrebnienie-sciezki-dzwiekowej-z-pliku-wideo/" rel="bookmark">
+            <time class="published dt-published" datetime="2018-01-08T00:00:00+01:00" itemprop="datePublished" title="2018-01-08 00:00">2018-01-08 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=wyodrebnienie-sciezki-dzwiekowej-z-pliku-wideo"><img alt="'ffmpeg'" src="https://satkas.waw.pl/data/uploads/images/ffmpeg.png"></a>
+</figure><p>Instalujemy aplikację ffmpeg (w linux Ubuntu 16.04)</p>
+<pre class="code bash"><a id="rest_code_301aa1f6a6524c1cb6468274c6dc3d34-1" name="rest_code_301aa1f6a6524c1cb6468274c6dc3d34-1"></a>sudo apt install ffmpeg
+<a id="rest_code_301aa1f6a6524c1cb6468274c6dc3d34-2" name="rest_code_301aa1f6a6524c1cb6468274c6dc3d34-2"></a>ffmpeg -i wejsciowy_plik_wideo.mkv wyjsciowy_plik_dzwiekowy.mp3
+</pre>
+<p>Format pliku wideo może być inny niż *.mkv</p>
+<p>Strona projektu: <a class="reference external" href="https://ffmpeg.org">https://ffmpeg.org</a></p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/" class="u-url">Czytanie pliku w skrypcie linia po linii</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-11-07T00:00:00+01:00" itemprop="datePublished" title="2017-11-07 00:00">2017-11-07 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=czytanie-pliku-w-skrypcie-linia-po-linii"><img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a>
+</figure><p>Bardzo często trzeba w skryptach bash czytać pliki linia po linii i coś z tymi liniami robić.
+Bash posiada dwie pętle, które się do tego zadania nadają.</p>
+<pre class="code bash"><a id="rest_code_6eb3979d07894aaa8d4be02210b0f5f1-1" name="rest_code_6eb3979d07894aaa8d4be02210b0f5f1-1"></a><span class="k">for</span> .. <span class="k">in</span> .. <span class="p">;</span><span class="k">do</span> .. <span class="k">done</span>
+</pre>
+<p>i</p>
+<pre class="code bash"><a id="rest_code_9814d2f475be4e3f85bf9ed406a10a90-1" name="rest_code_9814d2f475be4e3f85bf9ed406a10a90-1"></a><span class="k">while</span> .. <span class="p">;</span><span class="k">do</span> .. <span class="k">done</span>
+</pre>
+<p>Rozwiązanie dla pętli for</p>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-1"><code data-line-number="1"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-1" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-1"></a> <span class="nv">nIFS</span><span class="o">=</span><span class="nv">$IFS</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-2"><code data-line-number="2"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-2" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-2"></a> <span class="nv">IFS</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> -ne <span class="s2">"\n\b"</span><span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-3"><code data-line-number="3"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-3" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-3"></a>        <span class="k">for</span> i <span class="k">in</span> <span class="k">$(</span>cat plik.txt<span class="k">)</span><span class="p">;</span><span class="k">do</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-4"><code data-line-number="4"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-4" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-4"></a>                <span class="nb">echo</span> <span class="nv">$i</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-5"><code data-line-number="5"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-5" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-5"></a>        <span class="k">done</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_4264e03b59354f66b38fe1315c29cfdb-6"><code data-line-number="6"></code></a></td>
+<td class="code"><code><a id="rest_code_4264e03b59354f66b38fe1315c29cfdb-6" name="rest_code_4264e03b59354f66b38fe1315c29cfdb-6"></a> <span class="nv">IFS</span><span class="o">=</span><span class="nv">$nIFS</span>
+</code></td>
+</tr>
+</table></div>
+<p>Rozwiązanie dla pętli while</p>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_b0dc69462d9441b3b4d9613bab14c9d6-1"><code data-line-number="1"></code></a></td>
+<td class="code"><code><a id="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-1" name="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-1"></a><span class="k">while</span> <span class="nb">read</span> i<span class="p">;</span><span class="k">do</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_b0dc69462d9441b3b4d9613bab14c9d6-2"><code data-line-number="2"></code></a></td>
+<td class="code"><code><a id="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-2" name="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-2"></a>        <span class="nb">echo</span> <span class="nv">$i</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/czytanie-pliku-w-skrypcie-linia-po-linii/#rest_code_b0dc69462d9441b3b4d9613bab14c9d6-3"><code data-line-number="3"></code></a></td>
+<td class="code"><code><a id="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-3" name="rest_code_b0dc69462d9441b3b4d9613bab14c9d6-3"></a><span class="k">done</span> &lt; plik.txt
+</code></td>
+</tr>
+</table></div>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/" class="u-url">Skrypt sprawdzający kiedy wygaśnie domena</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-10-31T22:00:00+01:00" itemprop="datePublished" title="2017-10-31 22:00">2017-10-31 22:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=skrypt-sprawdzajacy-kiedy-wygasnie-domena"><img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a>
+</figure><p>Dla Debiana/Ubuntu/Minta sprawdzamy czy mamy zainstalowany whois wydając w shellu polecenie</p>
+<pre class="literal-block">[ -f '/usr/bin/whois' ] &amp;&amp; echo Zainstalowany || apt-get -y install whois</pre>
+<div class="code"><table class="codetable">
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-1"><code data-line-number=" 1"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-1" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-1"></a><span class="ch">#!/bin/bash</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-2"><code data-line-number=" 2"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-2" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-2"></a>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-3"><code data-line-number=" 3"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-3" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-3"></a><span class="nv">dzis</span><span class="o">=</span><span class="k">$(</span>date +%Y%m%d<span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-4"><code data-line-number=" 4"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-4" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-4"></a><span class="nv">whois</span><span class="o">=</span><span class="s1">'/usr/bin/whois'</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-5"><code data-line-number=" 5"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-5" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-5"></a><span class="nb">declare</span> -a <span class="nv">domeny</span><span class="o">=</span><span class="s1">'satkas.waw.pl</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-6"><code data-line-number=" 6"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-6" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-6"></a><span class="s1">        jakasinnadomena1.tld</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-7"><code data-line-number=" 7"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-7" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-7"></a><span class="s1">        jakasinnadomena2.tld'</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-8"><code data-line-number=" 8"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-8" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-8"></a>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-9"><code data-line-number=" 9"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-9" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-9"></a><span class="k">function</span> sprawdz <span class="o">{</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-10"><code data-line-number="10"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-10" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-10"></a>        <span class="nb">local</span> <span class="nv">red</span><span class="o">=</span><span class="sb">`</span>tput setaf <span class="m">1</span><span class="sb">`</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-11"><code data-line-number="11"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-11" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-11"></a>        <span class="nb">local</span> <span class="nv">reset</span><span class="o">=</span><span class="sb">`</span>tput sgr0<span class="sb">`</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-12"><code data-line-number="12"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-12" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-12"></a>        <span class="nb">local</span> <span class="nv">koncowka</span><span class="o">=</span><span class="si">${</span><span class="nv">i</span><span class="p">##*.</span><span class="si">}</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-13"><code data-line-number="13"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-13" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-13"></a>        <span class="k">if</span> <span class="o">[</span> <span class="nv">$koncowka</span> <span class="o">==</span> <span class="s2">"com"</span> <span class="o">]</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-14"><code data-line-number="14"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-14" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-14"></a>        <span class="k">then</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-15"><code data-line-number="15"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-15" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-15"></a>                <span class="nv">wynik</span><span class="o">=</span><span class="k">$(</span> whois <span class="nv">$i</span> <span class="p">|</span>grep <span class="s2">"Registry Expiry Date"</span> <span class="p">|</span>tr  -d <span class="s1">'[:blank:]'</span><span class="p">|</span>cut -d<span class="s1">':'</span> -f2<span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-16"><code data-line-number="16"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-16" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-16"></a>                <span class="nv">wynik2</span><span class="o">=</span><span class="si">${</span><span class="nv">wynik</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">10</span><span class="si">}</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-17"><code data-line-number="17"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-17" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-17"></a>                <span class="nv">wynik3</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$wynik2</span> <span class="p">|</span>tr -d <span class="s1">'-'</span><span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-18"><code data-line-number="18"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-18" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-18"></a>                <span class="nv">roznica</span><span class="o">=</span><span class="k">$((</span> <span class="o">(</span><span class="k">$(</span>date --date<span class="o">=</span><span class="nv">$wynik3</span> +%s<span class="k">)</span> <span class="o">-</span> <span class="k">$(</span>date --date<span class="o">=</span><span class="nv">$dzis</span> +%s<span class="k">)</span> <span class="o">)/(</span><span class="m">60</span><span class="o">*</span><span class="m">60</span><span class="o">*</span><span class="m">24</span><span class="o">)</span> <span class="k">))</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-19"><code data-line-number="19"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-19" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-19"></a>                <span class="o">[</span><span class="nv">$roznica</span> -lt <span class="m">30</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$red</span><span class="s2"> ALARM dla domeny </span><span class="nv">$i</span><span class="s2"> pozostało </span><span class="nv">$roznica</span><span class="s2"> dni   </span><span class="nv">$reset</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">: Pozostało </span><span class="nv">$roznica</span><span class="s2"> dni"</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-20"><code data-line-number="20"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-20" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-20"></a>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-21"><code data-line-number="21"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-21" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-21"></a>        <span class="k">elif</span> <span class="o">[</span> <span class="nv">$koncowka</span> <span class="o">==</span> <span class="s2">"pl"</span> <span class="o">]</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-22"><code data-line-number="22"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-22" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-22"></a>        <span class="k">then</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-23"><code data-line-number="23"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-23" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-23"></a>                <span class="nv">wynik</span><span class="o">=</span><span class="k">$(</span> whois <span class="nv">$i</span> <span class="p">|</span>grep <span class="s2">"renewal"</span> <span class="p">|</span>tr  -d <span class="s1">'[:blank:]'</span><span class="p">|</span>cut -d<span class="s1">':'</span> -f2<span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-24"><code data-line-number="24"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-24" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-24"></a>                <span class="nv">wynik2</span><span class="o">=</span><span class="si">${</span><span class="nv">wynik</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">10</span><span class="si">}</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-25"><code data-line-number="25"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-25" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-25"></a>                <span class="nv">wynik3</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$wynik2</span> <span class="p">|</span>tr -d <span class="s1">'.'</span><span class="k">)</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-26"><code data-line-number="26"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-26" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-26"></a>                <span class="nv">roznica</span><span class="o">=</span><span class="k">$((</span> <span class="o">(</span><span class="k">$(</span>date --date<span class="o">=</span><span class="nv">$wynik3</span> +%s<span class="k">)</span> <span class="o">-</span> <span class="k">$(</span>date --date<span class="o">=</span><span class="nv">$dzis</span> +%s<span class="k">)</span> <span class="o">)/(</span><span class="m">60</span><span class="o">*</span><span class="m">60</span><span class="o">*</span><span class="m">24</span><span class="o">)</span> <span class="k">))</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-27"><code data-line-number="27"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-27" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-27"></a>                <span class="o">[</span> <span class="nv">$roznica</span> -lt <span class="m">30</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$red</span><span class="s2"> ALARM dla domeny </span><span class="nv">$i</span><span class="s2"> pozostało </span><span class="nv">$roznica</span><span class="s2"> dni      </span><span class="nv">$reset</span><span class="s2">"</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$i</span><span class="s2">: Pozostało </span><span class="nv">$roznica</span><span class="s2"> dni"</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-28"><code data-line-number="28"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-28" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-28"></a>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-29"><code data-line-number="29"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-29" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-29"></a>        <span class="k">else</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-30"><code data-line-number="30"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-30" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-30"></a>                <span class="nb">echo</span> <span class="s2">"Posiadasz domenę która nie odpowiada masce .pl i .com"</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-31"><code data-line-number="31"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-31" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-31"></a>        <span class="k">fi</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-32"><code data-line-number="32"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-32" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-32"></a><span class="o">}</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-33"><code data-line-number="33"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-33" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-33"></a>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-34"><code data-line-number="34"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-34" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-34"></a><span class="k">for</span> i <span class="k">in</span> <span class="nv">$domeny</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-35"><code data-line-number="35"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-35" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-35"></a><span class="k">do</span>
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-36"><code data-line-number="36"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-36" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-36"></a>        sprawdz
+</code></td>
+</tr>
+<tr>
+<td class="linenos linenodiv"><a href="posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/#rest_code_ab2ad99d0bd5481eab76cd09e26ab336-37"><code data-line-number="37"></code></a></td>
+<td class="code"><code><a id="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-37" name="rest_code_ab2ad99d0bd5481eab76cd09e26ab336-37"></a><span class="k">done</span>
+</code></td>
+</tr>
+</table></div>
+<p>Pod zmienną tablicową $domeny podstawiamy własne domeny. Pamiętać należy, że główny KRD (Krajowy Rejestr Domen) nakłada limit zapytań do bazy z jednego IP (limit ten to chyba 100 zapytań na dobę)</p>
+</div>
+                </div>
+            </article>
+</div>
+    
+        <ul class="pager postindexpager clearfix">
+<li class="previous"><a href="index-4.html" rel="prev">Nowsze posty</a></li>
+            <li class="next"><a href="index-2.html" rel="next">Starsze posty</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>

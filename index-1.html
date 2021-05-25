@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Informatyka w stylu open source">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satkas Blog (stare posty, strona 1) | Satkas Blog</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="rss.xml">
+<link rel="canonical" href="https://sataks.github.io/index-1.html">
+<link rel="prev" href="index-2.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+    
+        
+
+    
+        
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/darmowy-certyfikat-od-lets-encrypt/" class="u-url">Darmowy certyfikat od Let's Encrypt</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/darmowy-certyfikat-od-lets-encrypt/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-01-12T00:00:00+01:00" itemprop="datePublished" title="2017-01-12 00:00">2017-01-12 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt.</p>
+<p>Instrukcja dotyczy systemu operacujnego Debian Wheezy i usługi serwera www (Server version: Apache/2.2.22 (Debian))</p>
+<pre class="literal-block">wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+./certbot-auto --apache
+./certbot-auto renew</pre>
+<p>Pierwsza komenda pobiera skrypt
+Następnie ustawiamy na skrypcie mozliwość uruchamiania (bit wykonalności)
+Odpalamy skrypt z argumentem --apache (to jest mój server www). Po tej operacji mamy zapewniony certyfikat na 3 miesiące.
+Ostatnia komenda odnawia nam na kolejne 3 miesiące certyfikat. Wykonujemy ją cyklicznie przed wygaśnięciem certyfikatu.</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/wyswietlenie-nasluchujacych-portow-w-windows/" class="u-url">Wyświetlenie nasłuchujących portów w Windows</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/wyswietlenie-nasluchujacych-portow-w-windows/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-01-08T00:00:00+01:00" itemprop="datePublished" title="2017-01-08 00:00">2017-01-08 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Aby zobaczyć jakie porty nasłuchują w Windows otwieramy terminal (cmd) i wpisujemy:</p>
+<pre class="literal-block">netstat -aon -p tcp | find /i "listening"</pre>
+<p>Polecenie dotyczy tylko protokołu tcp (analogicznie można zastąpić tcp frazą udp lub innym protokołem)</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/usuniecie-pustych-folderow-w-bash-u/" class="u-url">Usunięcie pustych folderów w bash-u</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/usuniecie-pustych-folderow-w-bash-u/" rel="bookmark">
+            <time class="published dt-published" datetime="2017-01-02T00:00:00+01:00" itemprop="datePublished" title="2017-01-02 00:00">2017-01-02 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=usuniecie-pustych-folderow-w-bash-u"><img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a>
+</figure><p>Czasami potrzeba usunąć puste foldery w określonej ścieżce. W bashu robi się to banalnie prosto.</p>
+<pre class="literal-block">find . -type d -empty -delete</pre>
+<p>wcześniej można sprawdzić jakie katalogi ów polecenie może nam usunąć. Zatem komenda:</p>
+<pre class="literal-block">find . -type d -empty -print</pre>
+<p>pokaże nam wszystkie puste katalogi w określonej ścieżce</p>
+<p>Kropka (.) w komendzie określa aktualny katalog. Powyższa komenda działa rekursywnie</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/podtrzymywanie-demona-przy-zyciu/" class="u-url">Podtrzymywanie "demona" przy życiu</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/podtrzymywanie-demona-przy-zyciu/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-12-17T00:00:00+01:00" itemprop="datePublished" title="2016-12-17 00:00">2016-12-17 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=podtrzmywanie-demona-przy-zyciu"><img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a>
+</figure><p>Aktualizuję firmowego Ubuntu Server z usługą ftp-a od wersji 8.04 poprzez systemową komendę do-release-upgrade. Aktualnie mam wersję 14.04. Podczas ostatniej aktualizacji do 14.04 usługa ftp zarządzana przez proftpd wywala mi się w nocy. Nie chciało mi się szukać po forach dlaczego co i po co.</p>
+<p>Mały skrypt zapuszczony w sesji screen daje pożądany efekt:</p>
+<pre class="literal-block">while true; do sleep 45;pidof proftpd;if [ $? -eq 0 ];then echo "Demon nasluchuje"; else echo "Demon wyłączony włączam go"; /etc/init.d/proftpd restart;fi;done</pre>
+<p>potem tylko Ctrl+A+D i sobie działa</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/wyszukac-i-usunac-pliki-w-linuksie/" class="u-url">Wyszukać i usunąć pliki w Linuksie</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/wyszukac-i-usunac-pliki-w-linuksie/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-12-06T00:00:00+01:00" itemprop="datePublished" title="2016-12-06 00:00">2016-12-06 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=wyszukac-i-usunac-pliki-w-linuksie"><img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a>
+</figure><p>Jak równocześnie wyszukać i przeprowadzić na tych plikach pewne działania, np. usunięcie plików?</p>
+<pre class="literal-block">find sciezka_do_katalogu -type f -name "*.jpg" -newermt 2015-01-01 ! -newermt 2016-12-05 -exec rm -f {} \;</pre>
+<p>Co robi to polecenie?</p>
+<p>Szuka pliki jpg w przedziale czasowym od 2015-01-01 do 2016-12-05 i usuwa je z systemu</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/genrowanie-plikow-w-systemie-windows-i-linux/" class="u-url">Genrowanie plików w systemie Windows i Linux</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/genrowanie-plikow-w-systemie-windows-i-linux/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-12-02T00:00:00+01:00" itemprop="datePublished" title="2016-12-02 00:00">2016-12-02 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Czasami zachodzi potrzeba wygenerowania sobie plików na potrzeby różnych testów.</p>
+<p>W Windows robię w ten sposób.</p>
+<p>Otwieram "Wiersz poleceń" i wpisuję:</p>
+<pre class="literal-block">for /L %%a in (1,1,100) do fsutil file createnew plik-%%a.txt 0</pre>
+<p>W Linuksie otwieram konsolę i wpisuję:</p>
+<pre class="literal-block">for i in `seq 1 100`;do touch plik-$i.txt;done</pre>
+<p>I pod Windowsem i pod Linuksem skrypcik wygeneruje nam 100 plików o zerowym rozmiarze</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/5-masowa-zmiana-nazwy-plikow-poprzez-dopisanie-frazy/" class="u-url">Masowa zmiana nazwy plików poprzez dopisanie frazy</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/5-masowa-zmiana-nazwy-plikow-poprzez-dopisanie-frazy/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-12-02T00:00:00+01:00" itemprop="datePublished" title="2016-12-02 00:00">2016-12-02 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Potrzebowałem zmienić nazwę plików jpg poprzez dodanie określonej frazy. Czyli mam plik1.jpg, plik2.jpg itd i musze dodać na początku frazę satkas (satkas-plik1.jpg, satkas-plik2.jpg)</p>
+<p>W windows można to zrobić w powłoce. Menu start wpisuje cmd i otwieramy "Wiersz polecenia" (taki czarny ekran ;))</p>
+<p>W otwartym oknie wpisujemy:</p>
+<p>cd ścieżka_do_katalogu_z_plikami</p>
+<p>dla upewnienia się sprawdzamy czy są pliki jpg:</p>
+<pre class="literal-block">dir *.jpg</pre>
+<p>Jeśli wszystko się zgadza wpisujemy w terminalu:</p>
+<pre class="literal-block">for %%a in (*.jpg) do ren %%a satkas-%%a</pre>
+<p>Można z tego zrobić plik .bat, który po przeciągnięciu do katalogu i kliknięciu zamieni nam pliki.</p>
+<pre class="literal-block">@echo off
+setlocal enabledelayedexpension
+set katalog=%cd%
+cd %katalog%
+for %%a in (*.jpg) do (
+        ren %%a satkas-%%a
+)</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/4-aktualizacja-roundcube/" class="u-url">Aktualizacja Roundcube</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/4-aktualizacja-roundcube/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-11-29T00:00:00+01:00" itemprop="datePublished" title="2016-11-29 00:00">2016-11-29 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=aktualizacja-roundcube"><img alt="'Roundcube'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.roundcube.png&amp;c=1"></a>
+</figure><p>Co jakiś czas należy zaktualizować roundcube.</p>
+<p>Programiści tej aplikacji zadbali aby proces ten był lekki, fajny i powabny :)</p>
+<p>Pobieramy najnowszą paczkę ze strony <a class="reference external" href="https://roundcube.net/download/">https://roundcube.net/download/</a></p>
+<p>Rozpakowujemy archiwum: tar xvf roundcubemail-1.2.3-complete.tar.gz</p>
+<p>Wchodzimy do archiwum, następnie wchodzimy do katalogu bin</p>
+<p>W katalogu tym wydajemy polecenie:</p>
+<pre class="literal-block">./instalto.sh /var/www</pre>
+<p>Skrypt potrzebuje ścieżki gdzie położona jest struktura katalogów z oryginalną instalacją roundcube. U mnie jest to /var/www</p>
+<p>Odpalamy skrypt i to wszystko</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/3-synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof/" class="u-url">Synchronizacja czasu w domenie Samba4 na Windows 10 Prof</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/3-synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-11-28T00:00:00+01:00" itemprop="datePublished" title="2016-11-28 00:00">2016-11-28 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=samba4-problem-z-polaczeniem-do-karberosa"><img alt="'Samba AD'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.samba.png&amp;c=1"></a>
+</figure><p>Domena na podstawie Samba 4 (4.5.1) na CentOS Linux release 7.2.1511 (Core)</p>
+<p>Klient: Windows 10 Prof</p>
+<p>Objawy: Brak zakładki Time Internet w Ctrl+I (Ustawienia) -&gt; Data i Czas -&gt; Dodaj zegary do różnych stref czasowych</p>
+<p>Rozwiązanie:</p>
+<p>Menu Start -&gt; cmd (jako administrator) -&gt; i wpisujemy:</p>
+<pre class="literal-block">net time /domain /set /y</pre>
+<p>Komunikat powinien być taki:</p>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof"><img alt="'Czas w konsoli cmd'" src="https://satkas.waw.pl/data/uploads/images/ntp.png"></a>
+</figure>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/samba4-problem-z-polaczeniem-do-kerberosa/" class="u-url">Samba4 - problem z połączeniem do kerberosa</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/samba4-problem-z-polaczeniem-do-kerberosa/" rel="bookmark">
+            <time class="published dt-published" datetime="2016-11-12T00:00:00+01:00" itemprop="datePublished" title="2016-11-12 00:00">2016-11-12 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<figure><a class="reference external image-reference" href="https://satkas.waw.pl/?post=samba4-problem-z-polaczeniem-do-karberosa"><img alt="'Samba AD'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.samba.png&amp;c=1"></a>
+</figure><p>Po zainstalowaniu samba4 (ze źródeł) i próbując połączyć się w Ubuntu 16.04 z usługa kerberosa przez wydanie polecenia kinit administrator dostałem komunikat:</p>
+<pre class="literal-block">root@rpi:/usr/local/samba/sbin# kinit administrator
+kinit: Cannot contact any KDC for realm 'SATKAS.LOCAL' while getting initial credentials</pre>
+<p>Wszystkie inne usługi tj: dns, samba działają dobrze.</p>
+<p><strong>Rozwiązanie:</strong></p>
+<p>Edytujemy plik /etc/nsswitch.conf i zmieniamy linię:</p>
+<pre class="literal-block">hosts:          files mdns4_minimal [NOTFOUND=return] dns</pre>
+<p>na:</p>
+<pre class="literal-block">hosts:          dns files mdns4_minimal [NOTFOUND=return]</pre>
+</div>
+                </div>
+            </article>
+</div>
+    
+        <ul class="pager postindexpager clearfix">
+<li class="previous"><a href="index-2.html" rel="prev">Nowsze posty</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>

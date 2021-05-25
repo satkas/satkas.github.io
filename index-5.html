@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Informatyka w stylu open source">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satkas Blog (stare posty, strona 5) | Satkas Blog</title>
+<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="rss.xml">
+<link rel="canonical" href="https://sataks.github.io/index-5.html">
+<link rel="prev" href="." type="text/html">
+<link rel="next" href="index-4.html" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]-->
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
+
+            <span id="blog-title">Satkas Blog</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="archive.html" class="nav-link">Archiwum</a>
+                </li>
+<li class="nav-item">
+<a href="categories/" class="nav-link">Tagi</a>
+                </li>
+<li class="nav-item">
+<a href="pages/kontakt" class="nav-link">Kontakt</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+    
+        
+
+    
+        
+    <div class="postindex">
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/kontrola-sesji-uzytkownikow-w-linuksie/" class="u-url">Kontrola sesji użytkowników w Linuksie</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/kontrola-sesji-uzytkownikow-w-linuksie/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-09T00:00:00+01:00" itemprop="datePublished" title="2019-11-09 00:00">2019-11-09 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Często słyszy się, że w terminalu/konsoli ciężko zarządza się zalogowanymi użytkownikami.</p>
+<p>To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie też znajdziemy narzędzia, które pozwalają nam sprawnie zarządzać użytkownikami.</p>
+<p>Jest kilka możliwości. Pierwsza to znajome narzędzie who</p>
+<p>Za man-em <code>who - show who is logged on</code></p>
+<p>Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:</p>
+<pre class="code literal-block">who
+
+root@raspberrypi:~# who
+     pi      pts/0       <span class="m">2019</span>-11-09 <span class="m">13</span>:54 <span class="o">(</span><span class="m">192</span>.168.80.42<span class="o">)</span>
+     user1   pts/1       <span class="m">2019</span>-11-09 <span class="m">15</span>:13 <span class="o">(</span><span class="m">192</span>.168.80.42<span class="o">)</span>
+</pre>
+<p>Jest to tylko poglądowa informacja. Aby zobaczyć trochę więcej informacji na temat sesji użytkownika wydajemy polecenie:</p>
+<pre class="code literal-block">root@raspberrypi:~# who -a
+           start systemu <span class="m">1970</span>-01-01 <span class="m">01</span>:00
+           LOGIN     tty1        <span class="m">2019</span>-11-09 <span class="m">12</span>:33              <span class="m">473</span> <span class="nv">id</span><span class="o">=</span>tty1
+           run-level <span class="m">3</span> <span class="m">2019</span>-11-09 <span class="m">12</span>:33
+           pi      - pts/0       <span class="m">2019</span>-11-09 <span class="m">13</span>:54  .          <span class="m">794</span> <span class="o">(</span><span class="m">192</span>.168.80.42<span class="o">)</span>
+           user1   + pts/1       <span class="m">2019</span>-11-09 <span class="m">15</span>:13 <span class="m">00</span>:07       <span class="m">1066</span> <span class="o">(</span><span class="m">192</span>.168.80.42<span class="o">)</span>
+</pre>
+<p>Pierwsza kolumna informuje kto jest zalogowany</p>
+<p>Druga kolumna informuje do jakiego pseudoterminala lub terminala dany użytkownik został przypisany.</p>
+<p>Trzecia kolumna informuje czas kiedy zostało to uczynione.</p>
+<p>Czwarta jaki jest PID procesu (będzie ważny jeśli będziemy niedelikatnie podziękować użytkownikowi)</p>
+<p>Piąta kolumna informuje skąd nastąpiło logowanie (może to być adres IP lub lokalny terminal czyli tty)</p>
+<p>Jeśli chcemy osunąć sesję użytkownika to wydajemy polecenie:</p>
+<pre class="code literal-block"><span class="nb">kill</span> PID czyli w moim przypadku <span class="nb">kill</span> <span class="m">1066</span>
+</pre>
+<p>polecenie who z opcją -H pokazuje ładnie nam nagłówki kolumn.</p>
+<p>Jak wiemy w systemie są nie tylko użytkownicy tzw standardowi (założeni przez administratora) ale również systemowi. Tworzeni są zazwyczaj na potrzeby konkretnych aplikacji.</p>
+<p>Aby ich wyświetlić wydajemy polecenie:</p>
+<pre class="code literal-block">who -Hl <span class="c1">##l jak lolek</span>
+</pre>
+<p>Drugim narzedziem jest komenda w. Jest bardziej bogatszą wersją w informacje ale brakuje jej jednej ważnej informacji PID procesu. Trzeba szukać jaki proces ma użytkownik pseudoerminala/terminala.</p>
+<pre class="code literal-block">ps -ef <span class="p">|</span>awk <span class="s1">'$9 ~ /pts/ { print $0 }'</span>
+</pre>
+<p>bądź</p>
+<pre class="code literal-block">ps -ef <span class="p">|</span>awk <span class="s1">'$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'</span>
+</pre>
+<p>Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.</p>
+<p>Komenda <code>loginctl -l</code> pokazuje sesje użytkowników</p>
+<p>Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:</p>
+<pre class="code literal-block">loginctl session-status id_sesji
+</pre>
+<p>Aby ubić sesję uzytkownika wydajemy polecenie:</p>
+<pre class="code literal-block">loginctl terminate-session id_sesji
+</pre>
+<p>lub</p>
+<pre class="code literal-block">loginctl kill-session id_sesji
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/" class="u-url">Wirtualizacja KVM - udostępnianie katalogu pomiedzy hostem i gościem</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-28T00:00:00+02:00" itemprop="datePublished" title="2019-09-28 00:00">2019-09-28 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Aby udostepnić katalog pomiędzy hostem (maszyna, która zarządza maszynami wirtualizacyjnymi), a gościem (maszyna wirtualna) wykonujemy:</p>
+<ul>
+<li>na hoscie zakładamy katalog</li>
+</ul>
+<pre class="code literal-block">mkdir /share
+</pre>
+<p>nadajemy uprawnienia</p>
+<pre class="code literal-block">chmod <span class="m">777</span> /share
+</pre>
+<ul>
+<li>na hoście uruchamiamy virt-manager i otwieramy szczegóły maszyny wirtualnej (ikona żarówki)</li>
+<li>na samym dole klikamy przycisk "dodaj sprzet" i wybieramy "system plików"</li>
+<li>po prawej stronie w sterowniku wybieramy Default</li>
+<li>Tryb wybieram Squash</li>
+<li>ścieżka żródłowa to ścieżka do założonego wcześniej  katalogu (/share)</li>
+<li>w ścieżce docelowej wpisujemy /shares (nazwa może być jakakolwiek)</li>
+<li>startujemy maszynę wirtualną i zakładamy katalog np: /share</li>
+<li>w systemie gościa wykonujemy montowanie:</li>
+</ul>
+<pre class="code literal-block">mount -t 9p -o <span class="nv">trans</span><span class="o">=</span>virtio,version<span class="o">=</span>9p2000.L /nazwa_nadana_w_virt-manager_w_pozycji_sciezka_docelowa /katalog_zalozony_w_systemie_goscia
+</pre>
+<p>czyli:</p>
+<pre class="code literal-block">mount -t 9p -o <span class="nv">trans</span><span class="o">=</span>virtio,version<span class="o">=</span>9p2000.L /shares /share
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-wyswietlenie-plikow-w-strukturze-podobnych-katalogow/" class="u-url">Bash - wyświetlenie plików w strukturze podobnych katalogów</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/bash-wyswietlenie-plikow-w-strukturze-podobnych-katalogow/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-21T00:00:00+02:00" itemprop="datePublished" title="2019-09-21 00:00">2019-09-21 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Wyświetlenie plików (lub wpisanie ich do pliku) w pewnej usystematyzowanej strukturze katalogów.</p>
+<p>Katalogów jest bardzo dużo ja na potrzeby przykładu utworzyłem katalog-120 do katalog-130. Praca ręczna nigdy nie zostanie wzięta pod uwagę więc trzeba zrobić automat.</p>
+<p>Musimy wyświetlić pliki z pewnego przedziału np katalog-120 do katalog-129. Rozwiązań zapewne jest nieskończenie wiele.</p>
+<ul>
+<li>Pierwsze rozwiązanie wykorzystuje printf</li>
+</ul>
+<pre class="code literal-block"><span class="nb">printf</span> <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/%s\n"</span> katalog-12<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>/*
+
+
+/home/tk/skrypty/bash/lab/katalog-120/file2-1
+/home/tk/skrypty/bash/lab/katalog-122/file2-1
+/home/tk/skrypty/bash/lab/katalog-123/plik1
+/home/tk/skrypty/bash/lab/katalog-125/plik5_1
+/home/tk/skrypty/bash/lab/katalog-126/file6-1
+</pre>
+<p>Jeśli chcielibyśmy wypisać same nazwy plików to wynik wkładamy do pętli i poddajemy pod narzędzie basename.</p>
+<pre class="code literal-block"><span class="k">for</span> i <span class="k">in</span> <span class="k">$(</span><span class="nb">printf</span> <span class="s2">"</span><span class="nv">$PWD</span><span class="s2">/%s\n"</span> katalog-12<span class="o">[</span><span class="m">0</span>-9<span class="o">]</span>/*<span class="k">)</span><span class="p">;</span><span class="k">do</span> basename <span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
+</pre>
+<ul>
+<li>Drugie rozwiązanie wykorzystuje narzędzie find (moim zdaniem bardziej uniwersalna ponieważ działa również jeśli w katalogach są podkatalogi)</li>
+</ul>
+<pre class="code literal-block">find ./katalog-12<span class="o">[</span><span class="m">0</span>-6<span class="o">]</span> -type f -exec basename <span class="o">{}</span> <span class="se">\;</span>
+
+file2-1
+file2-1
+plik1
+plik5_1
+file6-1
+</pre>
+<ul>
+<li>Trzecie rozwiązanie wykorzystuje narzędzie ls</li>
+</ul>
+<pre class="code literal-block">ls -1 katalog-12<span class="o">[</span><span class="m">0</span>-7<span class="o">]</span>/* <span class="p">|</span>tr <span class="s2">"\n"</span> <span class="s2">"\0"</span> <span class="p">|</span>xargs -0 -n <span class="m">1</span> basename
+</pre>
+<p>bądź krócej:</p>
+<pre class="code literal-block">ls katalog-12<span class="o">[</span><span class="m">0</span>-7<span class="o">]</span>/* <span class="p">|</span>xargs -n <span class="m">1</span> basename
+</pre>
+<ul>
+<li>I kolejna wariacja</li>
+</ul>
+<pre class="code literal-block"><span class="k">for</span> i <span class="k">in</span> <span class="k">$(</span>find . -print <span class="p">|</span>grep <span class="s2">"katalog-12[0-9]"</span><span class="k">)</span><span class="p">;</span><span class="k">do</span> <span class="o">[[</span> -f <span class="nv">$i</span> <span class="o">]]</span> <span class="o">&amp;&amp;</span> basename <span class="nv">$i</span><span class="p">;</span><span class="k">done</span>
+</pre>
+<ul>
+<li>Bonus w postaci kodu w perl-u</li>
+</ul>
+<pre class="code literal-block"><span class="ch">#!/usr/bin/perl</span>
+<span class="k">use</span> <span class="nn">strict</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">warnings</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">File::Basename</span><span class="p">;</span>
+
+<span class="k">my</span> <span class="nv">@files</span> <span class="o">=</span> <span class="nb">glob</span><span class="p">(</span><span class="s">'/home/tk/skrypty/bash/lab/katalog-12[0-5]/*'</span><span class="p">);</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">@files</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">print</span> <span class="n">basename</span><span class="p">(</span><span class="nv">$_</span><span class="p">),</span> <span class="s">"\n"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/certyfikat-dla-uslugi-iis/" class="u-url">Certyfikat dla usługi IIS</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/certyfikat-dla-uslugi-iis/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-07-09T00:00:00+02:00" itemprop="datePublished" title="2019-07-09 00:00">2019-07-09 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Certyfikat dla usługi IIS</p>
+<p>Opublikowano 9 lip 2019</p>
+<p>Przeprowadzamy proces generowania wniosku (możliwości są dwie)</p>
+<ul>
+<li>Generowanie wniosku na stronie podmiotu u którego kupujemy certyfikat</li>
+<li>Na własnym komputerze. Ja realizuję to narzędziem openssl</li>
+</ul>
+<p>Wysyłamy wniosek do podmiotu u którego kupujemy certyfikat</p>
+<p>Po pewnym czasie otrzymujemy prośbę o potwierdzenie, że chcemy kupić certyfikat (wiadomość pochodzi od podmiotu, który generuje certyfikat - u mnie był to RapidSSL)</p>
+<p>W końcu dostajemy certyfikat, klucz i certyfikat RootCA</p>
+<p>Teraz przystępujemy do konwersji certyfikatu z formatu .pem do .pfx</p>
+<pre class="code literal-block">openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
+</pre>
+<p>Podczas konwertowania zostaniemy poproszeni o ustanowienie hasła. Powinniśmy go teraz ustanowić.</p>
+<p>Przekonwertowany certyfikat kopiujemy na serwer Windows. Klikamy prawym przyciskiem myszy i instalujemy certyfikat. (Wybieramy Local machine, wpisujemy hasło i zaznaczamy opcję Automatically select the certificate store based on the type of certificate). Po zainstalowaniu certyfikatu wchodzimy do Internet Information Services. W panelu po lewej rozwijamy IIS-&gt;Sites-&gt;Default Web Site i klikamy aby zaznaczyć. Po prawej w panelu wybieramy Bindings..</p>
+<p>Pokaże nam się lista na jakich portach nasłuchuje usługa www. Powinno być 80 i 443 (jeśli nie ma to ją tworzymy). Zaznaczamy pozycję 443 i edytujemy. W pozycji SSL Certificate klikamy Select i wybieramy certyfikat, który zainstalowaliśmy wcześniej. Akceptujemy i certyfikat jest podmieniony.</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-pobieranie-wartosci-z-pliku-xml/" class="u-url">Bash - pobieranie wartości z pliku xml</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/bash-pobieranie-wartosci-z-pliku-xml/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-20T00:00:00+02:00" itemprop="datePublished" title="2019-06-20 00:00">2019-06-20 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.</p>
+<p>W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:</p>
+<pre class="code literal-block">sudo zypper <span class="k">in</span> xmlstarlet
+</pre>
+<p>Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml</p>
+<p>W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.</p>
+<p>Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.</p>
+<pre class="code literal-block">curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml <span class="p">|</span>xmlstarlet sel -t -m <span class="s2">"utrudnienia"</span> -m <span class="s2">"utr"</span> -v <span class="s2">"woj"</span> -n <span class="p">|</span>sort <span class="p">|</span>uniq -c <span class="p">|</span>sort -k1 -r
+</pre>
+<p>Wynik jaki dostanemy to:</p>
+<pre class="code literal-block"><span class="m">65</span> mazowieckie
+<span class="m">56</span> małopolskie
+<span class="m">36</span> kujawsko-pomorskie
+<span class="m">35</span> zachodniopomorskie
+<span class="m">30</span> śląskie
+<span class="m">28</span> wielkopolskie
+<span class="m">24</span> lubuskie
+<span class="m">22</span> warmińsko-mazurskie
+<span class="m">19</span> lubelskie
+<span class="m">17</span> podkarpackie
+<span class="m">15</span> świętokrzyskie
+<span class="m">13</span> opolskie
+<span class="m">13</span> łódzkie
+<span class="m">11</span> pomorskie
+<span class="m">11</span> podlaskie
+<span class="m">11</span> dolnośląskie
+</pre>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/serwer-www-apache-z-autoryzacja-w-active-directory/" class="u-url">Serwer www Apache z autoryzacją w Active Directory</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/serwer-www-apache-z-autoryzacja-w-active-directory/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-04-14T00:00:00+02:00" itemprop="datePublished" title="2019-04-14 00:00">2019-04-14 00:00</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p><a href="https://satkas.waw.pl/?post=serwer-www-apache-z-autoryzacja-w-active-directory"><img alt="Apache" src="https://satkas.waw.pl/data/uploads/images/httpd_logo.webp" title="Apache"></a></p>
+<h5>Laboratorium</h5>
+<ul>
+<li>Windows Server 2016 - Active Directory (SATKAS.LOCAL)</li>
+<li>Linux SUSE Standard Enterprise 15 - usługa www oparta o httpd</li>
+</ul>
+<h6>Operacje na Windows Server</h6>
+<p>Na Windows Server mamy utworzoną domenę SATKAS.LOCAL. Tworzymy grupę apache i użytkowników wedle uznania. Dodajemy użytkowników do grupy apache. Utworzyłem w grupie apache jeszcze jednego użytkownika, który odpowiedzialny będzie za powiązanie nazwy DN podczas fazy wyszukiwania. Nazwałem użytkownika Server Web (konto suse@satkas.local)</p>
+<h6>Operacje na SUSE Linux</h6>
+<p>Zainstalowany mamy serwer www httpd. Uaktywniamy moduły odpowiedzialne za autoryzację w bazie ldap. Są to: ldap i authnz_ldap</p>
+<p>Można to zrobić w yast2 (Network Services-&gt;HTTP Server). Po czym wykonujemy alt+M (wchodzimy do sekcji Moduły) i z listy wybieramy wspomniane moduły wykonując na nich alt+t (zmień status). Wychodzimy wprowadzając alt+k i alt+z</p>
+<p>Można powyższą operację wykonać bezpośrednio w pliku /etc/sysconfig/apache2 dopisując do sekcji</p>
+<pre class="code literal-block"><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
+</pre>
+<p>odpowiednie moduły ldap</p>
+<p>Teraz trzeba skonfigurować miejsce w systemie plików do którego dostęp będzie na hasło z Active Directory.</p>
+<p>Domyślnie w SUSE tzw DirectoryRoot serwera webowego znajduje się w:</p>
+<pre class="code literal-block">/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
+</pre>
+<p>Tworzymy sobie katalog</p>
+<pre class="code literal-block">mkdir /srv/www/htdoc/sec
+</pre>
+<p>Tworzymy zawartość katalogu</p>
+<pre class="code literal-block">touch /srv/www/htdoc/sec/index.html
+<span class="nb">echo</span> <span class="s2">"Strona z uwzględnieniem autoryzacji w AD"</span> &gt; /srv/www/htdoc/sec/index.html
+</pre>
+<p>Edytujemy plik /etc/apache2/default-server.conf i tworzymy nową sekcję Directory (zaraz pod aktualną sekcją Directory)</p>
+<pre class="code literal-block">&lt;Directory /srv/www/htdocs/sec&gt;
+          AuthLDAPBindDN <span class="s2">"CN=Server Web,CN=Users,DC=satkas,DC=local"</span>
+          AuthLDAPBindPassword xxxxxxx
+          AuthLDAPURL <span class="s2">"ldap://satkas.local/CN=Users,DC=satkas,DC=local?sAMAccountName?sub?(objectClass=*)"</span>
+          AuthType Basic
+          AuthName <span class="s2">"SATKAS.LOCAL Authentication"</span>
+          AuthBasicProvider ldap
+          AuthLDAPGroupAttributeIsDN on
+          Require ldap-group <span class="nv">CN</span><span class="o">=</span>apache,CN<span class="o">=</span>Users,DC<span class="o">=</span>satkas,DC<span class="o">=</span><span class="nb">local</span>
+&lt;/Directory&gt;
+</pre>
+<p>Po zapisaniu zmian wystarczy zrestartować usługę www</p>
+<pre class="code literal-block">systemctl restart apache2
+</pre>
+<p>Autoryzujemy się użytkownikami z grupy (w AD) apache</p>
+</div>
+                </div>
+            </article>
+</div>
+    
+        <ul class="pager postindexpager clearfix">
+<li class="previous"><a href="." rel="prev">Nowsze posty</a></li>
+            <li class="next"><a href="index-4.html" rel="next">Starsze posty</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
+            Contents © 2021         <a href="mailto:pomoc@satkas.waw.pl">tk</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
+    </script>
+</body>
+</html>
