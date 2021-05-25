@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o certyfikat)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/certyfikat.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Certyfikat dla usługi IIS</title><link>https://sataks.github.io/posts/certyfikat-dla-uslugi-iis/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Certyfikat dla usługi IIS&lt;/p&gt;
+&lt;p&gt;Opublikowano 9 lip 2019&lt;/p&gt;
+&lt;p&gt;Przeprowadzamy proces generowania wniosku (możliwości są dwie)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Generowanie wniosku na stronie podmiotu u którego kupujemy certyfikat&lt;/li&gt;
+&lt;li&gt;Na własnym komputerze. Ja realizuję to narzędziem openssl&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Wysyłamy wniosek do podmiotu u którego kupujemy certyfikat&lt;/p&gt;
+&lt;p&gt;Po pewnym czasie otrzymujemy prośbę o potwierdzenie, że chcemy kupić certyfikat (wiadomość pochodzi od podmiotu, który generuje certyfikat - u mnie był to RapidSSL)&lt;/p&gt;
+&lt;p&gt;W końcu dostajemy certyfikat, klucz i certyfikat RootCA&lt;/p&gt;
+&lt;p&gt;Teraz przystępujemy do konwersji certyfikatu z formatu .pem do .pfx&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
+&lt;/pre&gt;
+&lt;p&gt;Podczas konwertowania zostaniemy poproszeni o ustanowienie hasła. Powinniśmy go teraz ustanowić.&lt;/p&gt;
+&lt;p&gt;Przekonwertowany certyfikat kopiujemy na serwer Windows. Klikamy prawym przyciskiem myszy i instalujemy certyfikat. (Wybieramy Local machine, wpisujemy hasło i zaznaczamy opcję Automatically select the certificate store based on the type of certificate). Po zainstalowaniu certyfikatu wchodzimy do Internet Information Services. W panelu po lewej rozwijamy IIS-&amp;gt;Sites-&amp;gt;Default Web Site i klikamy aby zaznaczyć. Po prawej w panelu wybieramy Bindings..&lt;/p&gt;
+&lt;p&gt;Pokaże nam się lista na jakich portach nasłuchuje usługa www. Powinno być 80 i 443 (jeśli nie ma to ją tworzymy). Zaznaczamy pozycję 443 i edytujemy. W pozycji SSL Certificate klikamy Select i wybieramy certyfikat, który zainstalowaliśmy wcześniej. Akceptujemy i certyfikat jest podmieniony.&lt;/p&gt;&lt;/div&gt;</description><category>certyfikat</category><category>iis</category><category>ssl</category><category>windows</category><guid>https://sataks.github.io/posts/certyfikat-dla-uslugi-iis/</guid><pubDate>Mon, 08 Jul 2019 22:00:00 GMT</pubDate></item><item><title>Darmowy certyfikat od Let's Encrypt</title><link>https://sataks.github.io/posts/darmowy-certyfikat-od-lets-encrypt/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt.&lt;/p&gt;
+&lt;p&gt;Instrukcja dotyczy systemu operacujnego Debian Wheezy i usługi serwera www (Server version: Apache/2.2.22 (Debian))&lt;/p&gt;
+&lt;pre class="literal-block"&gt;wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+./certbot-auto --apache
+./certbot-auto renew&lt;/pre&gt;
+&lt;p&gt;Pierwsza komenda pobiera skrypt
+Następnie ustawiamy na skrypcie mozliwość uruchamiania (bit wykonalności)
+Odpalamy skrypt z argumentem --apache (to jest mój server www). Po tej operacji mamy zapewniony certyfikat na 3 miesiące.
+Ostatnia komenda odnawia nam na kolejne 3 miesiące certyfikat. Wykonujemy ją cyklicznie przed wygaśnięciem certyfikatu.&lt;/p&gt;&lt;/div&gt;</description><category>certyfikat</category><category>httpd</category><category>linux</category><guid>https://sataks.github.io/posts/darmowy-certyfikat-od-lets-encrypt/</guid><pubDate>Wed, 11 Jan 2017 23:00:00 GMT</pubDate></item></channel></rss>

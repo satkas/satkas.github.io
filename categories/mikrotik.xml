@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o mikrotik)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/mikrotik.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Zestawienie VPN klient-serwer na stałe (pptp)</title><link>https://sataks.github.io/posts/zestawienie-vpn-klient-serwer-na-stale-pptp/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;figure&gt;
+&lt;a class="reference external image-reference" href="https://satkas.waw.pl/?post=zestawienie-vpn-pptp"&gt;&lt;img alt="'Mikrotik'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.mikrotik.png&amp;amp;c=1"&gt;&lt;/a&gt;
+&lt;/figure&gt;
+&lt;p&gt;Mamy taki sobie schemat&lt;/p&gt;
+&lt;figure&gt;
+&lt;img alt="'Schemat sieci vpn'" src="https://satkas.waw.pl/data/uploads/images/schematpptp-client-server.jpg" style="width: 500px;"&gt;
+&lt;/figure&gt;
+&lt;p&gt;W biurze mamy skonfigurowany vpn (pptp) jako server. Utworzyliśmy użytkownika.&lt;/p&gt;
+&lt;p&gt;Po stronie klienta (home) na Mikrotiku klikamy w terminalu&lt;/p&gt;
+&lt;pre class="literal-block"&gt;interface pptp-client add connect-to=IP-Server user=login password=password disabled=no name=pptp-out1 profile=default-encryption&lt;/pre&gt;
+&lt;p&gt;user i password wstaw takie dane jak wpisałeś przy zakładaniu użytkowników na serwerze PPTP.&lt;/p&gt;
+&lt;p&gt;Aby sprawdzić, że urządzenia nawiązały połączenie wykonujemy po stronie klienta&lt;/p&gt;
+&lt;pre class="literal-block"&gt;interface pptp-client monitor pptp-out1 without-paging&lt;/pre&gt;
+&lt;p&gt;Powinno nam się wyświetlić coś w tym stylu&lt;/p&gt;
+&lt;pre class="literal-block"&gt;status: connected
+  uptime: 48m6s
+encoding: MPPE128 stateless
+     mtu: 1450
+     mru: 1450
+local-address: TWÓJ-IP-PRZYZNANY-PRZEZ-SERVER
+remote-address: ADRES-IP-SERVERA PPTP(PUNKT-PUNKT PPTP)&lt;/pre&gt;
+&lt;p&gt;Ważna informacja to pierwsza linia status. Powinno być connected&lt;/p&gt;
+&lt;p&gt;Teraz aby można było się komunikować potrzebujemy ustawić trasę statyczną do wewnętrznej zdalnej sieci i przez jaki interfejs ma wychodzić. Na Mikrotiku kliencie wpisujemy w terminalu&lt;/p&gt;
+&lt;pre class="literal-block"&gt;ip route add dst-address=FIRMOWA-SIEC-LAN/MASKA gateway=pptp-out1&lt;/pre&gt;
+&lt;p&gt;Ponadto potrzeba jeszcze zrobić maskaradę na interfejsie pptp-out1 dla naszej lokalnej sieci w domu&lt;/p&gt;
+&lt;p&gt;Czyli robimy na Mikrotiku kliencie&lt;/p&gt;
+&lt;pre class="literal-block"&gt;ip firewall nat add chain=srcnat action=masquerade src-address=LAN-HOME out-interface=pptp-out1&lt;/pre&gt;
+&lt;p&gt;To powinno dać nam połączenie pomiędzy siecią w domu i firmą.&lt;/p&gt;
+&lt;p&gt;Dla mnie najlepsze jest w tym to, że nie muszę konfigurować po stronie stacji roboczej żadnego vpn-a. Jak chcę się połączyć do firmy to używam narzędzi takich samych jak wewnątrz firmy.&lt;/p&gt;&lt;/div&gt;</description><category>mikrotik</category><category>pptp</category><category>sieć</category><category>vpn</category><guid>https://sataks.github.io/posts/zestawienie-vpn-klient-serwer-na-stale-pptp/</guid><pubDate>Sat, 25 Mar 2017 23:00:00 GMT</pubDate></item></channel></rss>

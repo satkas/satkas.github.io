@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o ssh)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/ssh.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Usprawnienia dla logowania po ssh</title><link>https://sataks.github.io/posts/usprawnienia-dla-logowania-po-ssh/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Jeśli mamy wiele serwerów i musimy często się na nie logować to można sobie taką czynność uprościć. Pierwsza sprawa to wyłączenie logowania po haśle i logowanie przy pomocy kluczy.&lt;/p&gt;
+&lt;p&gt;Druga to utworzenie pliku ~/.ssh/config i wpisanie wszystkich hostów na które będziemy się logować. Struktura takiego pliku to np:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;Host mail
+Hostname x.x.x.x
+user jakislogin
+Port 22
+TCPKeepAlive yes&lt;/pre&gt;&lt;/div&gt;</description><category>ssh</category><guid>https://sataks.github.io/posts/usprawnienia-dla-logowania-po-ssh/</guid><pubDate>Sun, 25 Feb 2018 23:00:00 GMT</pubDate></item></channel></rss>

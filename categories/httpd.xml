@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o httpd)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/httpd.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Serwer www Apache z autoryzacją w Active Directory</title><link>https://sataks.github.io/posts/serwer-www-apache-z-autoryzacja-w-active-directory/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=serwer-www-apache-z-autoryzacja-w-active-directory"&gt;&lt;img alt="Apache" src="https://satkas.waw.pl/data/uploads/images/httpd_logo.webp" title="Apache"&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h5&gt;Laboratorium&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Windows Server 2016 - Active Directory (SATKAS.LOCAL)&lt;/li&gt;
+&lt;li&gt;Linux SUSE Standard Enterprise 15 - usługa www oparta o httpd&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h6&gt;Operacje na Windows Server&lt;/h6&gt;
+&lt;p&gt;Na Windows Server mamy utworzoną domenę SATKAS.LOCAL. Tworzymy grupę apache i użytkowników wedle uznania. Dodajemy użytkowników do grupy apache. Utworzyłem w grupie apache jeszcze jednego użytkownika, który odpowiedzialny będzie za powiązanie nazwy DN podczas fazy wyszukiwania. Nazwałem użytkownika Server Web (konto suse@satkas.local)&lt;/p&gt;
+&lt;h6&gt;Operacje na SUSE Linux&lt;/h6&gt;
+&lt;p&gt;Zainstalowany mamy serwer www httpd. Uaktywniamy moduły odpowiedzialne za autoryzację w bazie ldap. Są to: ldap i authnz_ldap&lt;/p&gt;
+&lt;p&gt;Można to zrobić w yast2 (Network Services-&amp;gt;HTTP Server). Po czym wykonujemy alt+M (wchodzimy do sekcji Moduły) i z listy wybieramy wspomniane moduły wykonując na nich alt+t (zmień status). Wychodzimy wprowadzając alt+k i alt+z&lt;/p&gt;
+&lt;p&gt;Można powyższą operację wykonać bezpośrednio w pliku /etc/sysconfig/apache2 dopisując do sekcji&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;APACHE_MODULES&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;odpowiednie moduły ldap&lt;/p&gt;
+&lt;p&gt;Teraz trzeba skonfigurować miejsce w systemie plików do którego dostęp będzie na hasło z Active Directory.&lt;/p&gt;
+&lt;p&gt;Domyślnie w SUSE tzw DirectoryRoot serwera webowego znajduje się w:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;/srv/www/htdocs &lt;span class="o"&gt;(&lt;/span&gt;odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Tworzymy sobie katalog&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;mkdir /srv/www/htdoc/sec
+&lt;/pre&gt;
+&lt;p&gt;Tworzymy zawartość katalogu&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;touch /srv/www/htdoc/sec/index.html
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Strona z uwzględnieniem autoryzacji w AD"&lt;/span&gt; &amp;gt; /srv/www/htdoc/sec/index.html
+&lt;/pre&gt;
+&lt;p&gt;Edytujemy plik /etc/apache2/default-server.conf i tworzymy nową sekcję Directory (zaraz pod aktualną sekcją Directory)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&amp;lt;Directory /srv/www/htdocs/sec&amp;gt;
+          AuthLDAPBindDN &lt;span class="s2"&gt;"CN=Server Web,CN=Users,DC=satkas,DC=local"&lt;/span&gt;
+          AuthLDAPBindPassword xxxxxxx
+          AuthLDAPURL &lt;span class="s2"&gt;"ldap://satkas.local/CN=Users,DC=satkas,DC=local?sAMAccountName?sub?(objectClass=*)"&lt;/span&gt;
+          AuthType Basic
+          AuthName &lt;span class="s2"&gt;"SATKAS.LOCAL Authentication"&lt;/span&gt;
+          AuthBasicProvider ldap
+          AuthLDAPGroupAttributeIsDN on
+          Require ldap-group &lt;span class="nv"&gt;CN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;apache,CN&lt;span class="o"&gt;=&lt;/span&gt;Users,DC&lt;span class="o"&gt;=&lt;/span&gt;satkas,DC&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;local&lt;/span&gt;
+&amp;lt;/Directory&amp;gt;
+&lt;/pre&gt;
+&lt;p&gt;Po zapisaniu zmian wystarczy zrestartować usługę www&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;systemctl restart apache2
+&lt;/pre&gt;
+&lt;p&gt;Autoryzujemy się użytkownikami z grupy (w AD) apache&lt;/p&gt;&lt;/div&gt;</description><category>active directory</category><category>httpd</category><category>linux</category><category>suse</category><guid>https://sataks.github.io/posts/serwer-www-apache-z-autoryzacja-w-active-directory/</guid><pubDate>Sat, 13 Apr 2019 22:00:00 GMT</pubDate></item><item><title>Przekierowanie adresu url przy pomocy pliku .htaccess</title><link>https://sataks.github.io/posts/przekierowanie-adresu-url-przy-pomocy-pliku-htaccess/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami potrzeba przekierować url naszej domeny na inny adres (np. gdy chcemy przekierowywać zaindeksowane przez google, nieaktywne pliki na poprawne)&lt;/p&gt;
+&lt;p&gt;W głównym korzeniu aplikacji www (tam gdzie wskazuje zmienna DocumentRoot w VirtualHost konfiguracji domeny na serwerze Apache2) tworzymy plik .htaccess i wpisujemy do niego:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;Redirect &lt;span class="m"&gt;301&lt;/span&gt; /katalog/plik.html https://domena.tld/katalog2/plik.html
+&lt;/pre&gt;
+&lt;h5&gt;Wyjaśnienie:&lt;/h5&gt;
+&lt;p&gt;&lt;code&gt;/katalog/plik.html&lt;/code&gt; 
+(to część adresu url po nazwie domeny, który trzeba przekierować)&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://domena.tld/katalog2/plik.html&lt;/code&gt;
+ (nowy adres na który wskazuje przekierowanie)&lt;/p&gt;
+&lt;p&gt;Czasami trzeba przekierować adres który wskazuje na katalog/kategorię na nowy adres&lt;/p&gt;
+&lt;p&gt;Wtedy wpisujemy:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;Redirect &lt;span class="m"&gt;301&lt;/span&gt; /katalog/?$ https://domena.tld/katalog2/plik.html
+&lt;/pre&gt;&lt;/div&gt;</description><category>httpd</category><category>linux</category><guid>https://sataks.github.io/posts/przekierowanie-adresu-url-przy-pomocy-pliku-htaccess/</guid><pubDate>Sun, 08 Apr 2018 22:00:00 GMT</pubDate></item><item><title>Przekierowanie adresu url w Apache VirtualHost</title><link>https://sataks.github.io/posts/30-przekierowanie-adresu-url-w-apache-virtualhost/</link><dc:creator>tk</dc:creator><description>&lt;p&gt;Przekierowanie adresu z protokołu niezaszyfrowanego na szyfrowany przy użyciu VirtualHost w Apache (Ubuntu 16.04).&lt;/p&gt;
+    &lt;p&gt;Edytujemy plik, który wskazuje na konfigurację niezaszyfrowaną (port 80)&lt;/p&gt;
+	    
+	    &lt;pre class="literal-block"&gt;/etc/apache2/site-enabled/domena.tld.conf&lt;/pre&gt;
+
+	    &lt;p&gt;i pod koniec sekcji  dodajemy&lt;/p&gt;
+	&lt;pre class="literal-block"&gt;RewriteEngine on
+	RewriteCond %{SERVER_NAME} =domena.tld [OR]
+	RewriteCond %{SERVER_NAME} =www.domena.tld
+	RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]&lt;/pre&gt;
+
+	&lt;p&gt;lub inny sposób&lt;/p&gt;
+	&lt;pre class="literal-block"&gt;RewriteEngine On
+	RewriteCond %{HTTPS} !on
+	RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}&lt;/pre&gt;
+	&lt;p&gt;Zapisujemy plik i restartujemy serwer Apache&lt;/p&gt;
+	&lt;pre class="literal-block"&gt;systemctl restart apache2&lt;/pre&gt;
+	&lt;p&gt;Taka konfiguracja pozwoli nam przekierować cały ruch na szyfrowany protokół https (port 443) jeśli w przeglądarce wpiszemy domena.tld lub www.domena.tld&lt;/p&gt;
+    </description><category>httpd</category><category>linux</category><guid>https://sataks.github.io/posts/30-przekierowanie-adresu-url-w-apache-virtualhost/</guid><pubDate>Sun, 08 Apr 2018 22:00:00 GMT</pubDate></item><item><title>PHP w katalogu domowym użytkownika</title><link>https://sataks.github.io/posts/php-w-katalogu-domowym-uzytkownika/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;figure&gt;
+&lt;a class="reference external image-reference" href="https://satkas.waw.pl/?post=php-w-katalogu-domowym-uzytkownika"&gt;&lt;img alt="'PHP'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.1459870313php-logo.svg.png&amp;amp;c=1"&gt;&lt;/a&gt;
+&lt;/figure&gt;
+&lt;p&gt;Domyślnym katalogiem składowania plików html i php jest (we współczesnych dystrybucjach) /var/www/html.&lt;/p&gt;
+&lt;p&gt;W ramach testowania wolę korzystać z katalogu public_html w lokalizacji&lt;/p&gt;
+&lt;pre class="literal-block"&gt;/home/*/public_html&lt;/pre&gt;
+&lt;p&gt;Serwer www Apache posiada moduł, który nam to umożliwi.&lt;/p&gt;
+&lt;p&gt;Pomijam instalację serwera www Apache jak i modułu php dla tego serwera.&lt;/p&gt;
+&lt;p&gt;Włączamy moduł userdir&lt;/p&gt;
+&lt;pre class="literal-block"&gt;a2enmod userdir&lt;/pre&gt;
+&lt;p&gt;restartujemy serwer Apache&lt;/p&gt;
+&lt;pre class="literal-block"&gt;service apache2 restart&lt;/pre&gt;
+&lt;p&gt;W ubuntu 16.04 edytujemy plik&lt;/p&gt;
+&lt;pre class="literal-block"&gt;/etc/apache2/mods-enabled/php7.0.conf&lt;/pre&gt;
+&lt;p&gt;i komentujemy linię&lt;/p&gt;
+&lt;pre class="literal-block"&gt;#php_admin_flag engine Off&lt;/pre&gt;
+&lt;p&gt;Restartujemy usługę&lt;/p&gt;
+&lt;pre class="literal-block"&gt;service apache2 restart&lt;/pre&gt;
+&lt;p&gt;i możemy cieszyć się php-em we własnym katalogu&lt;/p&gt;
+&lt;p&gt;Dostęp przez przeglądarkę możliwy jest poprzez wpis w url&lt;/p&gt;
+&lt;pre class="literal-block"&gt;http://localhost/~TwojLogin/&lt;/pre&gt;&lt;/div&gt;</description><category>httpd</category><category>linux</category><category>php</category><guid>https://sataks.github.io/posts/php-w-katalogu-domowym-uzytkownika/</guid><pubDate>Wed, 25 Jan 2017 23:00:00 GMT</pubDate></item><item><title>Darmowy certyfikat od Let's Encrypt</title><link>https://sataks.github.io/posts/darmowy-certyfikat-od-lets-encrypt/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Aby nie płacić za certyfikat ssl można skorzystać z darmowej alternatywy od Let's Encrypt.&lt;/p&gt;
+&lt;p&gt;Instrukcja dotyczy systemu operacujnego Debian Wheezy i usługi serwera www (Server version: Apache/2.2.22 (Debian))&lt;/p&gt;
+&lt;pre class="literal-block"&gt;wget https://dl.eff.org/certbot-auto
+chmod a+x certbot-auto
+./certbot-auto --apache
+./certbot-auto renew&lt;/pre&gt;
+&lt;p&gt;Pierwsza komenda pobiera skrypt
+Następnie ustawiamy na skrypcie mozliwość uruchamiania (bit wykonalności)
+Odpalamy skrypt z argumentem --apache (to jest mój server www). Po tej operacji mamy zapewniony certyfikat na 3 miesiące.
+Ostatnia komenda odnawia nam na kolejne 3 miesiące certyfikat. Wykonujemy ją cyklicznie przed wygaśnięciem certyfikatu.&lt;/p&gt;&lt;/div&gt;</description><category>certyfikat</category><category>httpd</category><category>linux</category><guid>https://sataks.github.io/posts/darmowy-certyfikat-od-lets-encrypt/</guid><pubDate>Wed, 11 Jan 2017 23:00:00 GMT</pubDate></item></channel></rss>

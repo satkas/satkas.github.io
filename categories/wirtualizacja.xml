@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o wirtualizacja)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/wirtualizacja.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rozszerzenie partycji w wirtualnym systemie (cfdisk)</title><link>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Używam KVM-a jako wirtualizatora. Przychodzi czas kiedy trzeba rozszerzyć partycję na jednym z systemów gościa.&lt;/p&gt;
+&lt;h6&gt;Laboratorium:&lt;/h6&gt;
+&lt;p&gt;Host:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;#lsb_release -a&lt;/span&gt;
+No LSB modules are available.
+Distributor ID:    Ubuntu
+Description:    Ubuntu Hirsute Hippo &lt;span class="o"&gt;(&lt;/span&gt;development branch&lt;span class="o"&gt;)&lt;/span&gt;
+Release:    &lt;span class="m"&gt;21&lt;/span&gt;.04
+Codename:    hirsute
+&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Hypervizor&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;KVM&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libvirtd&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;libvirtd -V
+libvirtd (libvirt) 7.0.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;System Gość: Fedora 34 (beta)&lt;/p&gt;
+&lt;p&gt;System posiada jeden dysk /dev/vda (24 GB) i partycje mają LVM-a. Powiększę jedną partycję o 2 GB. System gość cały czas jest online&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Wchodzimy do konsoli i wpisujemy virsh.&lt;/li&gt;
+&lt;li&gt;Sprawdzamy jakie mamy systemy poprzez wydanie komendy list --all&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Id   Name          State
+------------------------------
+ &lt;span class="m"&gt;3&lt;/span&gt;    fedora        running
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sprawdzamy jak nazywa się dysk dla fedora. Wprowadzamy polecenie domblklist fedora&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Target   Source
+------------------------------------------------
+ vda      /var/lib/libvirt/images/fedora.qcow2
+ sda      -
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Zwiększamy dysk dla systemu Fedora. Dysk jest plikiem qcow2. Wprowadzamy polecenie blockresize fedora vda 26GB&lt;/li&gt;
+&lt;li&gt;Wychodzimy z virsh&lt;/li&gt;
+&lt;li&gt;Wchodzimy do systemu gościa fedora&lt;/li&gt;
+&lt;li&gt;Wydajemy polecenie jako użytkownik root fdisk -l i patrzymy jak nazywa się dysk widziany przez fedorę&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;#fdisk -l&lt;/span&gt;
+
+Dysk /dev/vda: &lt;span class="m"&gt;24&lt;/span&gt; GiB, bajtów: &lt;span class="m"&gt;25769803776&lt;/span&gt;, sektorów: &lt;span class="m"&gt;50331648&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;512&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;512&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Typ etykiety dysku: dos
+Identyfikator dysku: 0x2ed117a3
+
+Urządzenie Rozruch Początek   Koniec  Sektory Rozmiar Id Typ
+/dev/vda1  *           &lt;span class="m"&gt;2048&lt;/span&gt;  &lt;span class="m"&gt;2099199&lt;/span&gt;  &lt;span class="m"&gt;2097152&lt;/span&gt;      1G &lt;span class="m"&gt;83&lt;/span&gt; Linux
+/dev/vda2           &lt;span class="m"&gt;2099200&lt;/span&gt; &lt;span class="m"&gt;50331647&lt;/span&gt; &lt;span class="m"&gt;48232448&lt;/span&gt;     23G 8e Linux LVM
+
+
+Dysk /dev/mapper/fedora_fedora-root: &lt;span class="m"&gt;23&lt;/span&gt; GiB, bajtów: &lt;span class="m"&gt;24691867648&lt;/span&gt;, sektorów: &lt;span class="m"&gt;48226304&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;512&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;512&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+
+
+Dysk /dev/zram0: &lt;span class="m"&gt;1&lt;/span&gt;,93 GiB, bajtów: &lt;span class="m"&gt;2071986176&lt;/span&gt;, sektorów: &lt;span class="m"&gt;505856&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;4096&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;4096&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;4096&lt;/span&gt; / &lt;span class="m"&gt;4096&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;4096&lt;/span&gt; / &lt;span class="m"&gt;4096&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interesuje nas dysk /dev/vda2 na którym jest LVM i jest tam główny system plików&lt;/li&gt;
+&lt;li&gt;Wprowadzamy w konsoli cfdisk /dev/vda&lt;/li&gt;
+&lt;li&gt;Zaznaczamy kursorem pozycję partycji /dev/vda2 i klikamy [Zmiana rozmiaru]&lt;/li&gt;
+&lt;li&gt;Narzędzie podpowiada nam rozmiar partycji powiększony o wolną przestrzeń. Klikamy enter i Zapisz. Potwierdzamy wpisując "tak" i klikamy Zakończ&lt;/li&gt;
+&lt;li&gt;Partycja jest powiększona ale file system tego jeszcze nie widzi.&lt;/li&gt;
+&lt;li&gt;Wykonujemy polecenie pvs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00g    &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Wykonujemy partprobe /dev/vda i później pvresize /dev/vda2. Sprawdzamy co się zmieniło poprzez komendę pvs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00g &lt;span class="m"&gt;2&lt;/span&gt;,00g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Widać, że mamy dodatkowe 2 GB wolnego miejsca.&lt;/li&gt;
+&lt;li&gt;Wydajemy komendę vgs aby potwierdzić, że pojawiło się 2 GB wolnego miejsca&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;VG            &lt;span class="c1"&gt;#PV #LV #SN Attr   VSize   VFree&lt;/span&gt;
+fedora_fedora   &lt;span class="m"&gt;1&lt;/span&gt;   &lt;span class="m"&gt;1&lt;/span&gt;   &lt;span class="m"&gt;0&lt;/span&gt; wz--n- &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00g &lt;span class="m"&gt;2&lt;/span&gt;,00g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Teraz rozszerzamy nasz lvm. Polecenie lvs pokazuje listę woluminów logicznych&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;LV   VG            Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+
+root fedora_fedora -wi-ao---- &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00g
+
+&lt;span class="c1"&gt;#lvresize -r -l +100%FREE /dev/fedora_fedora/root&lt;/span&gt;
+  Size of logical volume fedora_fedora/root changed from &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00 GiB &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;5887&lt;/span&gt; extents&lt;span class="o"&gt;)&lt;/span&gt; to &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00 GiB &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;6399&lt;/span&gt; extents&lt;span class="o"&gt;)&lt;/span&gt;.
+  Logical volume fedora_fedora/root successfully resized.
+meta-data&lt;span class="o"&gt;=&lt;/span&gt;/dev/mapper/fedora_fedora-root &lt;span class="nv"&gt;isize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;    &lt;span class="nv"&gt;agcount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;7&lt;/span&gt;, &lt;span class="nv"&gt;agsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;983040&lt;/span&gt; &lt;span class="nv"&gt;blks&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;   &lt;span class="nv"&gt;attr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="nv"&gt;projid32bit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;crc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;        &lt;span class="nv"&gt;finobt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="nv"&gt;sparse&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="nv"&gt;rmapbt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;0&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;reflink&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;    &lt;span class="nv"&gt;bigtime&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="nv"&gt;data&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;6028288&lt;/span&gt;, &lt;span class="nv"&gt;imaxpct&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;25&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;      &lt;span class="nv"&gt;swidth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; blks
+&lt;span class="nv"&gt;naming&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt;version &lt;span class="m"&gt;2&lt;/span&gt;              &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   ascii-ci&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;, &lt;span class="nv"&gt;ftype&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="nv"&gt;log&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt;log wewnętrzny        &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2560&lt;/span&gt;, &lt;span class="nv"&gt;version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;   &lt;span class="nv"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; blks, lazy-count&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="nv"&gt;realtime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;brak                   &lt;span class="nv"&gt;extsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;, &lt;span class="nv"&gt;rtextents&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span class="m"&gt;6552576&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</guid><pubDate>Sat, 03 Apr 2021 22:00:00 GMT</pubDate></item><item><title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</title><link>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"&gt;&lt;img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"&gt;&lt;/a&gt; Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.&lt;/p&gt;
+&lt;p&gt;Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.&lt;/p&gt;
+&lt;p&gt;Najpierw identyfikujemy nasze maszyny wirtualne&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh list --all
+Id Name      State
+----------------------------
+&lt;span class="m"&gt;1&lt;/span&gt;  centos8-2 running
+-  centos8   shut off
+-  debian10  shut off
+-  win10     shut off
+&lt;/pre&gt;
+&lt;p&gt;Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2
+
+Target  Source
+------------------------------------
+vda     /home/tk/vm/Resize.qcow2
+sda     -
+&lt;/pre&gt;
+&lt;p&gt;Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:&lt;/p&gt;
+&lt;p&gt;sudo qemu-img info /home/tk/vm/Resize.qcow2&lt;/p&gt;
+&lt;p&gt;Niestety aby otrzymać informację musimy wyłączyć maszynę.&lt;/p&gt;
+&lt;p&gt;Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.&lt;/p&gt;
+&lt;p&gt;Użyjemy do tego polecenia:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh qemu-monitor-command centos8-2 info block --hmp
+
+libvirt-2-format: /home/tk/vm/Resize.qcow2 &lt;span class="o"&gt;(&lt;/span&gt;qcow2&lt;span class="o"&gt;)&lt;/span&gt;
+    Attached to: /machine/peripheral/virtio-disk0/virtio-backend
+    Cache mode: writeback
+
+sata0-0-0: &lt;span class="o"&gt;[&lt;/span&gt;not inserted&lt;span class="o"&gt;]&lt;/span&gt; Attached to: sata0-0-0 Removable device: not locked, tray closed
+&lt;/pre&gt;
+&lt;p&gt;Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2 --details
+
+Type Device Target Source
+----------------------------------------------------
+file disk   vda /home/tk/vm/Resize.qcow2
+file cdrom  sda -
+&lt;/pre&gt;
+&lt;p&gt;Następnie dokonujemy rozszeżenia dysku&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh blockresize centos8-2 vda 20G
+Block device &lt;span class="s1"&gt;'vda'&lt;/span&gt; is resized
+&lt;/pre&gt;
+&lt;p&gt;Sprawdzamy fdisk-iem czy powiększył nam się dysk&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;fdisk -l
+&lt;/pre&gt;
+&lt;p&gt;Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)&lt;/p&gt;
+&lt;p&gt;Najpierw na maszynie wirtualnej instalujemy paczkę:&lt;/p&gt;
+&lt;p&gt;Dla Ubuntu&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo apt install cloud-guest-utils
+&lt;/pre&gt;
+&lt;p&gt;dla CentOS-a&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo yum install cloud-utils-growpart
+&lt;/pre&gt;
+&lt;p&gt;Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;growpart /dev/vda &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Na sam koniec wykonujemy rozszerzenie na filesytemie&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;xfs_grows /
+&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>lvm</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</guid><pubDate>Wed, 13 May 2020 22:00:00 GMT</pubDate></item><item><title>Wirtualizacja KVM - udostępnianie katalogu pomiedzy hostem i gościem</title><link>https://sataks.github.io/posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Aby udostepnić katalog pomiędzy hostem (maszyna, która zarządza maszynami wirtualizacyjnymi), a gościem (maszyna wirtualna) wykonujemy:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;na hoscie zakładamy katalog&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;mkdir /share
+&lt;/pre&gt;
+&lt;p&gt;nadajemy uprawnienia&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;chmod &lt;span class="m"&gt;777&lt;/span&gt; /share
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;na hoście uruchamiamy virt-manager i otwieramy szczegóły maszyny wirtualnej (ikona żarówki)&lt;/li&gt;
+&lt;li&gt;na samym dole klikamy przycisk "dodaj sprzet" i wybieramy "system plików"&lt;/li&gt;
+&lt;li&gt;po prawej stronie w sterowniku wybieramy Default&lt;/li&gt;
+&lt;li&gt;Tryb wybieram Squash&lt;/li&gt;
+&lt;li&gt;ścieżka żródłowa to ścieżka do założonego wcześniej  katalogu (/share)&lt;/li&gt;
+&lt;li&gt;w ścieżce docelowej wpisujemy /shares (nazwa może być jakakolwiek)&lt;/li&gt;
+&lt;li&gt;startujemy maszynę wirtualną i zakładamy katalog np: /share&lt;/li&gt;
+&lt;li&gt;w systemie gościa wykonujemy montowanie:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;mount -t 9p -o &lt;span class="nv"&gt;trans&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;virtio,version&lt;span class="o"&gt;=&lt;/span&gt;9p2000.L /nazwa_nadana_w_virt-manager_w_pozycji_sciezka_docelowa /katalog_zalozony_w_systemie_goscia
+&lt;/pre&gt;
+&lt;p&gt;czyli:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;mount -t 9p -o &lt;span class="nv"&gt;trans&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;virtio,version&lt;span class="o"&gt;=&lt;/span&gt;9p2000.L /shares /share
+&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/</guid><pubDate>Fri, 27 Sep 2019 22:00:00 GMT</pubDate></item></channel></rss>

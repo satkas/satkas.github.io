@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o php)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/php.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>PHP w katalogu domowym użytkownika</title><link>https://sataks.github.io/posts/php-w-katalogu-domowym-uzytkownika/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;figure&gt;
+&lt;a class="reference external image-reference" href="https://satkas.waw.pl/?post=php-w-katalogu-domowym-uzytkownika"&gt;&lt;img alt="'PHP'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.1459870313php-logo.svg.png&amp;amp;c=1"&gt;&lt;/a&gt;
+&lt;/figure&gt;
+&lt;p&gt;Domyślnym katalogiem składowania plików html i php jest (we współczesnych dystrybucjach) /var/www/html.&lt;/p&gt;
+&lt;p&gt;W ramach testowania wolę korzystać z katalogu public_html w lokalizacji&lt;/p&gt;
+&lt;pre class="literal-block"&gt;/home/*/public_html&lt;/pre&gt;
+&lt;p&gt;Serwer www Apache posiada moduł, który nam to umożliwi.&lt;/p&gt;
+&lt;p&gt;Pomijam instalację serwera www Apache jak i modułu php dla tego serwera.&lt;/p&gt;
+&lt;p&gt;Włączamy moduł userdir&lt;/p&gt;
+&lt;pre class="literal-block"&gt;a2enmod userdir&lt;/pre&gt;
+&lt;p&gt;restartujemy serwer Apache&lt;/p&gt;
+&lt;pre class="literal-block"&gt;service apache2 restart&lt;/pre&gt;
+&lt;p&gt;W ubuntu 16.04 edytujemy plik&lt;/p&gt;
+&lt;pre class="literal-block"&gt;/etc/apache2/mods-enabled/php7.0.conf&lt;/pre&gt;
+&lt;p&gt;i komentujemy linię&lt;/p&gt;
+&lt;pre class="literal-block"&gt;#php_admin_flag engine Off&lt;/pre&gt;
+&lt;p&gt;Restartujemy usługę&lt;/p&gt;
+&lt;pre class="literal-block"&gt;service apache2 restart&lt;/pre&gt;
+&lt;p&gt;i możemy cieszyć się php-em we własnym katalogu&lt;/p&gt;
+&lt;p&gt;Dostęp przez przeglądarkę możliwy jest poprzez wpis w url&lt;/p&gt;
+&lt;pre class="literal-block"&gt;http://localhost/~TwojLogin/&lt;/pre&gt;&lt;/div&gt;</description><category>httpd</category><category>linux</category><category>php</category><guid>https://sataks.github.io/posts/php-w-katalogu-domowym-uzytkownika/</guid><pubDate>Wed, 25 Jan 2017 23:00:00 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o linux)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rozszerzenie partycji w wirtualnym systemie (cfdisk)</title><link>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Używam KVM-a jako wirtualizatora. Przychodzi czas kiedy trzeba rozszerzyć partycję na jednym z systemów gościa.&lt;/p&gt;
+&lt;h6&gt;Laboratorium:&lt;/h6&gt;
+&lt;p&gt;Host:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;#lsb_release -a&lt;/span&gt;
+No LSB modules are available.
+Distributor ID:    Ubuntu
+Description:    Ubuntu Hirsute Hippo &lt;span class="o"&gt;(&lt;/span&gt;development branch&lt;span class="o"&gt;)&lt;/span&gt;
+Release:    &lt;span class="m"&gt;21&lt;/span&gt;.04
+Codename:    hirsute
+&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;Hypervizor&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;KVM&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libvirtd&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;libvirtd -V
+libvirtd (libvirt) 7.0.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;System Gość: Fedora 34 (beta)&lt;/p&gt;
+&lt;p&gt;System posiada jeden dysk /dev/vda (24 GB) i partycje mają LVM-a. Powiększę jedną partycję o 2 GB. System gość cały czas jest online&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Wchodzimy do konsoli i wpisujemy virsh.&lt;/li&gt;
+&lt;li&gt;Sprawdzamy jakie mamy systemy poprzez wydanie komendy list --all&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Id   Name          State
+------------------------------
+ &lt;span class="m"&gt;3&lt;/span&gt;    fedora        running
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sprawdzamy jak nazywa się dysk dla fedora. Wprowadzamy polecenie domblklist fedora&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Target   Source
+------------------------------------------------
+ vda      /var/lib/libvirt/images/fedora.qcow2
+ sda      -
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Zwiększamy dysk dla systemu Fedora. Dysk jest plikiem qcow2. Wprowadzamy polecenie blockresize fedora vda 26GB&lt;/li&gt;
+&lt;li&gt;Wychodzimy z virsh&lt;/li&gt;
+&lt;li&gt;Wchodzimy do systemu gościa fedora&lt;/li&gt;
+&lt;li&gt;Wydajemy polecenie jako użytkownik root fdisk -l i patrzymy jak nazywa się dysk widziany przez fedorę&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;#fdisk -l&lt;/span&gt;
+
+Dysk /dev/vda: &lt;span class="m"&gt;24&lt;/span&gt; GiB, bajtów: &lt;span class="m"&gt;25769803776&lt;/span&gt;, sektorów: &lt;span class="m"&gt;50331648&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;512&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;512&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Typ etykiety dysku: dos
+Identyfikator dysku: 0x2ed117a3
+
+Urządzenie Rozruch Początek   Koniec  Sektory Rozmiar Id Typ
+/dev/vda1  *           &lt;span class="m"&gt;2048&lt;/span&gt;  &lt;span class="m"&gt;2099199&lt;/span&gt;  &lt;span class="m"&gt;2097152&lt;/span&gt;      1G &lt;span class="m"&gt;83&lt;/span&gt; Linux
+/dev/vda2           &lt;span class="m"&gt;2099200&lt;/span&gt; &lt;span class="m"&gt;50331647&lt;/span&gt; &lt;span class="m"&gt;48232448&lt;/span&gt;     23G 8e Linux LVM
+
+
+Dysk /dev/mapper/fedora_fedora-root: &lt;span class="m"&gt;23&lt;/span&gt; GiB, bajtów: &lt;span class="m"&gt;24691867648&lt;/span&gt;, sektorów: &lt;span class="m"&gt;48226304&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;512&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;512&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;512&lt;/span&gt; / &lt;span class="m"&gt;512&lt;/span&gt;
+
+
+Dysk /dev/zram0: &lt;span class="m"&gt;1&lt;/span&gt;,93 GiB, bajtów: &lt;span class="m"&gt;2071986176&lt;/span&gt;, sektorów: &lt;span class="m"&gt;505856&lt;/span&gt;
+Jednostki: sektorów, czyli &lt;span class="m"&gt;1&lt;/span&gt; * &lt;span class="nv"&gt;4096&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;4096&lt;/span&gt; bajtów
+Rozmiar sektora &lt;span class="o"&gt;(&lt;/span&gt;logiczny/fizyczny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;4096&lt;/span&gt; / &lt;span class="m"&gt;4096&lt;/span&gt;
+Rozmiar we/wy &lt;span class="o"&gt;(&lt;/span&gt;minimalny/optymalny&lt;span class="o"&gt;)&lt;/span&gt; w bajtach: &lt;span class="m"&gt;4096&lt;/span&gt; / &lt;span class="m"&gt;4096&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interesuje nas dysk /dev/vda2 na którym jest LVM i jest tam główny system plików&lt;/li&gt;
+&lt;li&gt;Wprowadzamy w konsoli cfdisk /dev/vda&lt;/li&gt;
+&lt;li&gt;Zaznaczamy kursorem pozycję partycji /dev/vda2 i klikamy [Zmiana rozmiaru]&lt;/li&gt;
+&lt;li&gt;Narzędzie podpowiada nam rozmiar partycji powiększony o wolną przestrzeń. Klikamy enter i Zapisz. Potwierdzamy wpisując "tak" i klikamy Zakończ&lt;/li&gt;
+&lt;li&gt;Partycja jest powiększona ale file system tego jeszcze nie widzi.&lt;/li&gt;
+&lt;li&gt;Wykonujemy polecenie pvs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00g    &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Wykonujemy partprobe /dev/vda i później pvresize /dev/vda2. Sprawdzamy co się zmieniło poprzez komendę pvs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;PV         VG            Fmt  Attr PSize   PFree
+/dev/vda2  fedora_fedora lvm2 a--  &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00g &lt;span class="m"&gt;2&lt;/span&gt;,00g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Widać, że mamy dodatkowe 2 GB wolnego miejsca.&lt;/li&gt;
+&lt;li&gt;Wydajemy komendę vgs aby potwierdzić, że pojawiło się 2 GB wolnego miejsca&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;VG            &lt;span class="c1"&gt;#PV #LV #SN Attr   VSize   VFree&lt;/span&gt;
+fedora_fedora   &lt;span class="m"&gt;1&lt;/span&gt;   &lt;span class="m"&gt;1&lt;/span&gt;   &lt;span class="m"&gt;0&lt;/span&gt; wz--n- &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00g &lt;span class="m"&gt;2&lt;/span&gt;,00g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Teraz rozszerzamy nasz lvm. Polecenie lvs pokazuje listę woluminów logicznych&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;LV   VG            Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+
+root fedora_fedora -wi-ao---- &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00g
+
+&lt;span class="c1"&gt;#lvresize -r -l +100%FREE /dev/fedora_fedora/root&lt;/span&gt;
+  Size of logical volume fedora_fedora/root changed from &amp;lt;&lt;span class="m"&gt;23&lt;/span&gt;,00 GiB &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;5887&lt;/span&gt; extents&lt;span class="o"&gt;)&lt;/span&gt; to &amp;lt;&lt;span class="m"&gt;25&lt;/span&gt;,00 GiB &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;6399&lt;/span&gt; extents&lt;span class="o"&gt;)&lt;/span&gt;.
+  Logical volume fedora_fedora/root successfully resized.
+meta-data&lt;span class="o"&gt;=&lt;/span&gt;/dev/mapper/fedora_fedora-root &lt;span class="nv"&gt;isize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;    &lt;span class="nv"&gt;agcount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;7&lt;/span&gt;, &lt;span class="nv"&gt;agsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;983040&lt;/span&gt; &lt;span class="nv"&gt;blks&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;   &lt;span class="nv"&gt;attr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;, &lt;span class="nv"&gt;projid32bit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;crc&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;        &lt;span class="nv"&gt;finobt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="nv"&gt;sparse&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;, &lt;span class="nv"&gt;rmapbt&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;0&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;reflink&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;    &lt;span class="nv"&gt;bigtime&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="nv"&gt;data&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;6028288&lt;/span&gt;, &lt;span class="nv"&gt;imaxpct&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;25&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;      &lt;span class="nv"&gt;swidth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; blks
+&lt;span class="nv"&gt;naming&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt;version &lt;span class="m"&gt;2&lt;/span&gt;              &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   ascii-ci&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;, &lt;span class="nv"&gt;ftype&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="nv"&gt;log&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt;log wewnętrzny        &lt;span class="nv"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2560&lt;/span&gt;, &lt;span class="nv"&gt;version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="nv"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;512&lt;/span&gt;   &lt;span class="nv"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; blks, lazy-count&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="nv"&gt;realtime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;brak                   &lt;span class="nv"&gt;extsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4096&lt;/span&gt;   &lt;span class="nv"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;, &lt;span class="nv"&gt;rtextents&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span class="m"&gt;6552576&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</guid><pubDate>Sat, 03 Apr 2021 22:00:00 GMT</pubDate></item><item><title>Bash - sprawdzenie czy proces jest aktywny z namniejszymi uprawnieniami</title><link>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.&lt;/p&gt;
+&lt;p&gt;Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.&lt;/p&gt;
+&lt;p&gt;Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach&lt;/p&gt;
+&lt;p&gt;Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;httpd java postmaster&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;licznik1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; i &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;do&lt;/span&gt;
+    ps -C &lt;span class="nv"&gt;$i&lt;/span&gt; &amp;gt;/dev/null
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; -eq &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt; 
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$licznik1&lt;/span&gt; -eq &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+            wynikP&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service Tomcat is active"&lt;/span&gt;
+            &lt;span class="o"&gt;((&lt;/span&gt;licznik1++&lt;span class="o"&gt;))&lt;/span&gt;
+        &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$licznik1&lt;/span&gt; -eq &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+                        wynikP&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service PostgreSQL is active"&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;    
+            wynikP&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt; is active"&lt;/span&gt;
+            &lt;span class="o"&gt;((&lt;/span&gt;licznik1++&lt;span class="o"&gt;))&lt;/span&gt;
+        &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$licznik1&lt;/span&gt; -eq &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+                        wynikF&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service Tomcat is inactive"&lt;/span&gt;
+                        &lt;span class="o"&gt;((&lt;/span&gt;licznik1++&lt;span class="o"&gt;))&lt;/span&gt;
+                &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$licznik1&lt;/span&gt; -eq &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+                        wynikF&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service PostgreSQL is inactive"&lt;/span&gt;
+                &lt;span class="k"&gt;else&lt;/span&gt;
+                        wynikF&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;$licznik1&lt;/span&gt;&lt;span class="o"&gt;]=&lt;/span&gt;&lt;span class="s2"&gt;"Service &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt; is inactive"&lt;/span&gt;
+                        &lt;span class="o"&gt;((&lt;/span&gt;licznik1++&lt;span class="o"&gt;))&lt;/span&gt;
+                &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="si"&gt;${#&lt;/span&gt;&lt;span class="nv"&gt;wynikP&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt; -eq &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"All services is active: &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;wynikP&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+    &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;wynikF&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+    &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Aktualizacja: 20 wrzesień 2020r.&lt;/p&gt;
+&lt;p&gt;Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;upowerd gnome-shell nautilus&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;
+&lt;span class="nv"&gt;FAILED&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; i &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;do&lt;/span&gt;
+    ps -C &lt;span class="nv"&gt;$i&lt;/span&gt; &amp;gt;/dev/null
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;$?&lt;/span&gt; -eq &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt; 
+        &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+          &lt;span class="s2"&gt;"upowerd"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt; is active "&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+          &lt;span class="s2"&gt;"gnome-shell"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service Gnome is active "&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+          &lt;span class="s2"&gt;"nautilus"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service Menadzer plikow is active"&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+        &lt;span class="k"&gt;esac&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;
+          &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+          &lt;span class="s2"&gt;"upowerd"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;FAILED&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service &lt;/span&gt;&lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="s2"&gt; is deactive "&lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+          &lt;span class="s2"&gt;"gnome-shell"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;FAILED&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service Gnome is deactive "&lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+          &lt;span class="s2"&gt;"nautilus"&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;FAILED&lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="s2"&gt;"Service Manadzer plikow is deactive"&lt;/span&gt;&lt;span class="p"&gt;;;&lt;/span&gt;
+        &lt;span class="k"&gt;esac&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -z &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$FAILED&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$SUCCESS&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+    &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$FAILED&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+    &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami/</guid><pubDate>Thu, 17 Sep 2020 22:00:00 GMT</pubDate></item><item><title>CentOS - NRPE: Unable to read output</title><link>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;NRPE: Unable to &lt;span class="nb"&gt;read&lt;/span&gt; output
+&lt;/pre&gt;
+&lt;p&gt;Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;/usr/lib64/nagios/plugins/
+&lt;/pre&gt;
+&lt;p&gt;U mnie chodziło o skrypt perlowy check_ifutil.pl&lt;/p&gt;
+&lt;h6&gt;Rozwiązanie 1:&lt;/h6&gt;
+&lt;p&gt;Wykonujemy komendę:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+&lt;/pre&gt;
+&lt;h6&gt;Rozwiązanie 2:&lt;/h6&gt;
+&lt;p&gt;Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;chmod +x nazwa_pliku
+&lt;/pre&gt;&lt;/div&gt;</description><category>centos</category><category>linux</category><category>nagios</category><category>nrpe</category><guid>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</guid><pubDate>Mon, 14 Sep 2020 22:00:00 GMT</pubDate></item><item><title>Bash - generowanie hasła</title><link>https://sataks.github.io/posts/bash-generowanie-hasla/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej &lt;a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/"&gt;strony&lt;/a&gt; pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+
+&lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
+&lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'6'&lt;/span&gt;
+
+&lt;span class="c1"&gt;#opcja z argumentami&lt;/span&gt;
+&lt;span class="c1"&gt;#sumaZnakow=$1&lt;/span&gt;
+&lt;span class="c1"&gt;#probkiHasel=$2&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Generowanie &lt;/span&gt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="s2"&gt; haseł. Hasło ma długość &lt;/span&gt;&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt;&lt;span class="s2"&gt; znaków"&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
+ &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
+&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami &lt;code&gt;$1, $2&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Wtedy wywołanie będzie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</title><link>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"&gt;&lt;img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"&gt;&lt;/a&gt; Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.&lt;/p&gt;
+&lt;p&gt;Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.&lt;/p&gt;
+&lt;p&gt;Najpierw identyfikujemy nasze maszyny wirtualne&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh list --all
+Id Name      State
+----------------------------
+&lt;span class="m"&gt;1&lt;/span&gt;  centos8-2 running
+-  centos8   shut off
+-  debian10  shut off
+-  win10     shut off
+&lt;/pre&gt;
+&lt;p&gt;Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2
+
+Target  Source
+------------------------------------
+vda     /home/tk/vm/Resize.qcow2
+sda     -
+&lt;/pre&gt;
+&lt;p&gt;Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:&lt;/p&gt;
+&lt;p&gt;sudo qemu-img info /home/tk/vm/Resize.qcow2&lt;/p&gt;
+&lt;p&gt;Niestety aby otrzymać informację musimy wyłączyć maszynę.&lt;/p&gt;
+&lt;p&gt;Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.&lt;/p&gt;
+&lt;p&gt;Użyjemy do tego polecenia:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh qemu-monitor-command centos8-2 info block --hmp
+
+libvirt-2-format: /home/tk/vm/Resize.qcow2 &lt;span class="o"&gt;(&lt;/span&gt;qcow2&lt;span class="o"&gt;)&lt;/span&gt;
+    Attached to: /machine/peripheral/virtio-disk0/virtio-backend
+    Cache mode: writeback
+
+sata0-0-0: &lt;span class="o"&gt;[&lt;/span&gt;not inserted&lt;span class="o"&gt;]&lt;/span&gt; Attached to: sata0-0-0 Removable device: not locked, tray closed
+&lt;/pre&gt;
+&lt;p&gt;Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2 --details
+
+Type Device Target Source
+----------------------------------------------------
+file disk   vda /home/tk/vm/Resize.qcow2
+file cdrom  sda -
+&lt;/pre&gt;
+&lt;p&gt;Następnie dokonujemy rozszeżenia dysku&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;virsh blockresize centos8-2 vda 20G
+Block device &lt;span class="s1"&gt;'vda'&lt;/span&gt; is resized
+&lt;/pre&gt;
+&lt;p&gt;Sprawdzamy fdisk-iem czy powiększył nam się dysk&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;fdisk -l
+&lt;/pre&gt;
+&lt;p&gt;Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)&lt;/p&gt;
+&lt;p&gt;Najpierw na maszynie wirtualnej instalujemy paczkę:&lt;/p&gt;
+&lt;p&gt;Dla Ubuntu&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo apt install cloud-guest-utils
+&lt;/pre&gt;
+&lt;p&gt;dla CentOS-a&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo yum install cloud-utils-growpart
+&lt;/pre&gt;
+&lt;p&gt;Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;growpart /dev/vda &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Na sam koniec wykonujemy rozszerzenie na filesytemie&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;xfs_grows /
+&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>lvm</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</guid><pubDate>Wed, 13 May 2020 22:00:00 GMT</pubDate></item><item><title>BASH - spacje, spacje, spacje</title><link>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/a&gt;  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.&lt;/p&gt;
+&lt;p&gt;Według tzw "świata *nixowgo" pliki/katalogi powinno się tworzyć bez spacji aby późniejsze przetwarzanie nie powodowało problemów. W swiecie windows-a nie ma to większego znaczenia i system ten "przyzwyczaił" ludzi do tworzenia nazw plików i katalogów tak jakby mieli napisać krótki esej.&lt;/p&gt;
+&lt;p&gt;Aby w Linuksie obejść problem spacji możemy posłużyć się pętlą while, która przetwarza pliki/wyjśćia innych poleceń linia po lini.&lt;/p&gt;
+&lt;p&gt;I tak jeśli chcemy coś zrobić z plikiem (np skopiować, przenieść w iine miejsce) możemy zastosować rozwiązanie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="nb"&gt;read&lt;/span&gt; p&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt;
+  mv &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;p&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="s2"&gt;"/tmp/&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;p&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;find . -mindepth &lt;span class="m"&gt;1&lt;/span&gt; -maxdepth &lt;span class="m"&gt;1&lt;/span&gt; -type f ! -name &lt;span class="s2"&gt;".*"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Pętla filtruje tylko pliki i  przenosi pliki do katalogu /tmp&lt;/p&gt;
+&lt;p&gt;Komenda&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;find . -mindepth &lt;span class="m"&gt;1&lt;/span&gt; -maxdepth &lt;span class="m"&gt;1&lt;/span&gt; -type f ! -name &lt;span class="s2"&gt;".*"&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;wyszukuje tylko pliki w katalogu, którym wykonywany jest skrypt i nie bierze pod uwagę tzw plików ukrytych&lt;/p&gt;
+&lt;p&gt;Nie ma znaczenia czy plik ma spację w nazwie.&lt;/p&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</guid><pubDate>Wed, 29 Apr 2020 22:00:00 GMT</pubDate></item><item><title>Kontrola sesji użytkowników w Linuksie</title><link>https://sataks.github.io/posts/kontrola-sesji-uzytkownikow-w-linuksie/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Często słyszy się, że w terminalu/konsoli ciężko zarządza się zalogowanymi użytkownikami.&lt;/p&gt;
+&lt;p&gt;To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie też znajdziemy narzędzia, które pozwalają nam sprawnie zarządzać użytkownikami.&lt;/p&gt;
+&lt;p&gt;Jest kilka możliwości. Pierwsza to znajome narzędzie who&lt;/p&gt;
+&lt;p&gt;Za man-em &lt;code&gt;who - show who is logged on&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;who
+
+root@raspberrypi:~# who
+     pi      pts/0       &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;13&lt;/span&gt;:54 &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.168.80.42&lt;span class="o"&gt;)&lt;/span&gt;
+     user1   pts/1       &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;15&lt;/span&gt;:13 &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.168.80.42&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Jest to tylko poglądowa informacja. Aby zobaczyć trochę więcej informacji na temat sesji użytkownika wydajemy polecenie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;root@raspberrypi:~# who -a
+           start systemu &lt;span class="m"&gt;1970&lt;/span&gt;-01-01 &lt;span class="m"&gt;01&lt;/span&gt;:00
+           LOGIN     tty1        &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;12&lt;/span&gt;:33              &lt;span class="m"&gt;473&lt;/span&gt; &lt;span class="nv"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;tty1
+           run-level &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;12&lt;/span&gt;:33
+           pi      - pts/0       &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;13&lt;/span&gt;:54  .          &lt;span class="m"&gt;794&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.168.80.42&lt;span class="o"&gt;)&lt;/span&gt;
+           user1   + pts/1       &lt;span class="m"&gt;2019&lt;/span&gt;-11-09 &lt;span class="m"&gt;15&lt;/span&gt;:13 &lt;span class="m"&gt;00&lt;/span&gt;:07       &lt;span class="m"&gt;1066&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.168.80.42&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Pierwsza kolumna informuje kto jest zalogowany&lt;/p&gt;
+&lt;p&gt;Druga kolumna informuje do jakiego pseudoterminala lub terminala dany użytkownik został przypisany.&lt;/p&gt;
+&lt;p&gt;Trzecia kolumna informuje czas kiedy zostało to uczynione.&lt;/p&gt;
+&lt;p&gt;Czwarta jaki jest PID procesu (będzie ważny jeśli będziemy niedelikatnie podziękować użytkownikowi)&lt;/p&gt;
+&lt;p&gt;Piąta kolumna informuje skąd nastąpiło logowanie (może to być adres IP lub lokalny terminal czyli tty)&lt;/p&gt;
+&lt;p&gt;Jeśli chcemy osunąć sesję użytkownika to wydajemy polecenie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nb"&gt;kill&lt;/span&gt; PID czyli w moim przypadku &lt;span class="nb"&gt;kill&lt;/span&gt; &lt;span class="m"&gt;1066&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;polecenie who z opcją -H pokazuje ładnie nam nagłówki kolumn.&lt;/p&gt;
+&lt;p&gt;Jak wiemy w systemie są nie tylko użytkownicy tzw standardowi (założeni przez administratora) ale również systemowi. Tworzeni są zazwyczaj na potrzeby konkretnych aplikacji.&lt;/p&gt;
+&lt;p&gt;Aby ich wyświetlić wydajemy polecenie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;who -Hl &lt;span class="c1"&gt;##l jak lolek&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Drugim narzedziem jest komenda w. Jest bardziej bogatszą wersją w informacje ale brakuje jej jednej ważnej informacji PID procesu. Trzeba szukać jaki proces ma użytkownik pseudoerminala/terminala.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;ps -ef &lt;span class="p"&gt;|&lt;/span&gt;awk &lt;span class="s1"&gt;'$9 ~ /pts/ { print $0 }'&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;bądź&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;ps -ef &lt;span class="p"&gt;|&lt;/span&gt;awk &lt;span class="s1"&gt;'$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.&lt;/p&gt;
+&lt;p&gt;Komenda &lt;code&gt;loginctl -l&lt;/code&gt; pokazuje sesje użytkowników&lt;/p&gt;
+&lt;p&gt;Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;loginctl session-status id_sesji
+&lt;/pre&gt;
+&lt;p&gt;Aby ubić sesję uzytkownika wydajemy polecenie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;loginctl terminate-session id_sesji
+&lt;/pre&gt;
+&lt;p&gt;lub&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;loginctl kill-session id_sesji
+&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/kontrola-sesji-uzytkownikow-w-linuksie/</guid><pubDate>Fri, 08 Nov 2019 23:00:00 GMT</pubDate></item><item><title>Wirtualizacja KVM - udostępnianie katalogu pomiedzy hostem i gościem</title><link>https://sataks.github.io/posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Aby udostepnić katalog pomiędzy hostem (maszyna, która zarządza maszynami wirtualizacyjnymi), a gościem (maszyna wirtualna) wykonujemy:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;na hoscie zakładamy katalog&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;mkdir /share
+&lt;/pre&gt;
+&lt;p&gt;nadajemy uprawnienia&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;chmod &lt;span class="m"&gt;777&lt;/span&gt; /share
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;na hoście uruchamiamy virt-manager i otwieramy szczegóły maszyny wirtualnej (ikona żarówki)&lt;/li&gt;
+&lt;li&gt;na samym dole klikamy przycisk "dodaj sprzet" i wybieramy "system plików"&lt;/li&gt;
+&lt;li&gt;po prawej stronie w sterowniku wybieramy Default&lt;/li&gt;
+&lt;li&gt;Tryb wybieram Squash&lt;/li&gt;
+&lt;li&gt;ścieżka żródłowa to ścieżka do założonego wcześniej  katalogu (/share)&lt;/li&gt;
+&lt;li&gt;w ścieżce docelowej wpisujemy /shares (nazwa może być jakakolwiek)&lt;/li&gt;
+&lt;li&gt;startujemy maszynę wirtualną i zakładamy katalog np: /share&lt;/li&gt;
+&lt;li&gt;w systemie gościa wykonujemy montowanie:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;mount -t 9p -o &lt;span class="nv"&gt;trans&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;virtio,version&lt;span class="o"&gt;=&lt;/span&gt;9p2000.L /nazwa_nadana_w_virt-manager_w_pozycji_sciezka_docelowa /katalog_zalozony_w_systemie_goscia
+&lt;/pre&gt;
+&lt;p&gt;czyli:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;mount -t 9p -o &lt;span class="nv"&gt;trans&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;virtio,version&lt;span class="o"&gt;=&lt;/span&gt;9p2000.L /shares /share
+&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/wirtualizacja-kvm-udostepnianie-katalogu-pomiedzy-hostem-i-gosciem/</guid><pubDate>Fri, 27 Sep 2019 22:00:00 GMT</pubDate></item><item><title>Bash - wyświetlenie plików w strukturze podobnych katalogów</title><link>https://sataks.github.io/posts/bash-wyswietlenie-plikow-w-strukturze-podobnych-katalogow/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Wyświetlenie plików (lub wpisanie ich do pliku) w pewnej usystematyzowanej strukturze katalogów.&lt;/p&gt;
+&lt;p&gt;Katalogów jest bardzo dużo ja na potrzeby przykładu utworzyłem katalog-120 do katalog-130. Praca ręczna nigdy nie zostanie wzięta pod uwagę więc trzeba zrobić automat.&lt;/p&gt;
+&lt;p&gt;Musimy wyświetlić pliki z pewnego przedziału np katalog-120 do katalog-129. Rozwiązań zapewne jest nieskończenie wiele.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Pierwsze rozwiązanie wykorzystuje printf&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nb"&gt;printf&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$PWD&lt;/span&gt;&lt;span class="s2"&gt;/%s\n"&lt;/span&gt; katalog-12&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;-9&lt;span class="o"&gt;]&lt;/span&gt;/*
+
+
+/home/tk/skrypty/bash/lab/katalog-120/file2-1
+/home/tk/skrypty/bash/lab/katalog-122/file2-1
+/home/tk/skrypty/bash/lab/katalog-123/plik1
+/home/tk/skrypty/bash/lab/katalog-125/plik5_1
+/home/tk/skrypty/bash/lab/katalog-126/file6-1
+&lt;/pre&gt;
+&lt;p&gt;Jeśli chcielibyśmy wypisać same nazwy plików to wynik wkładamy do pętli i poddajemy pod narzędzie basename.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;for&lt;/span&gt; i &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;printf&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$PWD&lt;/span&gt;&lt;span class="s2"&gt;/%s\n"&lt;/span&gt; katalog-12&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;-9&lt;span class="o"&gt;]&lt;/span&gt;/*&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt; basename &lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Drugie rozwiązanie wykorzystuje narzędzie find (moim zdaniem bardziej uniwersalna ponieważ działa również jeśli w katalogach są podkatalogi)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;find ./katalog-12&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;-6&lt;span class="o"&gt;]&lt;/span&gt; -type f -exec basename &lt;span class="o"&gt;{}&lt;/span&gt; &lt;span class="se"&gt;\;&lt;/span&gt;
+
+file2-1
+file2-1
+plik1
+plik5_1
+file6-1
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Trzecie rozwiązanie wykorzystuje narzędzie ls&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;ls -1 katalog-12&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;-7&lt;span class="o"&gt;]&lt;/span&gt;/* &lt;span class="p"&gt;|&lt;/span&gt;tr &lt;span class="s2"&gt;"\n"&lt;/span&gt; &lt;span class="s2"&gt;"\0"&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;xargs -0 -n &lt;span class="m"&gt;1&lt;/span&gt; basename
+&lt;/pre&gt;
+&lt;p&gt;bądź krócej:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;ls katalog-12&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;-7&lt;span class="o"&gt;]&lt;/span&gt;/* &lt;span class="p"&gt;|&lt;/span&gt;xargs -n &lt;span class="m"&gt;1&lt;/span&gt; basename
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;I kolejna wariacja&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="k"&gt;for&lt;/span&gt; i &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;find . -print &lt;span class="p"&gt;|&lt;/span&gt;grep &lt;span class="s2"&gt;"katalog-12[0-9]"&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;[[&lt;/span&gt; -f &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="o"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; basename &lt;span class="nv"&gt;$i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="k"&gt;done&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Bonus w postaci kodu w perl-u&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/perl&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;strict&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;warnings&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;File::Basename&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;@files&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'/home/tk/skrypty/bash/lab/katalog-12[0-5]/*'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;@files&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="n"&gt;basename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nv"&gt;$_&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s"&gt;"\n"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-wyswietlenie-plikow-w-strukturze-podobnych-katalogow/</guid><pubDate>Fri, 20 Sep 2019 22:00:00 GMT</pubDate></item><item><title>Bash - pobieranie wartości z pliku xml</title><link>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.&lt;/p&gt;
+&lt;p&gt;W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo zypper &lt;span class="k"&gt;in&lt;/span&gt; xmlstarlet
+&lt;/pre&gt;
+&lt;p&gt;Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml&lt;/p&gt;
+&lt;p&gt;W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.&lt;/p&gt;
+&lt;p&gt;Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml &lt;span class="p"&gt;|&lt;/span&gt;xmlstarlet sel -t -m &lt;span class="s2"&gt;"utrudnienia"&lt;/span&gt; -m &lt;span class="s2"&gt;"utr"&lt;/span&gt; -v &lt;span class="s2"&gt;"woj"&lt;/span&gt; -n &lt;span class="p"&gt;|&lt;/span&gt;sort &lt;span class="p"&gt;|&lt;/span&gt;uniq -c &lt;span class="p"&gt;|&lt;/span&gt;sort -k1 -r
+&lt;/pre&gt;
+&lt;p&gt;Wynik jaki dostanemy to:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="m"&gt;65&lt;/span&gt; mazowieckie
+&lt;span class="m"&gt;56&lt;/span&gt; małopolskie
+&lt;span class="m"&gt;36&lt;/span&gt; kujawsko-pomorskie
+&lt;span class="m"&gt;35&lt;/span&gt; zachodniopomorskie
+&lt;span class="m"&gt;30&lt;/span&gt; śląskie
+&lt;span class="m"&gt;28&lt;/span&gt; wielkopolskie
+&lt;span class="m"&gt;24&lt;/span&gt; lubuskie
+&lt;span class="m"&gt;22&lt;/span&gt; warmińsko-mazurskie
+&lt;span class="m"&gt;19&lt;/span&gt; lubelskie
+&lt;span class="m"&gt;17&lt;/span&gt; podkarpackie
+&lt;span class="m"&gt;15&lt;/span&gt; świętokrzyskie
+&lt;span class="m"&gt;13&lt;/span&gt; opolskie
+&lt;span class="m"&gt;13&lt;/span&gt; łódzkie
+&lt;span class="m"&gt;11&lt;/span&gt; pomorskie
+&lt;span class="m"&gt;11&lt;/span&gt; podlaskie
+&lt;span class="m"&gt;11&lt;/span&gt; dolnośląskie
+&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>xml</category><guid>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</guid><pubDate>Wed, 19 Jun 2019 22:00:00 GMT</pubDate></item></channel></rss>

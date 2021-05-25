@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o nrpe)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/nrpe.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>CentOS - NRPE: Unable to read output</title><link>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;NRPE: Unable to &lt;span class="nb"&gt;read&lt;/span&gt; output
+&lt;/pre&gt;
+&lt;p&gt;Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;/usr/lib64/nagios/plugins/
+&lt;/pre&gt;
+&lt;p&gt;U mnie chodziło o skrypt perlowy check_ifutil.pl&lt;/p&gt;
+&lt;h6&gt;Rozwiązanie 1:&lt;/h6&gt;
+&lt;p&gt;Wykonujemy komendę:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+&lt;/pre&gt;
+&lt;h6&gt;Rozwiązanie 2:&lt;/h6&gt;
+&lt;p&gt;Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;chmod +x nazwa_pliku
+&lt;/pre&gt;&lt;/div&gt;</description><category>centos</category><category>linux</category><category>nagios</category><category>nrpe</category><guid>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</guid><pubDate>Mon, 14 Sep 2020 22:00:00 GMT</pubDate></item></channel></rss>

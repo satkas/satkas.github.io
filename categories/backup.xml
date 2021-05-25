@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o backup)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/backup.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Centralny backup danych przy użyciu Burp</title><link>https://sataks.github.io/posts/centralny-backup-danych-przy-uzyciu-burp/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://burp.grke.org/"&gt;Strona projektu Burp backup&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;OS serwera: Linux Mint 19.1 (na podstawie Ubuntu 18.04).
+Klient (dla przykładu ten sam host co serwer).
+Każdy nowy klient tworzony jest analogicznie jak pierwszy na tym samym hoście. Trzeba tylko określić poprawny adres IP serwera.&lt;/p&gt;
+&lt;p&gt;Instalujemy aplikację na serwerze:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;sudo apt install burp
+&lt;/pre&gt;
+&lt;p&gt;Lokalizacja plików konfiguracyjnych to:&lt;/p&gt;
+&lt;p&gt;/etc/burp/burp-server.conf (plik konfiguracyjny serwera)&lt;/p&gt;
+&lt;p&gt;/etc/burp/burp.conf (plik konfiguracyjny klienta)&lt;/p&gt;
+&lt;p&gt;/etc/default/burp (dodatkowy plik umożliwoający start serwera - wystapuje on tylko w debianopochodnych)&lt;/p&gt;
+&lt;p&gt;Najpierw w pliku /etc/default/burp zmieniamy opcję:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;RUN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;no
+na
+&lt;span class="nv"&gt;RUN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;yes
+&lt;/pre&gt;
+&lt;p&gt;Idea pracy z aplikacją burp oparta jest na certyfikatach SSL. Przy starcie serwera aplikacja sama automatycznie wystawia certyfikat dla serwera. Domyślnie aplikacja ustawia nazwę CA na burpCA (będzie nam to potrzebne do wystawiania certyfikatów dla klientów)&lt;/p&gt;
+&lt;p&gt;W pliku konfiguracyjnym serwera zmieniamy:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;192&lt;/span&gt;.168.x.x &lt;span class="o"&gt;(&lt;/span&gt;wpisz adres IP hosta serwera&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="nv"&gt;status_address&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; ten sam adres IP co pozycja address
+&lt;/pre&gt;
+&lt;p&gt;Przeładowujemy aplikację:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;systemctl restart burp.service
+&lt;/pre&gt;
+&lt;p&gt;Przechodzimy do konfiguracji klienta. Najpierw wystawiamy certyfikat dla klienta (na serwerze):&lt;/p&gt;
+&lt;pre class="code literal-block"&gt; burp_ca --name Acer --ca burpCA --key --request --sign --batch
+&lt;/pre&gt;
+&lt;p&gt;Opis istotnych przełączników:&lt;/p&gt;
+&lt;p&gt;--name Acer (dedykowana nazwa cname dla konkretnego klienta)&lt;/p&gt;
+&lt;p&gt;--ca burpCA (nazwa naszego CA - niezmienna)&lt;/p&gt;
+&lt;p&gt;Teraz kopiujemy 3 pliki do klienta&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;/etc/burp/CA/Acer.crt  (certyfikat klienta)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/etc/burp/CA/Acer.key (klucz klienta)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/etc/burp/CA/CA_burpCA.crt (certyfikat naszego CA)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Na serwerze zakładamy plik o nazwie cn jaki nadaliśmy w generowaniu certyfikatu dla klienta (u mnie było to Acer):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/burp/clientconfdir/Acer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;W nim wypełniamy minimum jedną opcję (password = jakieś hasło). Takie samo hasło musi być w konfigu klienta.&lt;/p&gt;
+&lt;p&gt;Ważna jest też zmiana ścieżki do klucza, certyfikatu i CA w konfigu klienta. Po prostu wpisz ścieżkę (najlepiej w lokalizacji /etc/burp) do tych plików&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;ssl_cert_ca&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /etc/burp/ssl_cert_ca.pem
+&lt;span class="nv"&gt;ssl_cert&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /etc/burp/CA/Acer.crt
+&lt;span class="nv"&gt;ssl_key&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /etc/burp/CA/Acer.key
+&lt;/pre&gt;
+&lt;p&gt;Zmieniamy również scieżkę co chcemy "backupować" czyli zmieniamy opcję:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="nv"&gt;include&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; /etc
+&lt;/pre&gt;
+&lt;p&gt;Można takich includów wpisać więcej. Teraz uruchamiamy pierwszy backup. Z pozycji klienta wykonujemy:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -ab
+&lt;/pre&gt;
+&lt;p&gt;Sprawdzamy ile jest backupów:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -al
+&lt;/pre&gt;
+&lt;p&gt;sprawdzamy co jest np w backupie nr 3:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -a l -b &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Teraz chcemy odzyskać backup nr 3&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -a r -b &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Chcemy odzyskać pewien katalog z backupu nr 3&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -a r -b &lt;span class="m"&gt;3&lt;/span&gt; -r moj_katalog
+&lt;/pre&gt;
+&lt;p&gt;Chcemy odzyskać mój_katalog do innej lokalizacji (domyślnie system próbuje nadpisać oryginalną lokalizację)&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;burp -a r -b &lt;span class="m"&gt;3&lt;/span&gt; -r mój_katalog -d /tmp
+&lt;/pre&gt;&lt;/div&gt;</description><category>backup</category><category>linux</category><guid>https://sataks.github.io/posts/centralny-backup-danych-przy-uzyciu-burp/</guid><pubDate>Sat, 22 Sep 2018 22:00:00 GMT</pubDate></item></channel></rss>
