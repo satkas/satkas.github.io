@@ -100,7 +100,7 @@ To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie t
 <p>Często słyszy się, że w terminalu/konsoli ciężko zarządza się zalogowanymi użytkownikami.</p>
 <p>To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie też znajdziemy narzędzia, które pozwalają nam sprawnie zarządzać użytkownikami.</p>
 <p>Jest kilka możliwości. Pierwsza to znajome narzędzie who</p>
-<p>Za man-em <code>who - show who is logged on</code></p>
+<p>Za man-em who - show who is logged on</p>
 <p>Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:</p>
 <pre class="code literal-block">who
 
@@ -136,7 +136,7 @@ root@raspberrypi:~# who
 <pre class="code literal-block">ps -ef <span class="p">|</span>awk <span class="s1">'$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'</span>
 </pre>
 <p>Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.</p>
-<p>Komenda <code>loginctl -l</code> pokazuje sesje użytkowników</p>
+<p>Komenda loginctl -l pokazuje sesje użytkowników</p>
 <p>Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:</p>
 <pre class="code literal-block">loginctl session-status id_sesji
 </pre>

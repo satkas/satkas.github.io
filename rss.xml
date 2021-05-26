@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog</title><link>https://sataks.github.io/</link><description>Informatyka w stylu open source</description><atom:link href="https://sataks.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 12:34:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikola napędza stronę satkas.github.io</title><link>https://sataks.github.io/posts/nikola-napedza-strone-satkasgithubio/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Wybieram system generowania statycznej treści &lt;a href="https://getnikola.com/"&gt;Nikola&lt;/a&gt;. Ostatnio testowałem Pelicana (również oparty o pythona) ale jego wygląd i funkcjonalność po wyjęciu z tzw pudełka skłoniły mnnie do potestowania systemu Nikola. Cechy, które mnie przekonały:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog</title><link>https://sataks.github.io/</link><description>Informatyka w stylu open source</description><atom:link href="https://sataks.github.io/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 13:36:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Nikola napędza stronę satkas.github.io</title><link>https://sataks.github.io/posts/nikola-napedza-strone-satkasgithubio/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Wybieram system generowania statycznej treści &lt;a href="https://getnikola.com/"&gt;Nikola&lt;/a&gt;. Ostatnio testowałem Pelicana (również oparty o pythona) ale jego wygląd i funkcjonalność po wyjęciu z tzw pudełka skłoniły mnnie do potestowania systemu Nikola. Cechy, które mnie przekonały:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Po zainstalowaniu środowiska (innym razem napiszę co i jak) i wygenerowaniu kilku postów praktycznie nadaje się do publicznej prezentacji&lt;/li&gt;
 &lt;li&gt;Narzędzie nikola wydaje się mieć dużo więcej możliwości od Pelican-a (oczywiście jest to stwierdzenie powierzchniowe.)&lt;/li&gt;
@@ -127,25 +127,28 @@ bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</guid><pubDate>Sat, 03 Apr 2021 22:00:00 GMT</pubDate></item><item><title>Windows CMD - brak dostępu</title><link>https://sataks.github.io/posts/windows-cmd-brak-dostepu/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Bardzo często administratorzy Windowsa/AD blokują standardowemu użytkownikowi dostęp do powloki cmd.&lt;/p&gt;
 &lt;p&gt;Obejściem może tutaj być wykonanie poniższych czynności:&lt;/p&gt;
 &lt;p&gt;Otwieramy menu start i zaczynamy wpisywać:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;cmd /k jakiś_tool
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cmd /k jakiś_tool
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;i klikamy enter&lt;/p&gt;
 &lt;p&gt;Jeśli narzędzie ma jakieś opcje to musimy zamknąć ten wpis w podwójne apostrofy&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;cmd /k &lt;span class="s2"&gt;"ipconfig /all"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cmd /k &lt;span class="s2"&gt;"ipconfig /all"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Jest jeszcze jedna trudność. Jeśli w poleceniu np scieżka ma spację trzeba zrobić to w ten sposób:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;cmd /k &lt;span class="s2"&gt;"certutil -hashfile "&lt;/span&gt;C:&lt;span class="se"&gt;\P&lt;/span&gt;rogram Files &lt;span class="o"&gt;(&lt;/span&gt;x86&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="se"&gt;\p&lt;/span&gt;lik.txt&lt;span class="s2"&gt;" MD5"&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>cmd</category><category>windows</category><guid>https://sataks.github.io/posts/windows-cmd-brak-dostepu/</guid><pubDate>Wed, 28 Oct 2020 23:00:00 GMT</pubDate></item><item><title>Windows CMD - Sprawdzenie sumy kontrolnej md5 pliku</title><link>https://sataks.github.io/posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami trzeba sprawdzić sumę kontrolną pliku. W linuksie jest to bardzo proste poprzez użycie narzędzi typu md5sum sha256sum. Ale w Windowsie? Moim zdaniem narzędzie do sprawdzania sum kontrolnych powinno być na wysposarzeniu systemu operacyjnego bez instalowania jakiś zewnętrznych paczek. Szukałem, szukałem i się doszukałem&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;certutil
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;cmd /k &lt;span class="s2"&gt;"certutil -hashfile "&lt;/span&gt;C:&lt;span class="se"&gt;\P&lt;/span&gt;rogram Files &lt;span class="o"&gt;(&lt;/span&gt;x86&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="se"&gt;\p&lt;/span&gt;lik.txt&lt;span class="s2"&gt;" MD5"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>cmd</category><category>windows</category><guid>https://sataks.github.io/posts/windows-cmd-brak-dostepu/</guid><pubDate>Wed, 28 Oct 2020 23:00:00 GMT</pubDate></item><item><title>Windows CMD - Sprawdzenie sumy kontrolnej md5 pliku</title><link>https://sataks.github.io/posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami trzeba sprawdzić sumę kontrolną pliku. W linuksie jest to bardzo proste poprzez użycie narzędzi typu md5sum sha256sum. Ale w Windowsie? Moim zdaniem narzędzie do sprawdzania sum kontrolnych powinno być na wysposarzeniu systemu operacyjnego bez instalowania jakiś zewnętrznych paczek. Szukałem, szukałem i się doszukałem&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;certutil
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Tak wiem to jest narzędzie do zarządzania certyfikatami. Można jednak nim sprzwdzić sumę kontrolną pliku i jest domyślnie w systemie.&lt;/p&gt;
 &lt;p&gt;Sprawdzenie sumy kontrolnej md5 pliku&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;certutil -hashfile plik MD5
-&lt;/pre&gt;&lt;/div&gt;</description><category>cmd</category><category>windows</category><guid>https://sataks.github.io/posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/</guid><pubDate>Wed, 28 Oct 2020 23:00:00 GMT</pubDate></item><item><title>Bash - sprawdzenie czy proces jest aktywny z najmniejszymi uprawnieniami</title><link>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;certutil -hashfile plik MD5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>cmd</category><category>windows</category><guid>https://sataks.github.io/posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/</guid><pubDate>Wed, 28 Oct 2020 23:00:00 GMT</pubDate></item><item><title>Bash - sprawdzenie czy proces jest aktywny z najmniejszymi uprawnieniami</title><link>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.&lt;/p&gt;
 &lt;p&gt;Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.&lt;/p&gt;
 &lt;p&gt;Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach&lt;/p&gt;
 &lt;p&gt;Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;httpd java postmaster&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;span class="nv"&gt;licznik1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
@@ -182,10 +185,11 @@ bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span 
     &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;wynikF&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
     &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
 &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Aktualizacja: 20 wrzesień 2020r.&lt;/p&gt;
 &lt;p&gt;Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;upowerd gnome-shell nautilus&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;
@@ -222,22 +226,25 @@ bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span 
     &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$FAILED&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
     &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
 &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</guid><pubDate>Thu, 17 Sep 2020 22:00:00 GMT</pubDate></item><item><title>CentOS - NRPE: Unable to read output</title><link>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;NRPE: Unable to &lt;span class="nb"&gt;read&lt;/span&gt; output
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</guid><pubDate>Thu, 17 Sep 2020 22:00:00 GMT</pubDate></item><item><title>CentOS - NRPE: Unable to read output</title><link>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;NRPE: Unable to &lt;span class="nb"&gt;read&lt;/span&gt; output
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;/usr/lib64/nagios/plugins/
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;/usr/lib64/nagios/plugins/
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;U mnie chodziło o skrypt perlowy check_ifutil.pl&lt;/p&gt;
 &lt;h6&gt;Rozwiązanie 1:&lt;/h6&gt;
 &lt;p&gt;Wykonujemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h6&gt;Rozwiązanie 2:&lt;/h6&gt;
 &lt;p&gt;Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;chmod +x nazwa_pliku
-&lt;/pre&gt;&lt;/div&gt;</description><category>centos</category><category>linux</category><category>nagios</category><category>nrpe</category><guid>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</guid><pubDate>Mon, 14 Sep 2020 22:00:00 GMT</pubDate></item><item><title>Bash - generowanie hasła</title><link>https://sataks.github.io/posts/bash-generowanie-hasla/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej &lt;a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/"&gt;strony&lt;/a&gt; pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;chmod +x nazwa_pliku
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>centos</category><category>linux</category><category>nagios</category><category>nrpe</category><guid>https://sataks.github.io/posts/centos-nrpe-unable-to-read-output/</guid><pubDate>Mon, 14 Sep 2020 22:00:00 GMT</pubDate></item><item><title>Bash - generowanie hasła</title><link>https://sataks.github.io/posts/bash-generowanie-hasla/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej &lt;a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/"&gt;strony&lt;/a&gt; pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
 &lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'6'&lt;/span&gt;
@@ -251,15 +258,17 @@ bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span 
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
  &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
 &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami &lt;code&gt;$1, $2&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami $1, $2&lt;/p&gt;
 &lt;p&gt;Wtedy wywołanie będzie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h6&gt;Aktualizacja&lt;/h6&gt;
 &lt;p&gt;W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
 Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
 &lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'20'&lt;/span&gt;
@@ -274,67 +283,76 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
  &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
 &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</title><link>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"&gt;&lt;img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"&gt;&lt;/a&gt; Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</title><link>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"&gt;&lt;img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"&gt;&lt;/a&gt; Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.&lt;/p&gt;
 &lt;p&gt;Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.&lt;/p&gt;
 &lt;p&gt;Najpierw identyfikujemy nasze maszyny wirtualne&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;virsh list --all
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virsh list --all
 Id Name      State
 ----------------------------
 &lt;span class="m"&gt;1&lt;/span&gt;  centos8-2 running
 -  centos8   shut off
 -  debian10  shut off
 -  win10     shut off
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virsh domblklist centos8-2
 
 Target  Source
 ------------------------------------
 vda     /home/tk/vm/Resize.qcow2
 sda     -
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:&lt;/p&gt;
 &lt;p&gt;sudo qemu-img info /home/tk/vm/Resize.qcow2&lt;/p&gt;
 &lt;p&gt;Niestety aby otrzymać informację musimy wyłączyć maszynę.&lt;/p&gt;
 &lt;p&gt;Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.&lt;/p&gt;
 &lt;p&gt;Użyjemy do tego polecenia:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;virsh qemu-monitor-command centos8-2 info block --hmp
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virsh qemu-monitor-command centos8-2 info block --hmp
 
 libvirt-2-format: /home/tk/vm/Resize.qcow2 &lt;span class="o"&gt;(&lt;/span&gt;qcow2&lt;span class="o"&gt;)&lt;/span&gt;
     Attached to: /machine/peripheral/virtio-disk0/virtio-backend
     Cache mode: writeback
 
 sata0-0-0: &lt;span class="o"&gt;[&lt;/span&gt;not inserted&lt;span class="o"&gt;]&lt;/span&gt; Attached to: sata0-0-0 Removable device: not locked, tray closed
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;virsh domblklist centos8-2 --details
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virsh domblklist centos8-2 --details
 
 Type Device Target Source
 ----------------------------------------------------
 file disk   vda /home/tk/vm/Resize.qcow2
 file cdrom  sda -
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Następnie dokonujemy rozszeżenia dysku&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;virsh blockresize centos8-2 vda 20G
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;virsh blockresize centos8-2 vda 20G
 Block device &lt;span class="s1"&gt;'vda'&lt;/span&gt; is resized
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Sprawdzamy fdisk-iem czy powiększył nam się dysk&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;fdisk -l
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;fdisk -l
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)&lt;/p&gt;
 &lt;p&gt;Najpierw na maszynie wirtualnej instalujemy paczkę:&lt;/p&gt;
 &lt;p&gt;Dla Ubuntu&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo apt install cloud-guest-utils
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install cloud-guest-utils
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;dla CentOS-a&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo yum install cloud-utils-growpart
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo yum install cloud-utils-growpart
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;growpart /dev/vda &lt;span class="m"&gt;3&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;growpart /dev/vda &lt;span class="m"&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Na sam koniec wykonujemy rozszerzenie na filesytemie&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;xfs_grows /
-&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>lvm</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</guid><pubDate>Wed, 13 May 2020 22:00:00 GMT</pubDate></item><item><title>BASH - spacje, spacje, spacje</title><link>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/a&gt;  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;xfs_grows /
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>kvm</category><category>linux</category><category>lvm</category><category>storage</category><category>wirtualizacja</category><guid>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</guid><pubDate>Wed, 13 May 2020 22:00:00 GMT</pubDate></item><item><title>BASH - spacje, spacje, spacje</title><link>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/a&gt;  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.&lt;/p&gt;
 &lt;p&gt;Według tzw "świata *nixowgo" pliki/katalogi powinno się tworzyć bez spacji aby późniejsze przetwarzanie nie powodowało problemów. W swiecie windows-a nie ma to większego znaczenia i system ten "przyzwyczaił" ludzi do tworzenia nazw plików i katalogów tak jakby mieli napisać krótki esej.&lt;/p&gt;
 &lt;p&gt;Aby w Linuksie obejść problem spacji możemy posłużyć się pętlą while, która przetwarza pliki/wyjśćia innych poleceń linia po lini.&lt;/p&gt;
 &lt;p&gt;I tak jeśli chcemy coś zrobić z plikiem (np skopiować, przenieść w iine miejsce) możemy zastosować rozwiązanie:&lt;/p&gt;

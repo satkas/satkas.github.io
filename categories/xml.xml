@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o xml)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/xml.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - pobieranie wartości z pliku xml</title><link>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o xml)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/xml.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 13:36:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - pobieranie wartości z pliku xml</title><link>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.&lt;/p&gt;
 &lt;p&gt;W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo zypper &lt;span class="k"&gt;in&lt;/span&gt; xmlstarlet
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo zypper &lt;span class="k"&gt;in&lt;/span&gt; xmlstarlet
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml&lt;/p&gt;
 &lt;p&gt;W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.&lt;/p&gt;
 &lt;p&gt;Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml &lt;span class="p"&gt;|&lt;/span&gt;xmlstarlet sel -t -m &lt;span class="s2"&gt;"utrudnienia"&lt;/span&gt; -m &lt;span class="s2"&gt;"utr"&lt;/span&gt; -v &lt;span class="s2"&gt;"woj"&lt;/span&gt; -n &lt;span class="p"&gt;|&lt;/span&gt;sort &lt;span class="p"&gt;|&lt;/span&gt;uniq -c &lt;span class="p"&gt;|&lt;/span&gt;sort -k1 -r
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml &lt;span class="p"&gt;|&lt;/span&gt;xmlstarlet sel -t -m &lt;span class="s2"&gt;"utrudnienia"&lt;/span&gt; -m &lt;span class="s2"&gt;"utr"&lt;/span&gt; -v &lt;span class="s2"&gt;"woj"&lt;/span&gt; -n &lt;span class="p"&gt;|&lt;/span&gt;sort &lt;span class="p"&gt;|&lt;/span&gt;uniq -c &lt;span class="p"&gt;|&lt;/span&gt;sort -k1 -r
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Wynik jaki dostanemy to:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="m"&gt;65&lt;/span&gt; mazowieckie
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="m"&gt;65&lt;/span&gt; mazowieckie
 &lt;span class="m"&gt;56&lt;/span&gt; małopolskie
 &lt;span class="m"&gt;36&lt;/span&gt; kujawsko-pomorskie
 &lt;span class="m"&gt;35&lt;/span&gt; zachodniopomorskie
@@ -25,4 +27,4 @@
 &lt;span class="m"&gt;11&lt;/span&gt; pomorskie
 &lt;span class="m"&gt;11&lt;/span&gt; podlaskie
 &lt;span class="m"&gt;11&lt;/span&gt; dolnośląskie
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>xml</category><guid>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</guid><pubDate>Wed, 19 Jun 2019 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>xml</category><guid>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</guid><pubDate>Wed, 19 Jun 2019 22:00:00 GMT</pubDate></item></channel></rss>

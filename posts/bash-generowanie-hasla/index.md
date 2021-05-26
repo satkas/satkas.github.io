@@ -31,7 +31,7 @@ done
 
 ```
 
-Wartości dwóch pierwszych zmiennych można zastąpić argumentami ```$1, $2```
+Wartości dwóch pierwszych zmiennych można zastąpić argumentami $1, $2
 
 Wtedy wywołanie będzie:
 
@@ -65,3 +65,4 @@ for ((n=0; n<$probkiHasel; n++))
 done
 
 ```
+

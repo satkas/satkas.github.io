@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o bash)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/bash.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 12:34:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - sprawdzenie czy proces jest aktywny z najmniejszymi uprawnieniami</title><link>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o bash)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/bash.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 13:36:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - sprawdzenie czy proces jest aktywny z najmniejszymi uprawnieniami</title><link>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-sprawdzenie-czy-proces-jest-aktywny-z-namniejszymi-uprawnieniami"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Musiałem zrobić skrypt gdzie odpytuję usługi i sprawdzam czy "żyją" i podaję kod wyjśćia dla nagiosa.&lt;/p&gt;
 &lt;p&gt;Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.&lt;/p&gt;
 &lt;p&gt;Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach&lt;/p&gt;
 &lt;p&gt;Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;httpd java postmaster&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;span class="nv"&gt;licznik1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
@@ -40,10 +40,11 @@
     &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;wynikF&lt;/span&gt;&lt;span class="p"&gt;[@]&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
     &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
 &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Aktualizacja: 20 wrzesień 2020r.&lt;/p&gt;
 &lt;p&gt;Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 
 &lt;span class="nv"&gt;nameS&lt;/span&gt;&lt;span class="o"&gt;=(&lt;/span&gt;upowerd gnome-shell nautilus&lt;span class="o"&gt;)&lt;/span&gt;
 &lt;span class="nv"&gt;SUCCESS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;""&lt;/span&gt;
@@ -80,8 +81,8 @@
     &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="nv"&gt;$FAILED&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
     &lt;span class="nb"&gt;exit&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;
 &lt;span class="k"&gt;fi&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</guid><pubDate>Thu, 17 Sep 2020 22:00:00 GMT</pubDate></item><item><title>Bash - generowanie hasła</title><link>https://sataks.github.io/posts/bash-generowanie-hasla/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej &lt;a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/"&gt;strony&lt;/a&gt; pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/</guid><pubDate>Thu, 17 Sep 2020 22:00:00 GMT</pubDate></item><item><title>Bash - generowanie hasła</title><link>https://sataks.github.io/posts/bash-generowanie-hasla/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt; Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej &lt;a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/"&gt;strony&lt;/a&gt; pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
 &lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'6'&lt;/span&gt;
@@ -95,15 +96,17 @@
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
  &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
 &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami &lt;code&gt;$1, $2&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami $1, $2&lt;/p&gt;
 &lt;p&gt;Wtedy wywołanie będzie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h6&gt;Aktualizacja&lt;/h6&gt;
 &lt;p&gt;W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
 Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
 
 &lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
 &lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'20'&lt;/span&gt;
@@ -118,7 +121,7 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
 &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
  &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
 &lt;span class="k"&gt;done&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>BASH - spacje, spacje, spacje</title><link>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/a&gt;  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>BASH - spacje, spacje, spacje</title><link>https://sataks.github.io/posts/bash-spacje-spacje-spacje/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=bash-spacje-spacje-spacje"&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/a&gt;  Świat nie jest idealny. Jednym z wielu aspektów, które obrazują nam taki obraz świata są przyzwyczajenia w tworzeniu plików i katalogów.&lt;/p&gt;
 &lt;p&gt;Według tzw "świata *nixowgo" pliki/katalogi powinno się tworzyć bez spacji aby późniejsze przetwarzanie nie powodowało problemów. W swiecie windows-a nie ma to większego znaczenia i system ten "przyzwyczaił" ludzi do tworzenia nazw plików i katalogów tak jakby mieli napisać krótki esej.&lt;/p&gt;
 &lt;p&gt;Aby w Linuksie obejść problem spacji możemy posłużyć się pętlą while, która przetwarza pliki/wyjśćia innych poleceń linia po lini.&lt;/p&gt;
 &lt;p&gt;I tak jeśli chcemy coś zrobić z plikiem (np skopiować, przenieść w iine miejsce) możemy zastosować rozwiązanie:&lt;/p&gt;
@@ -176,7 +179,7 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>ntp</category><category>time</category><guid>https://sataks.github.io/posts/czas-epoki-unix-a-konwersja/</guid><pubDate>Fri, 22 Nov 2019 23:00:00 GMT</pubDate></item><item><title>Kontrola sesji użytkowników w Linuksie</title><link>https://sataks.github.io/posts/kontrola-sesji-uzytkownikow-w-linuksie/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Często słyszy się, że w terminalu/konsoli ciężko zarządza się zalogowanymi użytkownikami.&lt;/p&gt;
 &lt;p&gt;To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie też znajdziemy narzędzia, które pozwalają nam sprawnie zarządzać użytkownikami.&lt;/p&gt;
 &lt;p&gt;Jest kilka możliwości. Pierwsza to znajome narzędzie who&lt;/p&gt;
-&lt;p&gt;Za man-em &lt;code&gt;who - show who is logged on&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Za man-em who - show who is logged on&lt;/p&gt;
 &lt;p&gt;Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;who
 
@@ -212,7 +215,7 @@ root@raspberrypi:~# who
 &lt;pre class="code literal-block"&gt;ps -ef &lt;span class="p"&gt;|&lt;/span&gt;awk &lt;span class="s1"&gt;'$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.&lt;/p&gt;
-&lt;p&gt;Komenda &lt;code&gt;loginctl -l&lt;/code&gt; pokazuje sesje użytkowników&lt;/p&gt;
+&lt;p&gt;Komenda loginctl -l pokazuje sesje użytkowników&lt;/p&gt;
 &lt;p&gt;Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;loginctl session-status id_sesji
 &lt;/pre&gt;
@@ -277,15 +280,17 @@ file6-1
 &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><guid>https://sataks.github.io/posts/bash-wyswietlenie-plikow-w-strukturze-podobnych-katalogow/</guid><pubDate>Fri, 20 Sep 2019 22:00:00 GMT</pubDate></item><item><title>Bash - pobieranie wartości z pliku xml</title><link>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.&lt;/p&gt;
 &lt;p&gt;W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo zypper &lt;span class="k"&gt;in&lt;/span&gt; xmlstarlet
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo zypper &lt;span class="k"&gt;in&lt;/span&gt; xmlstarlet
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml&lt;/p&gt;
 &lt;p&gt;W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.&lt;/p&gt;
 &lt;p&gt;Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml &lt;span class="p"&gt;|&lt;/span&gt;xmlstarlet sel -t -m &lt;span class="s2"&gt;"utrudnienia"&lt;/span&gt; -m &lt;span class="s2"&gt;"utr"&lt;/span&gt; -v &lt;span class="s2"&gt;"woj"&lt;/span&gt; -n &lt;span class="p"&gt;|&lt;/span&gt;sort &lt;span class="p"&gt;|&lt;/span&gt;uniq -c &lt;span class="p"&gt;|&lt;/span&gt;sort -k1 -r
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml &lt;span class="p"&gt;|&lt;/span&gt;xmlstarlet sel -t -m &lt;span class="s2"&gt;"utrudnienia"&lt;/span&gt; -m &lt;span class="s2"&gt;"utr"&lt;/span&gt; -v &lt;span class="s2"&gt;"woj"&lt;/span&gt; -n &lt;span class="p"&gt;|&lt;/span&gt;sort &lt;span class="p"&gt;|&lt;/span&gt;uniq -c &lt;span class="p"&gt;|&lt;/span&gt;sort -k1 -r
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Wynik jaki dostanemy to:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="m"&gt;65&lt;/span&gt; mazowieckie
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="m"&gt;65&lt;/span&gt; mazowieckie
 &lt;span class="m"&gt;56&lt;/span&gt; małopolskie
 &lt;span class="m"&gt;36&lt;/span&gt; kujawsko-pomorskie
 &lt;span class="m"&gt;35&lt;/span&gt; zachodniopomorskie
@@ -301,54 +306,63 @@ file6-1
 &lt;span class="m"&gt;11&lt;/span&gt; pomorskie
 &lt;span class="m"&gt;11&lt;/span&gt; podlaskie
 &lt;span class="m"&gt;11&lt;/span&gt; dolnośląskie
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>xml</category><guid>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</guid><pubDate>Wed, 19 Jun 2019 22:00:00 GMT</pubDate></item><item><title>Filtrowanie logów poczty</title><link>https://sataks.github.io/posts/filtrowanie-logow-poczty/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Postfix" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.postfix.png&amp;amp;c=1" title="Postfix"&gt;  Potrzebowałem na szybko wyciągnąć wszystkie adresy IP z pliku /var/log/mail.log, które wylądowały w specjalnym folderze z niechcianą pocztą. IP-ki będą wprowadzone na czarną listę adresów.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>xml</category><guid>https://sataks.github.io/posts/bash-pobieranie-wartosci-z-pliku-xml/</guid><pubDate>Wed, 19 Jun 2019 22:00:00 GMT</pubDate></item><item><title>Filtrowanie logów poczty</title><link>https://sataks.github.io/posts/filtrowanie-logow-poczty/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Postfix" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.postfix.png&amp;amp;c=1" title="Postfix"&gt;  Potrzebowałem na szybko wyciągnąć wszystkie adresy IP z pliku /var/log/mail.log, które wylądowały w specjalnym folderze z niechcianą pocztą. IP-ki będą wprowadzone na czarną listę adresów.&lt;/p&gt;
 &lt;p&gt;Wchodzimy do określonego folderu z niechcianą pocztą i wykonujemy polecenie:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;grep -h -o -E &lt;span class="s1"&gt;'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'&lt;/span&gt; *  &lt;span class="p"&gt;|&lt;/span&gt;sort&lt;span class="p"&gt;|&lt;/span&gt;uniq &lt;span class="p"&gt;|&lt;/span&gt;grep -v &lt;span class="s2"&gt;".0&lt;/span&gt;$&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;grep -v &lt;span class="s2"&gt;"127.0.0.1"&lt;/span&gt;
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;grep -h -o -E &lt;span class="s1"&gt;'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'&lt;/span&gt; *  &lt;span class="p"&gt;|&lt;/span&gt;sort&lt;span class="p"&gt;|&lt;/span&gt;uniq &lt;span class="p"&gt;|&lt;/span&gt;grep -v &lt;span class="s2"&gt;".0&lt;/span&gt;$&lt;span class="s2"&gt;"&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt;grep -v &lt;span class="s2"&gt;"127.0.0.1"&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;h5&gt;Wyjaśnienie:&lt;/h5&gt;
 &lt;p&gt;Narzędzie grep jest świetnym narzędziem w powłoce BASH na takie zabawy.&lt;/p&gt;
 &lt;p&gt;Fraza &lt;code&gt;'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'&lt;/code&gt; określa adres IP do wyszukania.&lt;/p&gt;
 &lt;p&gt;Część &lt;code&gt;grep -v ".0$"&lt;/code&gt; realizuje pomijanie całych podsieci (np. x.x.x.0/24)&lt;/p&gt;
 &lt;p&gt;Część &lt;code&gt;grep -v "127.0.0.1"&lt;/code&gt; pomija adres loopback, który nie ma nic wspólnego z adresem serwera clienta.&lt;/p&gt;
 &lt;p&gt;Teraz dodajemy adresy do pliku (plik czarnej listy zdefiniowaliśmy w main.cf):&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;x.x.x.x REJECT
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;x.x.x.x REJECT
 
 ....
 
 ....
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;i klient dostaję zwrotkę na swoją pocztę (wiem, wiem spamerzy mają to głęboko :) )&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;Sep &lt;span class="m"&gt;15&lt;/span&gt; &lt;span class="m"&gt;09&lt;/span&gt;:12:42 rod postfix/smtpd&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;14454&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: NOQUEUE: reject: RCPT from laconic.pauladowson.com&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.155.99.74&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="m"&gt;554&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;.7.1 &amp;lt;laconic.pauladowson.com&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.155.99.74&lt;span class="o"&gt;]&lt;/span&gt;&amp;gt;: Client host rejected: Access denied&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nv"&gt;from&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;milenaxjjpgegbednarek@accvxz.com&amp;gt; &lt;span class="nv"&gt;to&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;jakisnaszemail@jakasnaszadomena&amp;gt; &lt;span class="nv"&gt;proto&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;ESMTP &lt;span class="nv"&gt;helo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;laconic.accvxz.com&amp;gt;
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>poczta</category><category>postfix</category><category>spam</category><guid>https://sataks.github.io/posts/filtrowanie-logow-poczty/</guid><pubDate>Fri, 14 Sep 2018 22:00:00 GMT</pubDate></item><item><title>Bash - wyodrębnianie danych IPTC XMP ze zdjęcia</title><link>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Sep &lt;span class="m"&gt;15&lt;/span&gt; &lt;span class="m"&gt;09&lt;/span&gt;:12:42 rod postfix/smtpd&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;14454&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;: NOQUEUE: reject: RCPT from laconic.pauladowson.com&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.155.99.74&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="m"&gt;554&lt;/span&gt; &lt;span class="m"&gt;5&lt;/span&gt;.7.1 &amp;lt;laconic.pauladowson.com&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.155.99.74&lt;span class="o"&gt;]&lt;/span&gt;&amp;gt;: Client host rejected: Access denied&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nv"&gt;from&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;milenaxjjpgegbednarek@accvxz.com&amp;gt; &lt;span class="nv"&gt;to&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;jakisnaszemail@jakasnaszadomena&amp;gt; &lt;span class="nv"&gt;proto&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;ESMTP &lt;span class="nv"&gt;helo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&amp;lt;laconic.accvxz.com&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>poczta</category><category>postfix</category><category>spam</category><guid>https://sataks.github.io/posts/filtrowanie-logow-poczty/</guid><pubDate>Fri, 14 Sep 2018 22:00:00 GMT</pubDate></item><item><title>Bash - wyodrębnianie danych IPTC XMP ze zdjęcia</title><link>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
 &lt;p&gt;Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.&lt;/p&gt;
 &lt;p&gt;Wyodrębnienie całości metadanych ze zdjęcia do pliku:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -ea image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -ea image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Ta komenda utworzy plik o tej samej nazwie co zdjęcie z rozszerzeniem .exv&lt;/p&gt;
 &lt;p&gt;Wstrzyknięcie tych samych danych z pliku .exv do zdjęcia:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -kia image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -kia image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Aby wyodrębnić konkretną sekcję np IPTC wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -PI image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -PI image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;lub&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -pi image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -pi image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Jeśli chcemy tylko wyodrębnić np. tytuł wydarzenia uwieńczonego na zdjęciu wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -PIv -g Iptc.Application2.Headline
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -PIv -g Iptc.Application2.Headline
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Oczywiście musimy być pewni, że fotograf, agencja foto podpisuje swoje zdjęcia w programie do edycji meta danych. Inaczej nic nie zobaczymy. Osoby prywatne raczej nie opisują zdjęć więc zobaczysz tylko metadane EXIF(metadane generowane przez aparat fotograficzny).&lt;/p&gt;
 &lt;p&gt;Jeśli chcemy dodać pojedyńcze rekordy w sekcji np IPTC wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -kM&lt;span class="s2"&gt;"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"&lt;/span&gt; image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -kM&lt;span class="s2"&gt;"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"&lt;/span&gt; image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Usunięcie sekcji IPTC, XMP, EXIF wykonamy narzędziem jhead&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;jhead -dc -de -di -dx image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;jhead -dc -de -di -dx image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Oba narzędzia exiv2 i jhead zainstalujemy w ubuntu&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo apt install exiv2 jhead
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</guid><pubDate>Mon, 21 May 2018 22:00:00 GMT</pubDate></item><item><title>Bash - pojemność katalogu z filtrem na pliki</title><link>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install exiv2 jhead
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</guid><pubDate>Mon, 21 May 2018 22:00:00 GMT</pubDate></item><item><title>Bash - pojemność katalogu z filtrem na pliki</title><link>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
 &lt;p&gt;Zawartość skryptu. Skrypt posiada 2 zmienne. Zmienna $folder to obliczany folder. Zmienna $ext to rozszerzenie plików, które będą zliczane. Skrypt oblicza pojemność katalogu rekursywnie i ogranicza się tylko do plików jpg  &lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class="nv"&gt;folder&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'/home/user/Obrazy'&lt;/span&gt;
 &lt;span class="nv"&gt;ext&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'.jpg'&lt;/span&gt;
 
@@ -377,4 +391,4 @@ foldersize&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span
 &lt;span class="o"&gt;}&lt;/span&gt;
 
 foldersize
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</guid><pubDate>Mon, 14 May 2018 22:00:00 GMT</pubDate></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</guid><pubDate>Mon, 14 May 2018 22:00:00 GMT</pubDate></item></channel></rss>

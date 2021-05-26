@@ -142,7 +142,7 @@
 <p>Często słyszy się, że w terminalu/konsoli ciężko zarządza się zalogowanymi użytkownikami.</p>
 <p>To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie też znajdziemy narzędzia, które pozwalają nam sprawnie zarządzać użytkownikami.</p>
 <p>Jest kilka możliwości. Pierwsza to znajome narzędzie who</p>
-<p>Za man-em <code>who - show who is logged on</code></p>
+<p>Za man-em who - show who is logged on</p>
 <p>Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:</p>
 <pre class="code literal-block">who
 
@@ -178,7 +178,7 @@ root@raspberrypi:~# who
 <pre class="code literal-block">ps -ef <span class="p">|</span>awk <span class="s1">'$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'</span>
 </pre>
 <p>Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.</p>
-<p>Komenda <code>loginctl -l</code> pokazuje sesje użytkowników</p>
+<p>Komenda loginctl -l pokazuje sesje użytkowników</p>
 <p>Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:</p>
 <pre class="code literal-block">loginctl session-status id_sesji
 </pre>
@@ -320,8 +320,9 @@ file6-1
 <p>Po pewnym czasie otrzymujemy prośbę o potwierdzenie, że chcemy kupić certyfikat (wiadomość pochodzi od podmiotu, który generuje certyfikat - u mnie był to RapidSSL)</p>
 <p>W końcu dostajemy certyfikat, klucz i certyfikat RootCA</p>
 <p>Teraz przystępujemy do konwersji certyfikatu z formatu .pem do .pfx</p>
-<pre class="code literal-block">openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
-</pre>
+<pre class="code literal-block"><span></span><code>openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
+</code></pre>
+
 <p>Podczas konwertowania zostaniemy poproszeni o ustanowienie hasła. Powinniśmy go teraz ustanowić.</p>
 <p>Przekonwertowany certyfikat kopiujemy na serwer Windows. Klikamy prawym przyciskiem myszy i instalujemy certyfikat. (Wybieramy Local machine, wpisujemy hasło i zaznaczamy opcję Automatically select the certificate store based on the type of certificate). Po zainstalowaniu certyfikatu wchodzimy do Internet Information Services. W panelu po lewej rozwijamy IIS-&gt;Sites-&gt;Default Web Site i klikamy aby zaznaczyć. Po prawej w panelu wybieramy Bindings..</p>
 <p>Pokaże nam się lista na jakich portach nasłuchuje usługa www. Powinno być 80 i 443 (jeśli nie ma to ją tworzymy). Zaznaczamy pozycję 443 i edytujemy. W pozycji SSL Certificate klikamy Select i wybieramy certyfikat, który zainstalowaliśmy wcześniej. Akceptujemy i certyfikat jest podmieniony.</p>
@@ -341,15 +342,17 @@ file6-1
                     <div>
 <p>Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.</p>
 <p>W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:</p>
-<pre class="code literal-block">sudo zypper <span class="k">in</span> xmlstarlet
-</pre>
+<pre class="code literal-block"><span></span><code>sudo zypper <span class="k">in</span> xmlstarlet
+</code></pre>
+
 <p>Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml</p>
 <p>W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.</p>
 <p>Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.</p>
-<pre class="code literal-block">curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml <span class="p">|</span>xmlstarlet sel -t -m <span class="s2">"utrudnienia"</span> -m <span class="s2">"utr"</span> -v <span class="s2">"woj"</span> -n <span class="p">|</span>sort <span class="p">|</span>uniq -c <span class="p">|</span>sort -k1 -r
-</pre>
+<pre class="code literal-block"><span></span><code>curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml <span class="p">|</span>xmlstarlet sel -t -m <span class="s2">"utrudnienia"</span> -m <span class="s2">"utr"</span> -v <span class="s2">"woj"</span> -n <span class="p">|</span>sort <span class="p">|</span>uniq -c <span class="p">|</span>sort -k1 -r
+</code></pre>
+
 <p>Wynik jaki dostanemy to:</p>
-<pre class="code literal-block"><span class="m">65</span> mazowieckie
+<pre class="code literal-block"><span></span><code><span class="m">65</span> mazowieckie
 <span class="m">56</span> małopolskie
 <span class="m">36</span> kujawsko-pomorskie
 <span class="m">35</span> zachodniopomorskie
@@ -365,7 +368,7 @@ file6-1
 <span class="m">11</span> pomorskie
 <span class="m">11</span> podlaskie
 <span class="m">11</span> dolnośląskie
-</pre>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/serwer-www-apache-z-autoryzacja-w-active-directory/" class="u-url">Serwer www Apache z autoryzacją w Active Directory</a></h1>
@@ -392,22 +395,26 @@ file6-1
 <p>Zainstalowany mamy serwer www httpd. Uaktywniamy moduły odpowiedzialne za autoryzację w bazie ldap. Są to: ldap i authnz_ldap</p>
 <p>Można to zrobić w yast2 (Network Services-&gt;HTTP Server). Po czym wykonujemy alt+M (wchodzimy do sekcji Moduły) i z listy wybieramy wspomniane moduły wykonując na nich alt+t (zmień status). Wychodzimy wprowadzając alt+k i alt+z</p>
 <p>Można powyższą operację wykonać bezpośrednio w pliku /etc/sysconfig/apache2 dopisując do sekcji</p>
-<pre class="code literal-block"><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
+</code></pre>
+
 <p>odpowiednie moduły ldap</p>
 <p>Teraz trzeba skonfigurować miejsce w systemie plików do którego dostęp będzie na hasło z Active Directory.</p>
 <p>Domyślnie w SUSE tzw DirectoryRoot serwera webowego znajduje się w:</p>
-<pre class="code literal-block">/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
-</pre>
+<pre class="code literal-block"><span></span><code>/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
+</code></pre>
+
 <p>Tworzymy sobie katalog</p>
-<pre class="code literal-block">mkdir /srv/www/htdoc/sec
-</pre>
+<pre class="code literal-block"><span></span><code>mkdir /srv/www/htdoc/sec
+</code></pre>
+
 <p>Tworzymy zawartość katalogu</p>
-<pre class="code literal-block">touch /srv/www/htdoc/sec/index.html
+<pre class="code literal-block"><span></span><code>touch /srv/www/htdoc/sec/index.html
 <span class="nb">echo</span> <span class="s2">"Strona z uwzględnieniem autoryzacji w AD"</span> &gt; /srv/www/htdoc/sec/index.html
-</pre>
+</code></pre>
+
 <p>Edytujemy plik /etc/apache2/default-server.conf i tworzymy nową sekcję Directory (zaraz pod aktualną sekcją Directory)</p>
-<pre class="code literal-block">&lt;Directory /srv/www/htdocs/sec&gt;
+<pre class="code literal-block"><span></span><code>&lt;Directory /srv/www/htdocs/sec&gt;
           AuthLDAPBindDN <span class="s2">"CN=Server Web,CN=Users,DC=satkas,DC=local"</span>
           AuthLDAPBindPassword xxxxxxx
           AuthLDAPURL <span class="s2">"ldap://satkas.local/CN=Users,DC=satkas,DC=local?sAMAccountName?sub?(objectClass=*)"</span>
@@ -417,10 +424,12 @@ file6-1
           AuthLDAPGroupAttributeIsDN on
           Require ldap-group <span class="nv">CN</span><span class="o">=</span>apache,CN<span class="o">=</span>Users,DC<span class="o">=</span>satkas,DC<span class="o">=</span><span class="nb">local</span>
 &lt;/Directory&gt;
-</pre>
+</code></pre>
+
 <p>Po zapisaniu zmian wystarczy zrestartować usługę www</p>
-<pre class="code literal-block">systemctl restart apache2
-</pre>
+<pre class="code literal-block"><span></span><code>systemctl restart apache2
+</code></pre>
+
 <p>Autoryzujemy się użytkownikami z grupy (w AD) apache</p>
 </div>
                 </div>

@@ -114,8 +114,9 @@ Na własnym kompu">
 <p>Po pewnym czasie otrzymujemy prośbę o potwierdzenie, że chcemy kupić certyfikat (wiadomość pochodzi od podmiotu, który generuje certyfikat - u mnie był to RapidSSL)</p>
 <p>W końcu dostajemy certyfikat, klucz i certyfikat RootCA</p>
 <p>Teraz przystępujemy do konwersji certyfikatu z formatu .pem do .pfx</p>
-<pre class="code literal-block">openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
-</pre>
+<pre class="code literal-block"><span></span><code>openssl pkcs12 -export -out certyfikat-naszadomena.pfx -inkey klucz.key -in certyfikat-naszadomena.pem -certfile RootCA.pem
+</code></pre>
+
 <p>Podczas konwertowania zostaniemy poproszeni o ustanowienie hasła. Powinniśmy go teraz ustanowić.</p>
 <p>Przekonwertowany certyfikat kopiujemy na serwer Windows. Klikamy prawym przyciskiem myszy i instalujemy certyfikat. (Wybieramy Local machine, wpisujemy hasło i zaznaczamy opcję Automatically select the certificate store based on the type of certificate). Po zainstalowaniu certyfikatu wchodzimy do Internet Information Services. W panelu po lewej rozwijamy IIS-&gt;Sites-&gt;Default Web Site i klikamy aby zaznaczyć. Po prawej w panelu wybieramy Bindings..</p>
 <p>Pokaże nam się lista na jakich portach nasłuchuje usługa www. Powinno być 80 i 443 (jeśli nie ma to ją tworzymy). Zaznaczamy pozycję 443 i edytujemy. W pozycji SSL Certificate klikamy Select i wybieramy certyfikat, który zainstalowaliśmy wcześniej. Akceptujemy i certyfikat jest podmieniony.</p>

@@ -116,22 +116,26 @@ Na Windows Server mamy utworzoną domenę SA">
 <p>Zainstalowany mamy serwer www httpd. Uaktywniamy moduły odpowiedzialne za autoryzację w bazie ldap. Są to: ldap i authnz_ldap</p>
 <p>Można to zrobić w yast2 (Network Services-&gt;HTTP Server). Po czym wykonujemy alt+M (wchodzimy do sekcji Moduły) i z listy wybieramy wspomniane moduły wykonując na nich alt+t (zmień status). Wychodzimy wprowadzając alt+k i alt+z</p>
 <p>Można powyższą operację wykonać bezpośrednio w pliku /etc/sysconfig/apache2 dopisując do sekcji</p>
-<pre class="code literal-block"><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nv">APACHE_MODULES</span><span class="o">=</span><span class="s2">"authz_host actions alias authz_user authz_groupfile authn_file auth_basic autoindex cgi dir env expires include log_config mime negotiation setenvif userdir ldap authnz_ldap ssl php7 authn_core reqtimeout socache_shmcb authz_core"</span>
+</code></pre>
+
 <p>odpowiednie moduły ldap</p>
 <p>Teraz trzeba skonfigurować miejsce w systemie plików do którego dostęp będzie na hasło z Active Directory.</p>
 <p>Domyślnie w SUSE tzw DirectoryRoot serwera webowego znajduje się w:</p>
-<pre class="code literal-block">/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
-</pre>
+<pre class="code literal-block"><span></span><code>/srv/www/htdocs <span class="o">(</span>odpowiada za to plik konfiguracyjny w /etc/apache2/default-server.conf<span class="o">)</span>
+</code></pre>
+
 <p>Tworzymy sobie katalog</p>
-<pre class="code literal-block">mkdir /srv/www/htdoc/sec
-</pre>
+<pre class="code literal-block"><span></span><code>mkdir /srv/www/htdoc/sec
+</code></pre>
+
 <p>Tworzymy zawartość katalogu</p>
-<pre class="code literal-block">touch /srv/www/htdoc/sec/index.html
+<pre class="code literal-block"><span></span><code>touch /srv/www/htdoc/sec/index.html
 <span class="nb">echo</span> <span class="s2">"Strona z uwzględnieniem autoryzacji w AD"</span> &gt; /srv/www/htdoc/sec/index.html
-</pre>
+</code></pre>
+
 <p>Edytujemy plik /etc/apache2/default-server.conf i tworzymy nową sekcję Directory (zaraz pod aktualną sekcją Directory)</p>
-<pre class="code literal-block">&lt;Directory /srv/www/htdocs/sec&gt;
+<pre class="code literal-block"><span></span><code>&lt;Directory /srv/www/htdocs/sec&gt;
           AuthLDAPBindDN <span class="s2">"CN=Server Web,CN=Users,DC=satkas,DC=local"</span>
           AuthLDAPBindPassword xxxxxxx
           AuthLDAPURL <span class="s2">"ldap://satkas.local/CN=Users,DC=satkas,DC=local?sAMAccountName?sub?(objectClass=*)"</span>
@@ -141,10 +145,12 @@ Na Windows Server mamy utworzoną domenę SA">
           AuthLDAPGroupAttributeIsDN on
           Require ldap-group <span class="nv">CN</span><span class="o">=</span>apache,CN<span class="o">=</span>Users,DC<span class="o">=</span>satkas,DC<span class="o">=</span><span class="nb">local</span>
 &lt;/Directory&gt;
-</pre>
+</code></pre>
+
 <p>Po zapisaniu zmian wystarczy zrestartować usługę www</p>
-<pre class="code literal-block">systemctl restart apache2
-</pre>
+<pre class="code literal-block"><span></span><code>systemctl restart apache2
+</code></pre>
+
 <p>Autoryzujemy się użytkownikami z grupy (w AD) apache</p>
 </div>
     </div>

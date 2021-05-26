@@ -99,15 +99,17 @@
     <div>
 <p>Czasami potrzebujemy przetworzyć plik xml. Najprawdopodobniej wszystkie liczące się języki programowania mają w swoich zasobach funkcje, które takie operacje realizują. Jeśli chodzi o bash-a to jest trochę inaczej ale jak na środowisko Linuksa przystało zrealizować to zadanie możemy różnymi innymi narzędziami.</p>
 <p>W systemie (u mnie OpenSuse 15.1) instalujemy potrzebne narzędzie:</p>
-<pre class="code literal-block">sudo zypper <span class="k">in</span> xmlstarlet
-</pre>
+<pre class="code literal-block"><span></span><code>sudo zypper <span class="k">in</span> xmlstarlet
+</code></pre>
+
 <p>Za plik xml posłuży nam ogólnodostępny plik w serwisie GDDKiA (Generalna Dyrekcja Dróg Krajowych i Autostrad) umieszczony tutaj: https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml</p>
 <p>W podanym pliku mamy umieszczone dane z remontów, prac w całej Polsce na drogach administrowanych przez GDDKiA.</p>
 <p>Mnie interesuje ile prowadzonych jest inwestycji w poszczególnych województwach. Taką informację możemy wydobyć w bashu tzw jednolinijkowcem.</p>
-<pre class="code literal-block">curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml <span class="p">|</span>xmlstarlet sel -t -m <span class="s2">"utrudnienia"</span> -m <span class="s2">"utr"</span> -v <span class="s2">"woj"</span> -n <span class="p">|</span>sort <span class="p">|</span>uniq -c <span class="p">|</span>sort -k1 -r
-</pre>
+<pre class="code literal-block"><span></span><code>curl -s -q https://www.gddkia.gov.pl/dane/zima_html/utrdane.xml <span class="p">|</span>xmlstarlet sel -t -m <span class="s2">"utrudnienia"</span> -m <span class="s2">"utr"</span> -v <span class="s2">"woj"</span> -n <span class="p">|</span>sort <span class="p">|</span>uniq -c <span class="p">|</span>sort -k1 -r
+</code></pre>
+
 <p>Wynik jaki dostanemy to:</p>
-<pre class="code literal-block"><span class="m">65</span> mazowieckie
+<pre class="code literal-block"><span></span><code><span class="m">65</span> mazowieckie
 <span class="m">56</span> małopolskie
 <span class="m">36</span> kujawsko-pomorskie
 <span class="m">35</span> zachodniopomorskie
@@ -123,7 +125,7 @@
 <span class="m">11</span> pomorskie
 <span class="m">11</span> podlaskie
 <span class="m">11</span> dolnośląskie
-</pre>
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

@@ -102,7 +102,7 @@ Niby prosta komenda system'>
 <p>Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.</p>
 <p>Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach</p>
 <p>Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).</p>
-<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nameS</span><span class="o">=(</span>httpd java postmaster<span class="o">)</span>
 <span class="nv">licznik1</span><span class="o">=</span><span class="m">0</span>
@@ -139,10 +139,11 @@ Niby prosta komenda system'>
     <span class="nb">echo</span> <span class="s2">"</span><span class="si">${</span><span class="nv">wynikF</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
     <span class="nb">exit</span> <span class="m">2</span>
 <span class="k">fi</span>
-</pre>
+</code></pre>
+
 <p>Aktualizacja: 20 wrzesień 2020r.</p>
 <p>Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.</p>
-<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nameS</span><span class="o">=(</span>upowerd gnome-shell nautilus<span class="o">)</span>
 <span class="nv">SUCCESS</span><span class="o">=</span><span class="s2">""</span>
@@ -179,7 +180,7 @@ Niby prosta komenda system'>
     <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$FAILED</span><span class="s2">"</span>
     <span class="nb">exit</span> <span class="m">2</span>
 <span class="k">fi</span>
-</pre>
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

@@ -104,29 +104,34 @@ Każdy nowy klient tworzony jest analogicznie jak pierwszy na tym sam">
 Klient (dla przykładu ten sam host co serwer).
 Każdy nowy klient tworzony jest analogicznie jak pierwszy na tym samym hoście. Trzeba tylko określić poprawny adres IP serwera.</p>
 <p>Instalujemy aplikację na serwerze:</p>
-<pre class="code literal-block">sudo apt install burp
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install burp
+</code></pre>
+
 <p>Lokalizacja plików konfiguracyjnych to:</p>
 <p>/etc/burp/burp-server.conf (plik konfiguracyjny serwera)</p>
 <p>/etc/burp/burp.conf (plik konfiguracyjny klienta)</p>
 <p>/etc/default/burp (dodatkowy plik umożliwoający start serwera - wystapuje on tylko w debianopochodnych)</p>
 <p>Najpierw w pliku /etc/default/burp zmieniamy opcję:</p>
-<pre class="code literal-block"><span class="nv">RUN</span><span class="o">=</span>no
+<pre class="code literal-block"><span></span><code><span class="nv">RUN</span><span class="o">=</span>no
 na
 <span class="nv">RUN</span><span class="o">=</span>yes
-</pre>
+</code></pre>
+
 <p>Idea pracy z aplikacją burp oparta jest na certyfikatach SSL. Przy starcie serwera aplikacja sama automatycznie wystawia certyfikat dla serwera. Domyślnie aplikacja ustawia nazwę CA na burpCA (będzie nam to potrzebne do wystawiania certyfikatów dla klientów)</p>
 <p>W pliku konfiguracyjnym serwera zmieniamy:</p>
-<pre class="code literal-block"><span class="nv">address</span> <span class="o">=</span> <span class="m">192</span>.168.x.x <span class="o">(</span>wpisz adres IP hosta serwera<span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="nv">address</span> <span class="o">=</span> <span class="m">192</span>.168.x.x <span class="o">(</span>wpisz adres IP hosta serwera<span class="o">)</span>
 
 <span class="nv">status_address</span> <span class="o">=</span> ten sam adres IP co pozycja address
-</pre>
+</code></pre>
+
 <p>Przeładowujemy aplikację:</p>
-<pre class="code literal-block">systemctl restart burp.service
-</pre>
+<pre class="code literal-block"><span></span><code>systemctl restart burp.service
+</code></pre>
+
 <p>Przechodzimy do konfiguracji klienta. Najpierw wystawiamy certyfikat dla klienta (na serwerze):</p>
-<pre class="code literal-block"> burp_ca --name Acer --ca burpCA --key --request --sign --batch
-</pre>
+<pre class="code literal-block"><span></span><code> burp_ca --name Acer --ca burpCA --key --request --sign --batch
+</code></pre>
+
 <p>Opis istotnych przełączników:</p>
 <p>--name Acer (dedykowana nazwa cname dla konkretnego klienta)</p>
 <p>--ca burpCA (nazwa naszego CA - niezmienna)</p>
@@ -148,31 +153,38 @@ na
 </ul>
 <p>W nim wypełniamy minimum jedną opcję (password = jakieś hasło). Takie samo hasło musi być w konfigu klienta.</p>
 <p>Ważna jest też zmiana ścieżki do klucza, certyfikatu i CA w konfigu klienta. Po prostu wpisz ścieżkę (najlepiej w lokalizacji /etc/burp) do tych plików</p>
-<pre class="code literal-block"><span class="nv">ssl_cert_ca</span> <span class="o">=</span> /etc/burp/ssl_cert_ca.pem
+<pre class="code literal-block"><span></span><code><span class="nv">ssl_cert_ca</span> <span class="o">=</span> /etc/burp/ssl_cert_ca.pem
 <span class="nv">ssl_cert</span> <span class="o">=</span> /etc/burp/CA/Acer.crt
 <span class="nv">ssl_key</span> <span class="o">=</span> /etc/burp/CA/Acer.key
-</pre>
+</code></pre>
+
 <p>Zmieniamy również scieżkę co chcemy "backupować" czyli zmieniamy opcję:</p>
-<pre class="code literal-block"><span class="nv">include</span> <span class="o">=</span> /etc
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nv">include</span> <span class="o">=</span> /etc
+</code></pre>
+
 <p>Można takich includów wpisać więcej. Teraz uruchamiamy pierwszy backup. Z pozycji klienta wykonujemy:</p>
-<pre class="code literal-block">burp -ab
-</pre>
+<pre class="code literal-block"><span></span><code>burp -ab
+</code></pre>
+
 <p>Sprawdzamy ile jest backupów:</p>
-<pre class="code literal-block">burp -al
-</pre>
+<pre class="code literal-block"><span></span><code>burp -al
+</code></pre>
+
 <p>sprawdzamy co jest np w backupie nr 3:</p>
-<pre class="code literal-block">burp -a l -b <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a l -b <span class="m">3</span>
+</code></pre>
+
 <p>Teraz chcemy odzyskać backup nr 3</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span>
+</code></pre>
+
 <p>Chcemy odzyskać pewien katalog z backupu nr 3</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span> -r moj_katalog
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span> -r moj_katalog
+</code></pre>
+
 <p>Chcemy odzyskać mój_katalog do innej lokalizacji (domyślnie system próbuje nadpisać oryginalną lokalizację)</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span> -r mój_katalog -d /tmp
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span> -r mój_katalog -d /tmp
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

@@ -102,23 +102,25 @@ Wchodzimy d">
     <div>
 <p><img alt="Postfix" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.postfix.png&amp;c=1" title="Postfix">  Potrzebowałem na szybko wyciągnąć wszystkie adresy IP z pliku /var/log/mail.log, które wylądowały w specjalnym folderze z niechcianą pocztą. IP-ki będą wprowadzone na czarną listę adresów.</p>
 <p>Wchodzimy do określonego folderu z niechcianą pocztą i wykonujemy polecenie:</p>
-<pre class="code literal-block">grep -h -o -E <span class="s1">'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</span> *  <span class="p">|</span>sort<span class="p">|</span>uniq <span class="p">|</span>grep -v <span class="s2">".0</span>$<span class="s2">"</span> <span class="p">|</span>grep -v <span class="s2">"127.0.0.1"</span>
-</pre>
+<pre class="code literal-block"><span></span><code>grep -h -o -E <span class="s1">'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</span> *  <span class="p">|</span>sort<span class="p">|</span>uniq <span class="p">|</span>grep -v <span class="s2">".0</span>$<span class="s2">"</span> <span class="p">|</span>grep -v <span class="s2">"127.0.0.1"</span>
+</code></pre>
+
 <h5>Wyjaśnienie:</h5>
 <p>Narzędzie grep jest świetnym narzędziem w powłoce BASH na takie zabawy.</p>
 <p>Fraza <code>'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</code> określa adres IP do wyszukania.</p>
 <p>Część <code>grep -v ".0$"</code> realizuje pomijanie całych podsieci (np. x.x.x.0/24)</p>
 <p>Część <code>grep -v "127.0.0.1"</code> pomija adres loopback, który nie ma nic wspólnego z adresem serwera clienta.</p>
 <p>Teraz dodajemy adresy do pliku (plik czarnej listy zdefiniowaliśmy w main.cf):</p>
-<pre class="code literal-block">x.x.x.x REJECT
+<pre class="code literal-block"><span></span><code>x.x.x.x REJECT
 
 ....
 
 ....
-</pre>
+</code></pre>
+
 <p>i klient dostaję zwrotkę na swoją pocztę (wiem, wiem spamerzy mają to głęboko :) )</p>
-<pre class="code literal-block">Sep <span class="m">15</span> <span class="m">09</span>:12:42 rod postfix/smtpd<span class="o">[</span><span class="m">14454</span><span class="o">]</span>: NOQUEUE: reject: RCPT from laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>: <span class="m">554</span> <span class="m">5</span>.7.1 &lt;laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>&gt;: Client host rejected: Access denied<span class="p">;</span> <span class="nv">from</span><span class="o">=</span>&lt;milenaxjjpgegbednarek@accvxz.com&gt; <span class="nv">to</span><span class="o">=</span>&lt;jakisnaszemail@jakasnaszadomena&gt; <span class="nv">proto</span><span class="o">=</span>ESMTP <span class="nv">helo</span><span class="o">=</span>&lt;laconic.accvxz.com&gt;
-</pre>
+<pre class="code literal-block"><span></span><code>Sep <span class="m">15</span> <span class="m">09</span>:12:42 rod postfix/smtpd<span class="o">[</span><span class="m">14454</span><span class="o">]</span>: NOQUEUE: reject: RCPT from laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>: <span class="m">554</span> <span class="m">5</span>.7.1 &lt;laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>&gt;: Client host rejected: Access denied<span class="p">;</span> <span class="nv">from</span><span class="o">=</span>&lt;milenaxjjpgegbednarek@accvxz.com&gt; <span class="nv">to</span><span class="o">=</span>&lt;jakisnaszemail@jakasnaszadomena&gt; <span class="nv">proto</span><span class="o">=</span>ESMTP <span class="nv">helo</span><span class="o">=</span>&lt;laconic.accvxz.com&gt;
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

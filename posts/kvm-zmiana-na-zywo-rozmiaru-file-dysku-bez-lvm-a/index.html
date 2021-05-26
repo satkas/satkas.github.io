@@ -104,64 +104,73 @@ Najpierw ident">
 <p><a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"><img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"></a> Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.</p>
 <p>Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.</p>
 <p>Najpierw identyfikujemy nasze maszyny wirtualne</p>
-<pre class="code literal-block">virsh list --all
+<pre class="code literal-block"><span></span><code>virsh list --all
 Id Name      State
 ----------------------------
 <span class="m">1</span>  centos8-2 running
 -  centos8   shut off
 -  debian10  shut off
 -  win10     shut off
-</pre>
+</code></pre>
+
 <p>Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną</p>
-<pre class="code literal-block">virsh domblklist centos8-2
+<pre class="code literal-block"><span></span><code>virsh domblklist centos8-2
 
 Target  Source
 ------------------------------------
 vda     /home/tk/vm/Resize.qcow2
 sda     -
-</pre>
+</code></pre>
+
 <p>Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:</p>
 <p>sudo qemu-img info /home/tk/vm/Resize.qcow2</p>
 <p>Niestety aby otrzymać informację musimy wyłączyć maszynę.</p>
 <p>Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.</p>
 <p>Użyjemy do tego polecenia:</p>
-<pre class="code literal-block">virsh qemu-monitor-command centos8-2 info block --hmp
+<pre class="code literal-block"><span></span><code>virsh qemu-monitor-command centos8-2 info block --hmp
 
 libvirt-2-format: /home/tk/vm/Resize.qcow2 <span class="o">(</span>qcow2<span class="o">)</span>
     Attached to: /machine/peripheral/virtio-disk0/virtio-backend
     Cache mode: writeback
 
 sata0-0-0: <span class="o">[</span>not inserted<span class="o">]</span> Attached to: sata0-0-0 Removable device: not locked, tray closed
-</pre>
+</code></pre>
+
 <p>Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:</p>
-<pre class="code literal-block">virsh domblklist centos8-2 --details
+<pre class="code literal-block"><span></span><code>virsh domblklist centos8-2 --details
 
 Type Device Target Source
 ----------------------------------------------------
 file disk   vda /home/tk/vm/Resize.qcow2
 file cdrom  sda -
-</pre>
+</code></pre>
+
 <p>Następnie dokonujemy rozszeżenia dysku</p>
-<pre class="code literal-block">virsh blockresize centos8-2 vda 20G
+<pre class="code literal-block"><span></span><code>virsh blockresize centos8-2 vda 20G
 Block device <span class="s1">'vda'</span> is resized
-</pre>
+</code></pre>
+
 <p>Sprawdzamy fdisk-iem czy powiększył nam się dysk</p>
-<pre class="code literal-block">fdisk -l
-</pre>
+<pre class="code literal-block"><span></span><code>fdisk -l
+</code></pre>
+
 <p>Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)</p>
 <p>Najpierw na maszynie wirtualnej instalujemy paczkę:</p>
 <p>Dla Ubuntu</p>
-<pre class="code literal-block">sudo apt install cloud-guest-utils
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install cloud-guest-utils
+</code></pre>
+
 <p>dla CentOS-a</p>
-<pre class="code literal-block">sudo yum install cloud-utils-growpart
-</pre>
+<pre class="code literal-block"><span></span><code>sudo yum install cloud-utils-growpart
+</code></pre>
+
 <p>Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.</p>
-<pre class="code literal-block">growpart /dev/vda <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>growpart /dev/vda <span class="m">3</span>
+</code></pre>
+
 <p>Na sam koniec wykonujemy rozszerzenie na filesytemie</p>
-<pre class="code literal-block">xfs_grows /
-</pre>
+<pre class="code literal-block"><span></span><code>xfs_grows /
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

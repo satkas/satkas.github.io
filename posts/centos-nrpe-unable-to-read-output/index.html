@@ -99,20 +99,23 @@
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
 <p>Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:</p>
-<pre class="code literal-block">NRPE: Unable to <span class="nb">read</span> output
-</pre>
+<pre class="code literal-block"><span></span><code>NRPE: Unable to <span class="nb">read</span> output
+</code></pre>
+
 <p>Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:</p>
-<pre class="code literal-block">/usr/lib64/nagios/plugins/
-</pre>
+<pre class="code literal-block"><span></span><code>/usr/lib64/nagios/plugins/
+</code></pre>
+
 <p>U mnie chodziło o skrypt perlowy check_ifutil.pl</p>
 <h6>Rozwiązanie 1:</h6>
 <p>Wykonujemy komendę:</p>
-<pre class="code literal-block">sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
-</pre>
+<pre class="code literal-block"><span></span><code>sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+</code></pre>
+
 <h6>Rozwiązanie 2:</h6>
 <p>Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:</p>
-<pre class="code literal-block">chmod +x nazwa_pliku
-</pre>
+<pre class="code literal-block"><span></span><code>chmod +x nazwa_pliku
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

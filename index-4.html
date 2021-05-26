@@ -84,13 +84,13 @@
                     <div>
 <p><a href="https://satkas.waw.pl/?post=zapomniane-haslo-admina-dla-ipa-server"><img alt="FreeIPA" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.freeipa.png&amp;c=1"></a> Jeśli zapomnimy hasło dla super użytkownika admin w usłudze ipa server to zmiana hasła odbywa się wg poniższej procedury.</p>
 <p>W konsoli wpisujemy:</p>
-<pre class="code literal-block"><span class="c1"># kadmin.local</span>
+<pre class="code literal-block"><span></span><code><span class="c1"># kadmin.local</span>
 
 kadmin.local:  cpw admin
 Enter password <span class="k">for</span> principal <span class="s2">"admin@SATKAS.LOCAL"</span>:&lt;nowe hasło&gt;
 Re-enter password <span class="k">for</span> principal <span class="s2">"admin@SATKAS.LOCAL"</span>:&lt;nowe hasło&gt;
 Password <span class="k">for</span> <span class="s2">"admin@SATKAS.LOCAL"</span> changed.
-</pre>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/100-lat-niepodleglej-polski/" class="u-url">100 lat Niepodległej Polski</a></h1>
@@ -123,29 +123,34 @@ Password <span class="k">for</span> <span class="s2">"admin@SATKAS.LOCAL"</span>
 Klient (dla przykładu ten sam host co serwer).
 Każdy nowy klient tworzony jest analogicznie jak pierwszy na tym samym hoście. Trzeba tylko określić poprawny adres IP serwera.</p>
 <p>Instalujemy aplikację na serwerze:</p>
-<pre class="code literal-block">sudo apt install burp
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install burp
+</code></pre>
+
 <p>Lokalizacja plików konfiguracyjnych to:</p>
 <p>/etc/burp/burp-server.conf (plik konfiguracyjny serwera)</p>
 <p>/etc/burp/burp.conf (plik konfiguracyjny klienta)</p>
 <p>/etc/default/burp (dodatkowy plik umożliwoający start serwera - wystapuje on tylko w debianopochodnych)</p>
 <p>Najpierw w pliku /etc/default/burp zmieniamy opcję:</p>
-<pre class="code literal-block"><span class="nv">RUN</span><span class="o">=</span>no
+<pre class="code literal-block"><span></span><code><span class="nv">RUN</span><span class="o">=</span>no
 na
 <span class="nv">RUN</span><span class="o">=</span>yes
-</pre>
+</code></pre>
+
 <p>Idea pracy z aplikacją burp oparta jest na certyfikatach SSL. Przy starcie serwera aplikacja sama automatycznie wystawia certyfikat dla serwera. Domyślnie aplikacja ustawia nazwę CA na burpCA (będzie nam to potrzebne do wystawiania certyfikatów dla klientów)</p>
 <p>W pliku konfiguracyjnym serwera zmieniamy:</p>
-<pre class="code literal-block"><span class="nv">address</span> <span class="o">=</span> <span class="m">192</span>.168.x.x <span class="o">(</span>wpisz adres IP hosta serwera<span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="nv">address</span> <span class="o">=</span> <span class="m">192</span>.168.x.x <span class="o">(</span>wpisz adres IP hosta serwera<span class="o">)</span>
 
 <span class="nv">status_address</span> <span class="o">=</span> ten sam adres IP co pozycja address
-</pre>
+</code></pre>
+
 <p>Przeładowujemy aplikację:</p>
-<pre class="code literal-block">systemctl restart burp.service
-</pre>
+<pre class="code literal-block"><span></span><code>systemctl restart burp.service
+</code></pre>
+
 <p>Przechodzimy do konfiguracji klienta. Najpierw wystawiamy certyfikat dla klienta (na serwerze):</p>
-<pre class="code literal-block"> burp_ca --name Acer --ca burpCA --key --request --sign --batch
-</pre>
+<pre class="code literal-block"><span></span><code> burp_ca --name Acer --ca burpCA --key --request --sign --batch
+</code></pre>
+
 <p>Opis istotnych przełączników:</p>
 <p>--name Acer (dedykowana nazwa cname dla konkretnego klienta)</p>
 <p>--ca burpCA (nazwa naszego CA - niezmienna)</p>
@@ -167,31 +172,38 @@ na
 </ul>
 <p>W nim wypełniamy minimum jedną opcję (password = jakieś hasło). Takie samo hasło musi być w konfigu klienta.</p>
 <p>Ważna jest też zmiana ścieżki do klucza, certyfikatu i CA w konfigu klienta. Po prostu wpisz ścieżkę (najlepiej w lokalizacji /etc/burp) do tych plików</p>
-<pre class="code literal-block"><span class="nv">ssl_cert_ca</span> <span class="o">=</span> /etc/burp/ssl_cert_ca.pem
+<pre class="code literal-block"><span></span><code><span class="nv">ssl_cert_ca</span> <span class="o">=</span> /etc/burp/ssl_cert_ca.pem
 <span class="nv">ssl_cert</span> <span class="o">=</span> /etc/burp/CA/Acer.crt
 <span class="nv">ssl_key</span> <span class="o">=</span> /etc/burp/CA/Acer.key
-</pre>
+</code></pre>
+
 <p>Zmieniamy również scieżkę co chcemy "backupować" czyli zmieniamy opcję:</p>
-<pre class="code literal-block"><span class="nv">include</span> <span class="o">=</span> /etc
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nv">include</span> <span class="o">=</span> /etc
+</code></pre>
+
 <p>Można takich includów wpisać więcej. Teraz uruchamiamy pierwszy backup. Z pozycji klienta wykonujemy:</p>
-<pre class="code literal-block">burp -ab
-</pre>
+<pre class="code literal-block"><span></span><code>burp -ab
+</code></pre>
+
 <p>Sprawdzamy ile jest backupów:</p>
-<pre class="code literal-block">burp -al
-</pre>
+<pre class="code literal-block"><span></span><code>burp -al
+</code></pre>
+
 <p>sprawdzamy co jest np w backupie nr 3:</p>
-<pre class="code literal-block">burp -a l -b <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a l -b <span class="m">3</span>
+</code></pre>
+
 <p>Teraz chcemy odzyskać backup nr 3</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span>
+</code></pre>
+
 <p>Chcemy odzyskać pewien katalog z backupu nr 3</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span> -r moj_katalog
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span> -r moj_katalog
+</code></pre>
+
 <p>Chcemy odzyskać mój_katalog do innej lokalizacji (domyślnie system próbuje nadpisać oryginalną lokalizację)</p>
-<pre class="code literal-block">burp -a r -b <span class="m">3</span> -r mój_katalog -d /tmp
-</pre>
+<pre class="code literal-block"><span></span><code>burp -a r -b <span class="m">3</span> -r mój_katalog -d /tmp
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/filtrowanie-logow-poczty/" class="u-url">Filtrowanie logów poczty</a></h1>
@@ -208,23 +220,25 @@ na
                     <div>
 <p><img alt="Postfix" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.postfix.png&amp;c=1" title="Postfix">  Potrzebowałem na szybko wyciągnąć wszystkie adresy IP z pliku /var/log/mail.log, które wylądowały w specjalnym folderze z niechcianą pocztą. IP-ki będą wprowadzone na czarną listę adresów.</p>
 <p>Wchodzimy do określonego folderu z niechcianą pocztą i wykonujemy polecenie:</p>
-<pre class="code literal-block">grep -h -o -E <span class="s1">'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</span> *  <span class="p">|</span>sort<span class="p">|</span>uniq <span class="p">|</span>grep -v <span class="s2">".0</span>$<span class="s2">"</span> <span class="p">|</span>grep -v <span class="s2">"127.0.0.1"</span>
-</pre>
+<pre class="code literal-block"><span></span><code>grep -h -o -E <span class="s1">'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</span> *  <span class="p">|</span>sort<span class="p">|</span>uniq <span class="p">|</span>grep -v <span class="s2">".0</span>$<span class="s2">"</span> <span class="p">|</span>grep -v <span class="s2">"127.0.0.1"</span>
+</code></pre>
+
 <h5>Wyjaśnienie:</h5>
 <p>Narzędzie grep jest świetnym narzędziem w powłoce BASH na takie zabawy.</p>
 <p>Fraza <code>'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'</code> określa adres IP do wyszukania.</p>
 <p>Część <code>grep -v ".0$"</code> realizuje pomijanie całych podsieci (np. x.x.x.0/24)</p>
 <p>Część <code>grep -v "127.0.0.1"</code> pomija adres loopback, który nie ma nic wspólnego z adresem serwera clienta.</p>
 <p>Teraz dodajemy adresy do pliku (plik czarnej listy zdefiniowaliśmy w main.cf):</p>
-<pre class="code literal-block">x.x.x.x REJECT
+<pre class="code literal-block"><span></span><code>x.x.x.x REJECT
 
 ....
 
 ....
-</pre>
+</code></pre>
+
 <p>i klient dostaję zwrotkę na swoją pocztę (wiem, wiem spamerzy mają to głęboko :) )</p>
-<pre class="code literal-block">Sep <span class="m">15</span> <span class="m">09</span>:12:42 rod postfix/smtpd<span class="o">[</span><span class="m">14454</span><span class="o">]</span>: NOQUEUE: reject: RCPT from laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>: <span class="m">554</span> <span class="m">5</span>.7.1 &lt;laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>&gt;: Client host rejected: Access denied<span class="p">;</span> <span class="nv">from</span><span class="o">=</span>&lt;milenaxjjpgegbednarek@accvxz.com&gt; <span class="nv">to</span><span class="o">=</span>&lt;jakisnaszemail@jakasnaszadomena&gt; <span class="nv">proto</span><span class="o">=</span>ESMTP <span class="nv">helo</span><span class="o">=</span>&lt;laconic.accvxz.com&gt;
-</pre>
+<pre class="code literal-block"><span></span><code>Sep <span class="m">15</span> <span class="m">09</span>:12:42 rod postfix/smtpd<span class="o">[</span><span class="m">14454</span><span class="o">]</span>: NOQUEUE: reject: RCPT from laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>: <span class="m">554</span> <span class="m">5</span>.7.1 &lt;laconic.pauladowson.com<span class="o">[</span><span class="m">192</span>.155.99.74<span class="o">]</span>&gt;: Client host rejected: Access denied<span class="p">;</span> <span class="nv">from</span><span class="o">=</span>&lt;milenaxjjpgegbednarek@accvxz.com&gt; <span class="nv">to</span><span class="o">=</span>&lt;jakisnaszemail@jakasnaszadomena&gt; <span class="nv">proto</span><span class="o">=</span>ESMTP <span class="nv">helo</span><span class="o">=</span>&lt;laconic.accvxz.com&gt;
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/szyfrowane-polaczenie-klientem-ftp-w-konsoli/" class="u-url">Szyfrowane połączenie klientem ftp w konsoli</a></h1>
@@ -244,10 +258,11 @@ na
 <p>W aplikacjach graficznych typu FileZilla przy konfiguracji konta możemy sobie ustawić jakie ma być połączenie (szyfrowane lub zwykłe).</p>
 <p>W konsoli narzędzie ftp nie ma zaimplementowanej opcji wyboru trybu szyfrowanego. W repozytoriach jest natomiast aplikacja ftp-ssl, która robi to samo co zwykły klient ftp dodatkowo szyfrując komunikację</p>
 <p>Instalujemy aplikację:</p>
-<pre class="code literal-block">sudo apt install ftp-ssl
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install ftp-ssl
+</code></pre>
+
 <p>i logujemy się do serwera:</p>
-<pre class="code literal-block">ftp-ssl nasz.serwer.ftp
+<pre class="code literal-block"><span></span><code>ftp-ssl nasz.serwer.ftp
 
 Connected to nasz.serwer.ftp.
 <span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.3<span class="o">)</span>
@@ -260,7 +275,8 @@ Name <span class="o">(</span>nasz.serwer.ftp:user<span class="o">)</span>:jakis-
 <span class="o">[</span>Encrypted data transfer.<span class="o">]</span>
 <span class="m">331</span> Please specify the password.
 Password:
-</pre>
+</code></pre>
+
 <p>Teraz wpisujemy hasło i możemy cieszyć się szyfrowanym połączeniem ftp</p>
 </div>
                 </div>
@@ -292,31 +308,38 @@ Password:
 <p><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></p>
 <p>Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.</p>
 <p>Wyodrębnienie całości metadanych ze zdjęcia do pliku:</p>
-<pre class="code literal-block">exiv2 -ea image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -ea image.jpg
+</code></pre>
+
 <p>Ta komenda utworzy plik o tej samej nazwie co zdjęcie z rozszerzeniem .exv</p>
 <p>Wstrzyknięcie tych samych danych z pliku .exv do zdjęcia:</p>
-<pre class="code literal-block">exiv2 -kia image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -kia image.jpg
+</code></pre>
+
 <p>Aby wyodrębnić konkretną sekcję np IPTC wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -PI image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -PI image.jpg
+</code></pre>
+
 <p>lub</p>
-<pre class="code literal-block">exiv2 -pi image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -pi image.jpg
+</code></pre>
+
 <p>Jeśli chcemy tylko wyodrębnić np. tytuł wydarzenia uwieńczonego na zdjęciu wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -PIv -g Iptc.Application2.Headline
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -PIv -g Iptc.Application2.Headline
+</code></pre>
+
 <p>Oczywiście musimy być pewni, że fotograf, agencja foto podpisuje swoje zdjęcia w programie do edycji meta danych. Inaczej nic nie zobaczymy. Osoby prywatne raczej nie opisują zdjęć więc zobaczysz tylko metadane EXIF(metadane generowane przez aparat fotograficzny).</p>
 <p>Jeśli chcemy dodać pojedyńcze rekordy w sekcji np IPTC wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -kM<span class="s2">"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"</span> image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -kM<span class="s2">"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"</span> image.jpg
+</code></pre>
+
 <p>Usunięcie sekcji IPTC, XMP, EXIF wykonamy narzędziem jhead</p>
-<pre class="code literal-block">jhead -dc -de -di -dx image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>jhead -dc -de -di -dx image.jpg
+</code></pre>
+
 <p>Oba narzędzia exiv2 i jhead zainstalujemy w ubuntu</p>
-<pre class="code literal-block">sudo apt install exiv2 jhead
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install exiv2 jhead
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/" class="u-url">Bash - pojemność katalogu z filtrem na pliki</a></h1>
@@ -333,7 +356,7 @@ Password:
                     <div>
 <p><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></p>
 <p>Zawartość skryptu. Skrypt posiada 2 zmienne. Zmienna $folder to obliczany folder. Zmienna $ext to rozszerzenie plików, które będą zliczane. Skrypt oblicza pojemność katalogu rekursywnie i ogranicza się tylko do plików jpg  </p>
-<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nv">folder</span><span class="o">=</span><span class="s1">'/home/user/Obrazy'</span>
 <span class="nv">ext</span><span class="o">=</span><span class="s1">'.jpg'</span>
 
@@ -362,7 +385,7 @@ foldersize<span class="o">()</span> <span class="o">{</span>
 <span class="o">}</span>
 
 foldersize
-</pre>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nowy-plik-w-ubuntu-files-nautilus/" class="u-url">Nowy plik w Ubuntu files (nautilus)</a></h1>

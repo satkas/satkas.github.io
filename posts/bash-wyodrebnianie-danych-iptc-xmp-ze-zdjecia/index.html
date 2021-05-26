@@ -20,7 +20,8 @@
 Wyodrębnienie całości metadanych ze zdjęcia do pliku:
 exiv2 -ea image.jpg
 
-Ta komenda ">
+
+Ta komenda">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2018-05-22T00:00:00+02:00">
 <meta property="article:tag" content="bash">
@@ -104,31 +105,38 @@ Ta komenda ">
 <p><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></p>
 <p>Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.</p>
 <p>Wyodrębnienie całości metadanych ze zdjęcia do pliku:</p>
-<pre class="code literal-block">exiv2 -ea image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -ea image.jpg
+</code></pre>
+
 <p>Ta komenda utworzy plik o tej samej nazwie co zdjęcie z rozszerzeniem .exv</p>
 <p>Wstrzyknięcie tych samych danych z pliku .exv do zdjęcia:</p>
-<pre class="code literal-block">exiv2 -kia image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -kia image.jpg
+</code></pre>
+
 <p>Aby wyodrębnić konkretną sekcję np IPTC wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -PI image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -PI image.jpg
+</code></pre>
+
 <p>lub</p>
-<pre class="code literal-block">exiv2 -pi image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -pi image.jpg
+</code></pre>
+
 <p>Jeśli chcemy tylko wyodrębnić np. tytuł wydarzenia uwieńczonego na zdjęciu wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -PIv -g Iptc.Application2.Headline
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -PIv -g Iptc.Application2.Headline
+</code></pre>
+
 <p>Oczywiście musimy być pewni, że fotograf, agencja foto podpisuje swoje zdjęcia w programie do edycji meta danych. Inaczej nic nie zobaczymy. Osoby prywatne raczej nie opisują zdjęć więc zobaczysz tylko metadane EXIF(metadane generowane przez aparat fotograficzny).</p>
 <p>Jeśli chcemy dodać pojedyńcze rekordy w sekcji np IPTC wydajemy komendę:</p>
-<pre class="code literal-block">exiv2 -kM<span class="s2">"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"</span> image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>exiv2 -kM<span class="s2">"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"</span> image.jpg
+</code></pre>
+
 <p>Usunięcie sekcji IPTC, XMP, EXIF wykonamy narzędziem jhead</p>
-<pre class="code literal-block">jhead -dc -de -di -dx image.jpg
-</pre>
+<pre class="code literal-block"><span></span><code>jhead -dc -de -di -dx image.jpg
+</code></pre>
+
 <p>Oba narzędzia exiv2 i jhead zainstalujemy w ubuntu</p>
-<pre class="code literal-block">sudo apt install exiv2 jhead
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install exiv2 jhead
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

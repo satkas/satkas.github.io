@@ -239,15 +239,17 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
 <p>Bardzo często administratorzy Windowsa/AD blokują standardowemu użytkownikowi dostęp do powloki cmd.</p>
 <p>Obejściem może tutaj być wykonanie poniższych czynności:</p>
 <p>Otwieramy menu start i zaczynamy wpisywać:</p>
-<pre class="code literal-block">cmd /k jakiś_tool
-</pre>
+<pre class="code literal-block"><span></span><code>cmd /k jakiś_tool
+</code></pre>
+
 <p>i klikamy enter</p>
 <p>Jeśli narzędzie ma jakieś opcje to musimy zamknąć ten wpis w podwójne apostrofy</p>
-<pre class="code literal-block">cmd /k <span class="s2">"ipconfig /all"</span>
-</pre>
+<pre class="code literal-block"><span></span><code>cmd /k <span class="s2">"ipconfig /all"</span>
+</code></pre>
+
 <p>Jest jeszcze jedna trudność. Jeśli w poleceniu np scieżka ma spację trzeba zrobić to w ten sposób:</p>
-<pre class="code literal-block">cmd /k <span class="s2">"certutil -hashfile "</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\p</span>lik.txt<span class="s2">" MD5"</span>
-</pre>
+<pre class="code literal-block"><span></span><code>cmd /k <span class="s2">"certutil -hashfile "</span>C:<span class="se">\P</span>rogram Files <span class="o">(</span>x86<span class="o">)</span><span class="se">\p</span>lik.txt<span class="s2">" MD5"</span>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/windows-cmd-sprawdzenie-sumy-kontrolnej-md5-pliku/" class="u-url">Windows CMD - Sprawdzenie sumy kontrolnej md5 pliku</a></h1>
@@ -263,12 +265,13 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
             </header><div class="e-content entry-content">
                     <div>
 <p>Czasami trzeba sprawdzić sumę kontrolną pliku. W linuksie jest to bardzo proste poprzez użycie narzędzi typu md5sum sha256sum. Ale w Windowsie? Moim zdaniem narzędzie do sprawdzania sum kontrolnych powinno być na wysposarzeniu systemu operacyjnego bez instalowania jakiś zewnętrznych paczek. Szukałem, szukałem i się doszukałem</p>
-<pre class="code literal-block">certutil
-</pre>
+<pre class="code literal-block"><span></span><code>certutil
+</code></pre>
+
 <p>Tak wiem to jest narzędzie do zarządzania certyfikatami. Można jednak nim sprzwdzić sumę kontrolną pliku i jest domyślnie w systemie.</p>
 <p>Sprawdzenie sumy kontrolnej md5 pliku</p>
-<pre class="code literal-block">certutil -hashfile plik MD5
-</pre>
+<pre class="code literal-block"><span></span><code>certutil -hashfile plik MD5
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-sprawdzenie-czy-proces-jest-aktywny-z-najmniejszymi-uprawnieniami/" class="u-url">Bash - sprawdzenie czy proces jest aktywny z najmniejszymi uprawnieniami</a></h1>
@@ -287,7 +290,7 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
 <p>Wymaganie było aby zrobić to przy jak najmniejszym nadawaniu uprawnień.</p>
 <p>Niby prosta komenda systemctl is-active *.service jest dobra ale zdalne wykonanie skryptu przez nrpe nie chciało zaskoczyć. Czały cas w logach były komunikaty o u słabych uprawnieniach</p>
 <p>Skrypt wykonałem w Bash-u zaprzęgając do tego poczciwą komendę ps. Reszta to już tylko tablice. Dodatkowo problemem było jeszcze nazewnictwo  usług. Np Tomcat posiada proces java, a baza danych PostgreSQL uruchamia proces posmaster. W skrypcie uwzględniłem taki przypadek. Choć wiem, że nie jest elastyczny (można zrobić porównanie po stringach, a nie po indeksach).</p>
-<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nameS</span><span class="o">=(</span>httpd java postmaster<span class="o">)</span>
 <span class="nv">licznik1</span><span class="o">=</span><span class="m">0</span>
@@ -324,10 +327,11 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
     <span class="nb">echo</span> <span class="s2">"</span><span class="si">${</span><span class="nv">wynikF</span><span class="p">[@]</span><span class="si">}</span><span class="s2">"</span>
     <span class="nb">exit</span> <span class="m">2</span>
 <span class="k">fi</span>
-</pre>
+</code></pre>
+
 <p>Aktualizacja: 20 wrzesień 2020r.</p>
 <p>Skorygowałem skrypt na taki, który nie używa tablic indeksowych tylko polecenia case. Wydaje się prostszy.</p>
-<pre class="code literal-block"><span class="ch">#!/bin/bash</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="nv">nameS</span><span class="o">=(</span>upowerd gnome-shell nautilus<span class="o">)</span>
 <span class="nv">SUCCESS</span><span class="o">=</span><span class="s2">""</span>
@@ -364,7 +368,7 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
     <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$FAILED</span><span class="s2">"</span>
     <span class="nb">exit</span> <span class="m">2</span>
 <span class="k">fi</span>
-</pre>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/centos-nrpe-unable-to-read-output/" class="u-url">CentOS - NRPE: Unable to read output</a></h1>
@@ -380,20 +384,23 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
             </header><div class="e-content entry-content">
                     <div>
 <p>Jeśli mamy skonfigurowaną na kliencie usługę nrpe do monitorowania przez nagios/centreon na Centosie/RedHacie/Fedorze (generalnie tam gdzie włączony jest Selinux) możemy otrzymać zwrot w postaci takiego komunikatu:</p>
-<pre class="code literal-block">NRPE: Unable to <span class="nb">read</span> output
-</pre>
+<pre class="code literal-block"><span></span><code>NRPE: Unable to <span class="nb">read</span> output
+</code></pre>
+
 <p>Okazuje się, że odpowiedzialny za ten stan jest Selinux. Po prostu nie pozwala zdalnie wykonać skryptu, który wrzuciliśmy do lokalizacji:</p>
-<pre class="code literal-block">/usr/lib64/nagios/plugins/
-</pre>
+<pre class="code literal-block"><span></span><code>/usr/lib64/nagios/plugins/
+</code></pre>
+
 <p>U mnie chodziło o skrypt perlowy check_ifutil.pl</p>
 <h6>Rozwiązanie 1:</h6>
 <p>Wykonujemy komendę:</p>
-<pre class="code literal-block">sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
-</pre>
+<pre class="code literal-block"><span></span><code>sudo chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_ifutil.pl
+</code></pre>
+
 <h6>Rozwiązanie 2:</h6>
 <p>Jeśli nie masz włączonego SElinuxa to przyczyną może być brak uprawnień do wykonywania skryptu. Wykonaj więc:</p>
-<pre class="code literal-block">chmod +x nazwa_pliku
-</pre>
+<pre class="code literal-block"><span></span><code>chmod +x nazwa_pliku
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-generowanie-hasla/" class="u-url">Bash - generowanie hasła</a></h1>
@@ -411,7 +418,7 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
             </header><div class="e-content entry-content">
                     <div>
 <p><a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a> Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej <a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/">strony</a> pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.</p>
-<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/usr/bin/env sh</span>
 
 <span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
 <span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'6'</span>
@@ -425,15 +432,17 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
 <span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
  <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
 <span class="k">done</span>
-</pre>
-<p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami <code>$1, $2</code></p>
+</code></pre>
+
+<p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami $1, $2</p>
 <p>Wtedy wywołanie będzie:</p>
-<pre class="code literal-block">bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
-</pre>
+<pre class="code literal-block"><span></span><code>bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
+</code></pre>
+
 <h6>Aktualizacja</h6>
 <p>W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
 Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
-<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/usr/bin/env sh</span>
 
 <span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
 <span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'20'</span>
@@ -448,7 +457,7 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
 <span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
  <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
 <span class="k">done</span>
-</pre>
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/" class="u-url">KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</a></h1>
@@ -466,64 +475,73 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
 <p><a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"><img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"></a> Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.</p>
 <p>Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.</p>
 <p>Najpierw identyfikujemy nasze maszyny wirtualne</p>
-<pre class="code literal-block">virsh list --all
+<pre class="code literal-block"><span></span><code>virsh list --all
 Id Name      State
 ----------------------------
 <span class="m">1</span>  centos8-2 running
 -  centos8   shut off
 -  debian10  shut off
 -  win10     shut off
-</pre>
+</code></pre>
+
 <p>Póżniej sprawdzamy jaki rodzaj pamięci masowej podpięty jest pod maszynę wirtualną</p>
-<pre class="code literal-block">virsh domblklist centos8-2
+<pre class="code literal-block"><span></span><code>virsh domblklist centos8-2
 
 Target  Source
 ------------------------------------
 vda     /home/tk/vm/Resize.qcow2
 sda     -
-</pre>
+</code></pre>
+
 <p>Widzimy, że za dysk służy plik. Aby sprawdzić informacje o takim file dysku użyjemy polecenia:</p>
 <p>sudo qemu-img info /home/tk/vm/Resize.qcow2</p>
 <p>Niestety aby otrzymać informację musimy wyłączyć maszynę.</p>
 <p>Nie o to nam przecież chodzi. Musimy wszystko przeprowadzić na działającej maszynie.</p>
 <p>Użyjemy do tego polecenia:</p>
-<pre class="code literal-block">virsh qemu-monitor-command centos8-2 info block --hmp
+<pre class="code literal-block"><span></span><code>virsh qemu-monitor-command centos8-2 info block --hmp
 
 libvirt-2-format: /home/tk/vm/Resize.qcow2 <span class="o">(</span>qcow2<span class="o">)</span>
     Attached to: /machine/peripheral/virtio-disk0/virtio-backend
     Cache mode: writeback
 
 sata0-0-0: <span class="o">[</span>not inserted<span class="o">]</span> Attached to: sata0-0-0 Removable device: not locked, tray closed
-</pre>
+</code></pre>
+
 <p>Tutaj mamy więcej danych. Lub możemy wykorzystać poprzednie polecenie ale w rozszerzonym formacie:</p>
-<pre class="code literal-block">virsh domblklist centos8-2 --details
+<pre class="code literal-block"><span></span><code>virsh domblklist centos8-2 --details
 
 Type Device Target Source
 ----------------------------------------------------
 file disk   vda /home/tk/vm/Resize.qcow2
 file cdrom  sda -
-</pre>
+</code></pre>
+
 <p>Następnie dokonujemy rozszeżenia dysku</p>
-<pre class="code literal-block">virsh blockresize centos8-2 vda 20G
+<pre class="code literal-block"><span></span><code>virsh blockresize centos8-2 vda 20G
 Block device <span class="s1">'vda'</span> is resized
-</pre>
+</code></pre>
+
 <p>Sprawdzamy fdisk-iem czy powiększył nam się dysk</p>
-<pre class="code literal-block">fdisk -l
-</pre>
+<pre class="code literal-block"><span></span><code>fdisk -l
+</code></pre>
+
 <p>Ostatnim krokiem jest rozszeżenie filesystemu (u mnie główna partycja)</p>
 <p>Najpierw na maszynie wirtualnej instalujemy paczkę:</p>
 <p>Dla Ubuntu</p>
-<pre class="code literal-block">sudo apt install cloud-guest-utils
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install cloud-guest-utils
+</code></pre>
+
 <p>dla CentOS-a</p>
-<pre class="code literal-block">sudo yum install cloud-utils-growpart
-</pre>
+<pre class="code literal-block"><span></span><code>sudo yum install cloud-utils-growpart
+</code></pre>
+
 <p>Poniższym poleceniem wskazujemy dysk i numer partycji do wypełnienia (u mnie 3). Jak mamy ponumerowane partycje na dysku możemy sobie sprawdzić narzędziem parted. Po wykonaniu polecenia parted, wpisujemy print. Kolumna Number pokazuje nam partycje ponumerowane.</p>
-<pre class="code literal-block">growpart /dev/vda <span class="m">3</span>
-</pre>
+<pre class="code literal-block"><span></span><code>growpart /dev/vda <span class="m">3</span>
+</code></pre>
+
 <p>Na sam koniec wykonujemy rozszerzenie na filesytemie</p>
-<pre class="code literal-block">xfs_grows /
-</pre>
+<pre class="code literal-block"><span></span><code>xfs_grows /
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bash-spacje-spacje-spacje/" class="u-url">BASH - spacje, spacje, spacje</a></h1>

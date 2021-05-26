@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o ftp)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/ftp.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Szyfrowane połączenie klientem ftp w konsoli</title><link>https://sataks.github.io/posts/szyfrowane-polaczenie-klientem-ftp-w-konsoli/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="FTP" src="https://satkas.waw.pl/data/uploads/images/ftp-ssl.jpg" title="FTP"&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o ftp)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/ftp.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 13:36:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Szyfrowane połączenie klientem ftp w konsoli</title><link>https://sataks.github.io/posts/szyfrowane-polaczenie-klientem-ftp-w-konsoli/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="FTP" src="https://satkas.waw.pl/data/uploads/images/ftp-ssl.jpg" title="FTP"&gt;&lt;/p&gt;
 &lt;p&gt;Musimy połączyć się do serwera ftp, który oferuje szyfrowanie. Wiadomo, domyślnie protokół ftp przesyła czystym tekstem wszystkie dane.&lt;/p&gt;
 &lt;p&gt;W aplikacjach graficznych typu FileZilla przy konfiguracji konta możemy sobie ustawić jakie ma być połączenie (szyfrowane lub zwykłe).&lt;/p&gt;
 &lt;p&gt;W konsoli narzędzie ftp nie ma zaimplementowanej opcji wyboru trybu szyfrowanego. W repozytoriach jest natomiast aplikacja ftp-ssl, która robi to samo co zwykły klient ftp dodatkowo szyfrując komunikację&lt;/p&gt;
 &lt;p&gt;Instalujemy aplikację:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo apt install ftp-ssl
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install ftp-ssl
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;i logujemy się do serwera:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;ftp-ssl nasz.serwer.ftp
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;ftp-ssl nasz.serwer.ftp
 
 Connected to nasz.serwer.ftp.
 &lt;span class="m"&gt;220&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;vsFTPd &lt;span class="m"&gt;3&lt;/span&gt;.0.3&lt;span class="o"&gt;)&lt;/span&gt;
@@ -20,5 +21,6 @@ Name &lt;span class="o"&gt;(&lt;/span&gt;nasz.serwer.ftp:user&lt;span class="o"&
 &lt;span class="o"&gt;[&lt;/span&gt;Encrypted data transfer.&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;span class="m"&gt;331&lt;/span&gt; Please specify the password.
 Password:
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Teraz wpisujemy hasło i możemy cieszyć się szyfrowanym połączeniem ftp&lt;/p&gt;&lt;/div&gt;</description><category>ftp</category><category>linux</category><category>ssl</category><guid>https://sataks.github.io/posts/szyfrowane-polaczenie-klientem-ftp-w-konsoli/</guid><pubDate>Thu, 30 Aug 2018 22:00:00 GMT</pubDate></item></channel></rss>

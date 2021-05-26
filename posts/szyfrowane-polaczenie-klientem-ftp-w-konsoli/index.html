@@ -103,10 +103,11 @@ W aplikacjach graficznych typu FileZilla przy konfiguracji konta">
 <p>W aplikacjach graficznych typu FileZilla przy konfiguracji konta możemy sobie ustawić jakie ma być połączenie (szyfrowane lub zwykłe).</p>
 <p>W konsoli narzędzie ftp nie ma zaimplementowanej opcji wyboru trybu szyfrowanego. W repozytoriach jest natomiast aplikacja ftp-ssl, która robi to samo co zwykły klient ftp dodatkowo szyfrując komunikację</p>
 <p>Instalujemy aplikację:</p>
-<pre class="code literal-block">sudo apt install ftp-ssl
-</pre>
+<pre class="code literal-block"><span></span><code>sudo apt install ftp-ssl
+</code></pre>
+
 <p>i logujemy się do serwera:</p>
-<pre class="code literal-block">ftp-ssl nasz.serwer.ftp
+<pre class="code literal-block"><span></span><code>ftp-ssl nasz.serwer.ftp
 
 Connected to nasz.serwer.ftp.
 <span class="m">220</span> <span class="o">(</span>vsFTPd <span class="m">3</span>.0.3<span class="o">)</span>
@@ -119,7 +120,8 @@ Name <span class="o">(</span>nasz.serwer.ftp:user<span class="o">)</span>:jakis-
 <span class="o">[</span>Encrypted data transfer.<span class="o">]</span>
 <span class="m">331</span> Please specify the password.
 Password:
-</pre>
+</code></pre>
+
 <p>Teraz wpisujemy hasło i możemy cieszyć się szyfrowanym połączeniem ftp</p>
 </div>
     </div>

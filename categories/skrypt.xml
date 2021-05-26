@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o skrypt)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/skrypt.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Tue, 25 May 2021 20:19:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - wyodrębnianie danych IPTC XMP ze zdjęcia</title><link>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o skrypt)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/skrypt.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 13:36:49 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Bash - wyodrębnianie danych IPTC XMP ze zdjęcia</title><link>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
 &lt;p&gt;Jeśli chcemy wydobyć jakąś pojedyńczą sekcję (fotografa, agencję lub opis) ze zdjęcia można użyć narzędzia exiv2.&lt;/p&gt;
 &lt;p&gt;Wyodrębnienie całości metadanych ze zdjęcia do pliku:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -ea image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -ea image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Ta komenda utworzy plik o tej samej nazwie co zdjęcie z rozszerzeniem .exv&lt;/p&gt;
 &lt;p&gt;Wstrzyknięcie tych samych danych z pliku .exv do zdjęcia:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -kia image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -kia image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Aby wyodrębnić konkretną sekcję np IPTC wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -PI image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -PI image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;lub&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -pi image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -pi image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Jeśli chcemy tylko wyodrębnić np. tytuł wydarzenia uwieńczonego na zdjęciu wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -PIv -g Iptc.Application2.Headline
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -PIv -g Iptc.Application2.Headline
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Oczywiście musimy być pewni, że fotograf, agencja foto podpisuje swoje zdjęcia w programie do edycji meta danych. Inaczej nic nie zobaczymy. Osoby prywatne raczej nie opisują zdjęć więc zobaczysz tylko metadane EXIF(metadane generowane przez aparat fotograficzny).&lt;/p&gt;
 &lt;p&gt;Jeśli chcemy dodać pojedyńcze rekordy w sekcji np IPTC wydajemy komendę:&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;exiv2 -kM&lt;span class="s2"&gt;"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"&lt;/span&gt; image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;exiv2 -kM&lt;span class="s2"&gt;"add Iptc.Application2.Headline Jakiś tytuł wydarzenia na zdjęciu"&lt;/span&gt; image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Usunięcie sekcji IPTC, XMP, EXIF wykonamy narzędziem jhead&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;jhead -dc -de -di -dx image.jpg
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;jhead -dc -de -di -dx image.jpg
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;Oba narzędzia exiv2 i jhead zainstalujemy w ubuntu&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;sudo apt install exiv2 jhead
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</guid><pubDate>Mon, 21 May 2018 22:00:00 GMT</pubDate></item><item><title>Bash - pojemność katalogu z filtrem na pliki</title><link>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;sudo apt install exiv2 jhead
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-wyodrebnianie-danych-iptc-xmp-ze-zdjecia/</guid><pubDate>Mon, 21 May 2018 22:00:00 GMT</pubDate></item><item><title>Bash - pojemność katalogu z filtrem na pliki</title><link>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1" title="Bash"&gt;&lt;/p&gt;
 &lt;p&gt;Zawartość skryptu. Skrypt posiada 2 zmienne. Zmienna $folder to obliczany folder. Zmienna $ext to rozszerzenie plików, które będą zliczane. Skrypt oblicza pojemność katalogu rekursywnie i ogranicza się tylko do plików jpg  &lt;/p&gt;
-&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="ch"&gt;#!/bin/bash&lt;/span&gt;
 &lt;span class="nv"&gt;folder&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'/home/user/Obrazy'&lt;/span&gt;
 &lt;span class="nv"&gt;ext&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'.jpg'&lt;/span&gt;
 
@@ -57,7 +64,7 @@ foldersize&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span
 &lt;span class="o"&gt;}&lt;/span&gt;
 
 foldersize
-&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</guid><pubDate>Mon, 14 May 2018 22:00:00 GMT</pubDate></item><item><title>Skrypt sprawdzający kiedy wygaśnie domena</title><link>https://sataks.github.io/posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;figure&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>skrypt</category><guid>https://sataks.github.io/posts/bash-pojemnosc-katalogu-z-filtrem-na-pliki/</guid><pubDate>Mon, 14 May 2018 22:00:00 GMT</pubDate></item><item><title>Skrypt sprawdzający kiedy wygaśnie domena</title><link>https://sataks.github.io/posts/skrypt-sprawdzajacy-kiedy-wygasnie-domena/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;figure&gt;
 &lt;a class="reference external image-reference" href="https://satkas.waw.pl/?post=skrypt-sprawdzajacy-kiedy-wygasnie-domena"&gt;&lt;img alt="'Bash'" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;amp;c=1"&gt;&lt;/a&gt;
 &lt;/figure&gt;
 &lt;p&gt;Dla Debiana/Ubuntu/Minta sprawdzamy czy mamy zainstalowany whois wydając w shellu polecenie&lt;/p&gt;

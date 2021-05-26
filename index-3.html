@@ -84,8 +84,9 @@
                     <div>
 <p>Czasami potrzeba przekierować url naszej domeny na inny adres (np. gdy chcemy przekierowywać zaindeksowane przez google, nieaktywne pliki na poprawne)</p>
 <p>W głównym korzeniu aplikacji www (tam gdzie wskazuje zmienna DocumentRoot w VirtualHost konfiguracji domeny na serwerze Apache2) tworzymy plik .htaccess i wpisujemy do niego:</p>
-<pre class="code literal-block">Redirect <span class="m">301</span> /katalog/plik.html https://domena.tld/katalog2/plik.html
-</pre>
+<pre class="code literal-block"><span></span><code>Redirect <span class="m">301</span> /katalog/plik.html https://domena.tld/katalog2/plik.html
+</code></pre>
+
 <h5>Wyjaśnienie:</h5>
 <p><code>/katalog/plik.html</code> 
 (to część adresu url po nazwie domeny, który trzeba przekierować)</p>
@@ -93,8 +94,8 @@
  (nowy adres na który wskazuje przekierowanie)</p>
 <p>Czasami trzeba przekierować adres który wskazuje na katalog/kategorię na nowy adres</p>
 <p>Wtedy wpisujemy:</p>
-<pre class="code literal-block">Redirect <span class="m">301</span> /katalog/?$ https://domena.tld/katalog2/plik.html
-</pre>
+<pre class="code literal-block"><span></span><code>Redirect <span class="m">301</span> /katalog/?$ https://domena.tld/katalog2/plik.html
+</code></pre>
 </div>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/30-przekierowanie-adresu-url-w-apache-virtualhost/" class="u-url">Przekierowanie adresu url w Apache VirtualHost</a></h1>

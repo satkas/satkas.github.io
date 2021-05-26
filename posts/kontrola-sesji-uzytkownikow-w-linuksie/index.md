@@ -15,7 +15,7 @@ To prawda - jeśli myślimy w perspektywie zarządzania Windowsami. W Linuksie t
 
 Jest kilka możliwości. Pierwsza to znajome narzędzie who
 
-Za man-em ```who - show who is logged on```
+Za man-em who - show who is logged on
 
 Jeśli chcemy zobaczyć kto jest zalogowany w systemie to wydajemy komendę:
 
@@ -90,7 +90,7 @@ ps -ef |awk '$9 ~ /pts/ || $6 ~ /tty/ { print $0 }'
 
 Zdecydowanie polecam ostatnie polecenie. Ma najwięcej możliwość i związany jest z wraz z wprowadzeniem systemd.
 
-Komenda ```loginctl -l``` pokazuje sesje użytkowników
+Komenda loginctl -l pokazuje sesje użytkowników
 
 Aby wyświetlić więcej informacji dotyczących sesji wykonujemy polecenie:
 

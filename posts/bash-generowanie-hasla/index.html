@@ -100,7 +100,7 @@
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
 <p><a href="https://satkas.waw.pl/?post=bash-generowanie-hasla"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1"></a> Jest wiele sposobów na wygenerowanie hasła. Służą do tego wyspecjalizowane programy(pwgen, keepass itp). Link do tej <a href="https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/">strony</a> pokazuje "ocean możliwości". Można również samemu sobie stworzyć automat w postacji skryptu bash. Bash się do tego nadaje idealnie.</p>
-<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/usr/bin/env sh</span>
 
 <span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
 <span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'6'</span>
@@ -114,15 +114,17 @@
 <span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
  <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
 <span class="k">done</span>
-</pre>
-<p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami <code>$1, $2</code></p>
+</code></pre>
+
+<p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami $1, $2</p>
 <p>Wtedy wywołanie będzie:</p>
-<pre class="code literal-block">bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
-</pre>
+<pre class="code literal-block"><span></span><code>bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
+</code></pre>
+
 <h6>Aktualizacja</h6>
 <p>W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
 Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
-<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+<pre class="code literal-block"><span></span><code><span class="ch">#!/usr/bin/env sh</span>
 
 <span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
 <span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'20'</span>
@@ -137,7 +139,7 @@ Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
 <span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
  <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
 <span class="k">done</span>
-</pre>
+</code></pre>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
