@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://sataks.github.io/</loc>
-  <lastmod>2021-05-25T20:15:00Z</lastmod>
+  <lastmod>2021-05-25T21:15:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/2012/</loc>
@@ -39,7 +39,7 @@
  </url>
  <url>
   <loc>https://sataks.github.io/archive.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/authors/</loc>
@@ -295,23 +295,23 @@
  </url>
  <url>
   <loc>https://sataks.github.io/index-1.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/index-2.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/index-3.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/index-4.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/index-5.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/listings/</loc>
@@ -323,7 +323,7 @@
  </url>
  <url>
   <loc>https://sataks.github.io/listings/hello.py.html</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <lastmod>2021-05-26T09:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/pages/about-nikola/</loc>
@@ -392,10 +392,6 @@
  <url>
   <loc>https://sataks.github.io/posts/3-synchronizacja-czasu-w-domenie-samba4-na-windows-10-prof/</loc>
   <lastmod>2021-05-25T11:31:00Z</lastmod>
- </url>
- <url>
-  <loc>https://sataks.github.io/posts/30-/</loc>
-  <lastmod>2021-05-25T15:12:00Z</lastmod>
  </url>
  <url>
   <loc>https://sataks.github.io/posts/30-przekierowanie-adresu-url-w-apache-virtualhost/</loc>
