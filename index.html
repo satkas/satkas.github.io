@@ -12,7 +12,7 @@
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="pl" href="rss.xml">
 <link rel="canonical" href="https://sataks.github.io/">
 <link rel="next" href="index-5.html" type="text/html">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/nikola-napedza-strone-satkasgithubio/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Przejdź do treści</a>
@@ -69,7 +69,30 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" class="u-url">Rozszerzenie partycji w wirtualnym systemie (cfdisk)</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/nikola-napedza-strone-satkasgithubio/" class="u-url">Nikola napędza stronę satkas.github.io</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        tk
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/nikola-napedza-strone-satkasgithubio/" rel="bookmark">
+            <time class="published dt-published" datetime="2021-05-26T11:47:30+02:00" itemprop="datePublished" title="2021-05-26 11:47">2021-05-26 11:47</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Wybieram system generowania statycznej treści <a href="https://getnikola.com/">Nikola</a>. Ostatnio testowałem Pelicana (również oparty o pythona) ale jego wygląd i funkcjonalność po wyjęciu z tzw pudełka skłoniły mnnie do potestowania systemu Nikola. Cechy, które mnie przekonały:</p>
+<ul>
+<li>Po zainstalowaniu środowiska (innym razem napiszę co i jak) i wygenerowaniu kilku postów praktycznie nadaje się do publicznej prezentacji</li>
+<li>Narzędzie nikola wydaje się mieć dużo więcej możliwości od Pelican-a (oczywiście jest to stwierdzenie powierzchniowe.)</li>
+<li>Proces wydawania nowych wersji jest szybszy.</li>
+<li>Odpowiada mi uporządkowanie domyślnego tematu graficznego</li>
+<li>Do wyświetlania treści potrzebuję tylko serwera www (np httpd, nginx. Ja korzystam z githuba)</li>
+<li>Nie ma bazy danych, nie ma zapytań do bazy, jest więc trochę bezpieczniej</li>
+</ul>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/" class="u-url">Rozszerzenie partycji w wirtualnym systemie (cfdisk)</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         tk
@@ -528,63 +551,6 @@ Block device <span class="s1">'vda'</span> is resized
 <p>Wybór padł na ultra prosty framework <a href="http://getskeleton.com/">Skeleton</a>. Jest naprawdę lekki (około 400 lini kodu)</p>
 <p>Obecnie strona skaluje się dosyć dobrze na urządzeniach mobilnych.</p>
 <p>Z pewnością coś się jeszcze urodzi ale na razie pozostaję przy nowym motywie</p>
-</div>
-                </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/czas-epoki-unix-a-konwersja/" class="u-url">Czas epoki unix-a - konwersja</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        tk
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/czas-epoki-unix-a-konwersja/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-11-23T00:00:00+01:00" itemprop="datePublished" title="2019-11-23 00:00">2019-11-23 00:00</time></a>
-            </p>
-                </div>
-            </header><div class="e-content entry-content">
-                    <div>
-<p><a href="https://satkas.waw.pl/?post=czas-epoki-unix-a-konwersja"><img alt="Bash" src="https://satkas.waw.pl/plugins/news_manager/browser/pic.php?p=https://satkas.waw.pl/data/thumbs/images/thumbnail.bash-logo-web.png&amp;c=1" title="Bash"></a> Czas w Linuksie liczymy wg tzw epoki unix-a. Co to znaczy?</p>
-<p>Jeśli wydamy komendę w Linuksie (terminal)</p>
-<pre class="code literal-block"> date <span class="s2">"+%s"</span>
-</pre>
-<p>to otrzymamy wynik</p>
-<pre class="code literal-block"><span class="m">1574511413</span>
-</pre>
-<p>który nie jest czytelny dla człowieka. Przyzwyczajeni jesteśmy do innego schematu przedstawiania daty i czasu. Czas który widzimy pokazuje ile sekund upłyneło od daty  1970-01-01 00:00:00 UTC.</p>
-<p>Aby odczytać czas zapisany w notacji unix-owej możemy użyć komendy</p>
-<pre class="code literal-block">date -d @1574511413
-</pre>
-<p>Możemy również użyć perla</p>
-<pre class="code literal-block"><span class="n">perl</span> <span class="o">-</span><span class="n">e</span> <span class="s">'print scalar(localtime(1574511413)), "\n"'</span>
-</pre>
-<p>Z zapisem bardzo często można się spotkać w bazach danych lub logach.</p>
-<p>Jak można wykorzystać konwersję w locie?</p>
-<p>Przeglądając logi mojego pihole możemy użyć jednolinijkowca awk</p>
-<p>Najpierw wgląd jak wygląda standardowe wyjście:</p>
-<pre class="code literal-block"><span class="m">1574514699</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>POST /admin/list.php?l<span class="o">=</span>black HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">20907</span>
-<span class="m">1574514700</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>GET /admin/img/donate.gif HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">3592</span>
-<span class="m">1574514700</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>GET /admin/scripts/pi-hole/php/get.php?list<span class="o">=</span>black<span class="p">&amp;</span><span class="nv">_</span><span class="o">=</span><span class="m">1574514700224</span> HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">88</span>
-<span class="m">1574514717</span><span class="p">|</span><span class="m">192</span>.168.80.11<span class="p">|</span>POST /admin/scripts/pi-hole/php/sub.php HTTP/1.1<span class="p">|</span><span class="m">200</span><span class="p">|</span><span class="m">0</span>
-</pre>
-<p>Teraz wykonujemy polecenie:</p>
-<pre class="code literal-block"><span class="nx">awk</span> <span class="o">-</span><span class="nx">F</span><span class="s2">"|"</span>  <span class="s1">'{ $1=strftime("%F %T",$1); print }'</span> <span class="o">/</span><span class="nx">var</span><span class="o">/</span><span class="kr">log</span><span class="o">/</span><span class="nx">lighttpd</span><span class="o">/</span><span class="nx">access</span><span class="p">.</span><span class="kr">log</span>
-</pre>
-<p>Funkcja strftime nie jest dostepna w standardowym awk. Jak wykonamy polecenie pokaże nam się błąd:</p>
-<pre class="code literal-block">error: <span class="s2">"function strftime never defined"</span>
-</pre>
-<p>Musimy doinstalować gawk. Na raspberrypi zainstalowanego mam Resbiana (Debian) wykonamy więc:</p>
-<pre class="code literal-block">apt get install gawk
-</pre>
-<p>Następnie można wykonać ponownie polecenie</p>
-<pre class="code literal-block"><span class="nx">awk</span> <span class="o">-</span><span class="nx">F</span><span class="s2">"|"</span>  <span class="s1">'{ $1=strftime("%F %T",$1); print }'</span> <span class="o">/</span><span class="nx">var</span><span class="o">/</span><span class="kr">log</span><span class="o">/</span><span class="nx">lighttpd</span><span class="o">/</span><span class="nx">access</span><span class="p">.</span><span class="kr">log</span>
-</pre>
-<p>Wynik, który nam się ukaże to:</p>
-<pre class="code literal-block"><span class="m">2019</span>-11-23 <span class="m">14</span>:11:37 <span class="m">192</span>.168.80.11 GET /admin/style/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2 HTTP/1.1 <span class="m">200</span> <span class="m">18028</span>
-<span class="m">2019</span>-11-23 <span class="m">14</span>:11:37 <span class="m">192</span>.168.80.11 GET /admin/img/logo.svg HTTP/1.1 <span class="m">200</span> <span class="m">1649</span>
-<span class="m">2019</span>-11-23 <span class="m">14</span>:11:39 <span class="m">192</span>.168.80.11 POST /admin/list.php?l<span class="o">=</span>black HTTP/1.1 <span class="m">200</span> <span class="m">20907</span>
-<span class="m">2019</span>-11-23 <span class="m">14</span>:11:40 <span class="m">192</span>.168.80.11 GET /admin/img/donate.gif HTTP/1.1 <span class="m">200</span> <span class="m">3592</span>
-<span class="m">2019</span>-11-23 <span class="m">14</span>:11:40 <span class="m">192</span>.168.80.11 GET /admin/scripts/pi-hole/php/get.php?list<span class="o">=</span>black<span class="p">&amp;</span><span class="nv">_</span><span class="o">=</span><span class="m">1574514700224</span> HTTP/1.1 <span class="m">200</span> <span class="m">88</span>
-<span class="m">2019</span>-11-23 <span class="m">14</span>:11:57 <span class="m">192</span>.168.80.11 POST /admin/scripts/pi-hole/php/sub.php HTTP/1.1 <span class="m">200</span> <span class="m">0</span>
-</pre>
 </div>
                 </div>
             </article>
