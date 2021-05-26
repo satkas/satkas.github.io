@@ -403,7 +403,9 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
                     </span></p>
             <p class="dateline">
             <a href="posts/bash-generowanie-hasla/" rel="bookmark">
-            <time class="published dt-published" datetime="2020-09-08T00:00:00+02:00" itemprop="datePublished" title="2020-09-08 00:00">2020-09-08 00:00</time></a>
+            <time class="published dt-published" datetime="2020-09-08T00:00:00+02:00" itemprop="datePublished" title="2020-09-08 00:00">2020-09-08 00:00</time><span class="updated"> (aktualizacja
+                    <time class="dt-updated" datetime="2021-05-26T14:34:00+02:00" itemprop="dateUpdated" title="2021-05-26 14:34">2021-05-26 14:34</time>)</span>
+            </a>
             </p>
                 </div>
             </header><div class="e-content entry-content">
@@ -427,6 +429,25 @@ bloki danych zmienione z <span class="m">6028288</span> na <span class="m">65525
 <p>Wartości dwóch pierwszych zmiennych można zastąpić argumentami <code>$1, $2</code></p>
 <p>Wtedy wywołanie będzie:</p>
 <pre class="code literal-block">bash generowanieHasla.sh <span class="m">16</span> <span class="m">6</span>
+</pre>
+<h6>Aktualizacja</h6>
+<p>W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
+Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.</p>
+<pre class="code literal-block"><span class="ch">#!/usr/bin/env sh</span>
+
+<span class="nv">sumaZnakow</span><span class="o">=</span><span class="s1">'16'</span>
+<span class="nv">probkiHasel</span><span class="o">=</span><span class="s1">'20'</span>
+
+<span class="o">[</span> -f /usr/bin/uuencode <span class="o">]</span> <span class="o">&amp;&amp;</span>  <span class="nb">echo</span> <span class="s2">"Generowanie Haseł"</span> <span class="o">||</span>  <span class="nb">echo</span> <span class="s2">"Brak zainstalowanego pakietu uuencode </span><span class="k">$(</span>sudo apt install -q sharutils -y<span class="k">)</span><span class="s2">"</span>
+<span class="c1">#opcja z argumentami</span>
+<span class="c1">#sumaZnakow=$1</span>
+<span class="c1">#probkiHasel=$2</span>
+
+<span class="nb">echo</span> <span class="s2">"Generowanie </span><span class="nv">$probkiHasel</span><span class="s2"> haseł. Hasło ma długość </span><span class="nv">$sumaZnakow</span><span class="s2"> znaków"</span>
+
+<span class="k">for</span> <span class="o">((</span><span class="nv">n</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> n&lt;<span class="nv">$probkiHasel</span><span class="p">;</span> n++<span class="o">))</span>
+ <span class="k">do</span> dd <span class="k">if</span><span class="o">=</span>/dev/urandom <span class="nv">count</span><span class="o">=</span><span class="m">1</span> <span class="m">2</span>&gt; /dev/null <span class="p">|</span> uuencode -m - <span class="p">|</span> sed -ne 2p <span class="p">|</span> cut -c-<span class="nv">$sumaZnakow</span> 
+<span class="k">done</span>
 </pre>
 </div>
                 </div>

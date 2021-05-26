@@ -2,6 +2,7 @@
 .. title: Bash - generowanie hasła
 .. slug: bash-generowanie-hasla
 .. date: 2020-09-08
+.. updated: 2021-05-26 14:34
 .. tags: bash, linux, password 
 .. category: tech
 .. link: 
@@ -37,5 +38,30 @@ Wtedy wywołanie będzie:
 ```bash
 
 bash generowanieHasla.sh 16 6
+
+```
+
+#####Aktualizacja
+
+W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
+Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.
+
+```bash
+
+#!/usr/bin/env sh
+
+sumaZnakow='16'
+probkiHasel='20'
+
+[ -f /usr/bin/uuencode ] &&  echo "Generowanie Haseł" ||  echo "Brak zainstalowanego pakietu uuencode $(sudo apt install -q sharutils -y)"
+#opcja z argumentami
+#sumaZnakow=$1
+#probkiHasel=$2
+
+echo "Generowanie $probkiHasel haseł. Hasło ma długość $sumaZnakow znaków"
+
+for ((n=0; n<$probkiHasel; n++))
+ do dd if=/dev/urandom count=1 2> /dev/null | uuencode -m - | sed -ne 2p | cut -c-$sumaZnakow 
+done
 
 ```

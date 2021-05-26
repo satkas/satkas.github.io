@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o linux)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 10:10:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rozszerzenie partycji w wirtualnym systemie (cfdisk)</title><link>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Używam KVM-a jako wirtualizatora. Przychodzi czas kiedy trzeba rozszerzyć partycję na jednym z systemów gościa.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Satkas Blog (Posty o linux)</title><link>https://sataks.github.io/</link><description></description><atom:link href="https://sataks.github.io/categories/linux.xml" rel="self" type="application/rss+xml"></atom:link><language>pl</language><copyright>Contents © 2021 &lt;a href="mailto:pomoc@satkas.waw.pl"&gt;tk&lt;/a&gt; </copyright><lastBuildDate>Wed, 26 May 2021 12:34:38 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Rozszerzenie partycji w wirtualnym systemie (cfdisk)</title><link>https://sataks.github.io/posts/rozszerzenie-partycji-w-wirtualnym-systemie-cfdisk/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;Używam KVM-a jako wirtualizatora. Przychodzi czas kiedy trzeba rozszerzyć partycję na jednym z systemów gościa.&lt;/p&gt;
 &lt;h6&gt;Laboratorium:&lt;/h6&gt;
 &lt;p&gt;Host:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span class="c1"&gt;#lsb_release -a&lt;/span&gt;
@@ -230,6 +230,25 @@ bloki danych zmienione z &lt;span class="m"&gt;6028288&lt;/span&gt; na &lt;span 
 &lt;p&gt;Wartości dwóch pierwszych zmiennych można zastąpić argumentami &lt;code&gt;$1, $2&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Wtedy wywołanie będzie:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;bash generowanieHasla.sh &lt;span class="m"&gt;16&lt;/span&gt; &lt;span class="m"&gt;6&lt;/span&gt;
+&lt;/pre&gt;
+&lt;h6&gt;Aktualizacja&lt;/h6&gt;
+&lt;p&gt;W Ubuntu (u mnie 20.04) trzeba doinstalować pakiet sharutils aby można było używać narzędzia uuencode.
+Zmodyfikowałem zatem skrypt aby automatycznie doinstalowywał pakiet.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span class="ch"&gt;#!/usr/bin/env sh&lt;/span&gt;
+
+&lt;span class="nv"&gt;sumaZnakow&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'16'&lt;/span&gt;
+&lt;span class="nv"&gt;probkiHasel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'20'&lt;/span&gt;
+
+&lt;span class="o"&gt;[&lt;/span&gt; -f /usr/bin/uuencode &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt;  &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Generowanie Haseł"&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt;  &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Brak zainstalowanego pakietu uuencode &lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;sudo apt install -q sharutils -y&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="c1"&gt;#opcja z argumentami&lt;/span&gt;
+&lt;span class="c1"&gt;#sumaZnakow=$1&lt;/span&gt;
+&lt;span class="c1"&gt;#probkiHasel=$2&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;"Generowanie &lt;/span&gt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="s2"&gt; haseł. Hasło ma długość &lt;/span&gt;&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt;&lt;span class="s2"&gt; znaków"&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="o"&gt;((&lt;/span&gt;&lt;span class="nv"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n&amp;lt;&lt;span class="nv"&gt;$probkiHasel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; n++&lt;span class="o"&gt;))&lt;/span&gt;
+ &lt;span class="k"&gt;do&lt;/span&gt; dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/urandom &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt; /dev/null &lt;span class="p"&gt;|&lt;/span&gt; uuencode -m - &lt;span class="p"&gt;|&lt;/span&gt; sed -ne 2p &lt;span class="p"&gt;|&lt;/span&gt; cut -c-&lt;span class="nv"&gt;$sumaZnakow&lt;/span&gt; 
+&lt;span class="k"&gt;done&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</description><category>bash</category><category>linux</category><category>password</category><guid>https://sataks.github.io/posts/bash-generowanie-hasla/</guid><pubDate>Mon, 07 Sep 2020 22:00:00 GMT</pubDate></item><item><title>KVM - zmiana na żywo rozmiaru "file" dysku - bez LVM-a</title><link>https://sataks.github.io/posts/kvm-zmiana-na-zywo-rozmiaru-file-dysku-bez-lvm-a/</link><dc:creator>tk</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;a href="https://satkas.waw.pl/?post=kvm-zmiana-na-zywo-rozmiaru-file-dysku"&gt;&lt;img alt="iKVM" src="https://satkas.waw.pl/data/uploads/images/kvm-logo.webp" title="KVM" width="300"&gt;&lt;/a&gt; Czasami staniemy przed sytuacją zapełnienia dysku w maszynie wirtualnej.&lt;/p&gt;
 &lt;p&gt;Jeśli używamu KVM i za dysk służy nam plik (qcow2) możemy dokonać zmiany rozmiaru poprzez standardowe narzędzia.&lt;/p&gt;
 &lt;p&gt;Najpierw identyfikujemy nasze maszyny wirtualne&lt;/p&gt;
