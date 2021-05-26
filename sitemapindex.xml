@@ -6,20 +6,8 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://sataks.github.io/authors/roberto-alsina.xml</loc>
-  <lastmod>2021-05-24T19:01:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://sataks.github.io/authors/tadeusz-kasprzycki.xml</loc>
-  <lastmod>2021-05-25T11:33:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://sataks.github.io/categories/active-directory.xml</loc>
   <lastmod>2021-05-25T20:19:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://sataks.github.io/categories/ajenti.xml</loc>
-  <lastmod>2021-05-25T10:01:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://sataks.github.io/categories/backup.xml</loc>
@@ -30,24 +18,12 @@
   <lastmod>2021-05-26T10:10:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/blog.xml</loc>
-  <lastmod>2021-05-24T19:01:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://sataks.github.io/categories/cat_info.xml</loc>
   <lastmod>2021-05-26T10:02:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/cat_nikola.xml</loc>
-  <lastmod>2021-05-24T19:01:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://sataks.github.io/categories/cat_tech.xml</loc>
   <lastmod>2021-05-26T10:10:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://sataks.github.io/categories/cat_test.xml</loc>
-  <lastmod>2021-05-25T18:44:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://sataks.github.io/categories/centos.xml</loc>
@@ -68,10 +44,6 @@
  <sitemap>
   <loc>https://sataks.github.io/categories/css.xml</loc>
   <lastmod>2021-05-25T20:19:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://sataks.github.io/categories/demo.xml</loc>
-  <lastmod>2021-05-24T19:01:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://sataks.github.io/categories/ffmpeg.xml</loc>
@@ -160,10 +132,6 @@
  <sitemap>
   <loc>https://sataks.github.io/categories/pptp.xml</loc>
   <lastmod>2021-05-25T20:19:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://sataks.github.io/categories/python.xml</loc>
-  <lastmod>2021-05-24T19:01:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://sataks.github.io/categories/roundcube.xml</loc>
@@ -259,6 +227,6 @@
  </sitemap>
  <sitemap>
   <loc>https://sataks.github.io/sitemap.xml</loc>
-  <lastmod>2021-05-26T10:10:00Z</lastmod>
+  <lastmod>2021-05-26T11:39:00Z</lastmod>
  </sitemap>
 </sitemapindex>
