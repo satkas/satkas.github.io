@@ -6,227 +6,227 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://sataks.github.io/categories/active-directory.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/active-directory.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/backup.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/backup.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/bash.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/bash.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/cat_info.xml</loc>
-  <lastmod>2021-05-26T10:02:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/cat_info.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/cat_tech.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/cat_tech.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/centos.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/centos.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/certyfikat.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/certyfikat.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/cmd.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/cmd.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/convert.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/convert.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/css.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/css.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ffmpeg.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ffmpeg.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/firefox.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/firefox.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/freeipa.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/freeipa.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ftp.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ftp.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/gsm.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/gsm.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/httpd.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/httpd.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/iis.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/iis.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/kerberos.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/kerberos.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/kvm.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/kvm.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/linux.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/linux.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/lvm.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/lvm.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/mikrotik.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/mikrotik.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/mysql.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/mysql.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/nagios.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/nagios.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/nikola.xml</loc>
-  <lastmod>2021-05-26T10:02:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/nikola.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/nrpe.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/nrpe.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ntp.xml</loc>
-  <lastmod>2021-05-26T13:29:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ntp.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/password.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/password.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/php.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/php.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/poczta.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/poczta.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/postfix.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/postfix.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/pptp.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/pptp.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/roundcube.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/roundcube.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/samba.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/samba.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/siec.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/siec.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/skeleton.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/skeleton.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/skrypt.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/skrypt.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/spam.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/spam.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ssh.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ssh.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ssl.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ssl.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/storage.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/storage.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/suse.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/suse.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/telefon.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/telefon.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/time.xml</loc>
-  <lastmod>2021-05-26T13:29:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/time.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/ubuntu.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/ubuntu.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/video.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/video.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/vpn.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/vpn.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/windows.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/windows.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/wirtualizacja.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/wirtualizacja.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/xml.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/xml.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/categories/zimbra.xml</loc>
-  <lastmod>2021-05-25T20:19:00Z</lastmod>
+  <loc>https://satkas.github.io/categories/zimbra.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/galleries/demo/rss.xml</loc>
-  <lastmod>2021-05-26T09:22:00Z</lastmod>
+  <loc>https://satkas.github.io/galleries/demo/rss.xml</loc>
+  <lastmod>2021-05-28T12:40:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/galleries/galeria1/rss.xml</loc>
-  <lastmod>2021-05-26T09:42:00Z</lastmod>
+  <loc>https://satkas.github.io/galleries/galeria1/rss.xml</loc>
+  <lastmod>2021-05-28T12:40:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/galleries/rss.xml</loc>
-  <lastmod>2021-05-26T09:22:00Z</lastmod>
+  <loc>https://satkas.github.io/galleries/rss.xml</loc>
+  <lastmod>2021-05-28T12:40:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/rss.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/rss.xml</loc>
+  <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://sataks.github.io/sitemap.xml</loc>
-  <lastmod>2021-05-26T13:36:00Z</lastmod>
+  <loc>https://satkas.github.io/sitemap.xml</loc>
+  <lastmod>2021-05-28T12:40:00Z</lastmod>
  </sitemap>
 </sitemapindex>

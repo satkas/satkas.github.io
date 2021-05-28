@@ -1,4 +1,4 @@
-Sitemap: https://sataks.github.io/sitemapindex.xml
+Sitemap: https://satkas.github.io/sitemapindex.xml
 
 User-Agent: *
-Host: sataks.github.io
+Host: satkas.github.io
