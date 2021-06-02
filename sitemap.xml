@@ -35,11 +35,11 @@
  </url>
  <url>
   <loc>https://satkas.github.io/archive.html</loc>
-  <lastmod>2021-05-28T12:40:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://satkas.github.io/categories/</loc>
-  <lastmod>2021-05-26T11:39:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://satkas.github.io/categories/active-directory/</loc>
@@ -246,6 +246,10 @@
   <lastmod>2021-05-25T13:25:00Z</lastmod>
  </url>
  <url>
+  <loc>https://satkas.github.io/categories/zip/</loc>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://satkas.github.io/galleries/</loc>
   <lastmod>2021-05-26T09:42:00Z</lastmod>
  </url>
@@ -275,7 +279,7 @@
  </url>
  <url>
   <loc>https://satkas.github.io/index-5.html</loc>
-  <lastmod>2021-05-28T12:40:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://satkas.github.io/listings/</loc>
@@ -372,6 +376,10 @@
  <url>
   <loc>https://satkas.github.io/posts/aktualizacja-samby-jako-domain-controller/</loc>
   <lastmod>2021-05-25T12:41:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://satkas.github.io/posts/archiwum-zip-unsupported-compression-method-99/</loc>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </url>
  <url>
   <loc>https://satkas.github.io/posts/autoresponder-dla-kont-pocztowych/</loc>

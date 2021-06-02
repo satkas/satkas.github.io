@@ -23,7 +23,7 @@
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/categories/cat_tech.xml</loc>
-  <lastmod>2021-05-28T12:32:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/categories/centos.xml</loc>
@@ -83,7 +83,7 @@
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/categories/linux.xml</loc>
-  <lastmod>2021-05-28T12:32:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/categories/lvm.xml</loc>
@@ -210,6 +210,10 @@
   <lastmod>2021-05-28T12:32:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://satkas.github.io/categories/zip.xml</loc>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://satkas.github.io/galleries/demo/rss.xml</loc>
   <lastmod>2021-05-28T12:40:00Z</lastmod>
  </sitemap>
@@ -223,10 +227,10 @@
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/rss.xml</loc>
-  <lastmod>2021-05-28T12:32:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://satkas.github.io/sitemap.xml</loc>
-  <lastmod>2021-05-28T12:40:00Z</lastmod>
+  <lastmod>2021-06-02T07:51:00Z</lastmod>
  </sitemap>
 </sitemapindex>
