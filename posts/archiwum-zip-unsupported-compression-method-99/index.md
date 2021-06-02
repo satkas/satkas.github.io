@@ -15,6 +15,8 @@ W konsoli sprawdzamy archiwum poleceniem: **file archiwum.zip** otrzymujemy komu
 
 ```archiwum.zip: Zip archive data, at least v2.0 to extract```
 
-Zwykłe polecenie **unzip archiwum.zip** również nic nie rozpakowywuje jednocześnie informuje komunikatem *unsupported compression method 99*
+Zwykłe polecenie **unzip archiwum.zip** również nic nie rozpakowywuje jednocześnie informuje komunikatem 
+
+```unsupported compression method 99```
 
 Rozwiązaniem jest zainstalowanie pakietu *p7zip-full*
